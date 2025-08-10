@@ -5,10 +5,10 @@
         "mypage": "个人中心",
         "language": "语言",
         "history": "历史",
-        "Pre-check": "填写问诊表",
-        "Scan guide": "处方单扫描指南",
-        "Add Rx": "添加处方单",
-        "Rx info": "处方单说明"
+        "preCheck": "填写问诊表",
+        "scanGuide": "处方单扫描指南",
+        "addRx": "添加处方单",
+        "rxInfo": "处方单说明"
     },
 
     "homepage": {
