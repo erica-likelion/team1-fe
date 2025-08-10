@@ -1,3 +1,37 @@
 {
-    "LION": "사자"
+    "navigation" : {
+        "chat": "통역 채팅",
+        "home": "홈",
+        "mypage": "마이페이지",
+        "language": "언어",
+        "history": "히스토리",
+        "preCheck": "사전 문진 작성",
+        "scanGuide": "처방전 스캔 안내",
+        "addRx": "스캔할 처방전 추가",
+        "rxInfo": "처방전 설명"
+    },
+
+    "homepage": {
+        "headerPart1": "예약부터 진료까지,",
+        "headerPart2": "메디메이트",
+        "headerPart3": "와 함께해요!",
+        "main": "어떤 도움이 필요하세요?",
+        "serviceCard": {
+            "preVisit": {
+                "step": "진료 전",
+                "title": "전화 예약하고 싶어요",
+                "description": "Description"
+            },
+            "inVisit": {
+                "step": "진료 중",
+                "title": "진료 통역이 필요해요",
+                "description": "Description"
+            },
+            "postVisit": {
+                "step": "진료 후",
+                "title": "처방전 설명이 필요해요",
+                "description": "Description"
+            }
+        }
+    }
 }
