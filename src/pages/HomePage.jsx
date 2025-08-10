@@ -1,3 +1,4 @@
+/* 메인 홈페이지 */
 import ServiceCard from "@components/homepage/ServiceCard.jsx"
 import { useTranslation } from "react-i18next";
 
