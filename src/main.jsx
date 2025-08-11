@@ -20,6 +20,7 @@ i18n
       'ko': { translation: koTranslation },
       'zh-CN': { translation: zhTranslation },
     },
+    lng: 'ko', // 개발용 설정
     fallbackLng: 'en',
     debug: true,
     interpolation: {

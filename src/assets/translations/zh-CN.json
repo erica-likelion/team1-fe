@@ -1,3 +1,37 @@
 {
-    "LION": "狮子"
+    "navigation" : {
+        "chat": "翻译聊天",
+        "home": "首页",
+        "mypage": "个人中心",
+        "language": "语言",
+        "history": "历史",
+        "preCheck": "填写问诊表",
+        "scanGuide": "处方单扫描指南",
+        "addRx": "添加处方单",
+        "rxInfo": "处方单说明"
+    },
+
+    "homepage": {
+        "headerPart1": "从预约到就诊，",
+        "headerPart2": "MEDI MATE",
+        "headerPart3": "与您同行！",
+        "main": "需要什么帮助？",
+        "serviceCard": {
+            "preVisit": {
+                "step": "就诊前",
+                "title": "我想电话预约",
+                "description": "Description"
+            },
+            "inVisit": {
+                "step": "就诊中",
+                "title": "我需要医疗翻译",
+                "description": "Description"
+            },
+            "postVisit": {
+                "step": "就诊后",
+                "title": "我需要处方说明",
+                "description": "Description"
+            }
+        }
+    }
 }

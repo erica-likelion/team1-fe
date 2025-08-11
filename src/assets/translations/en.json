@@ -1,3 +1,37 @@
 {
-    "LION": "Lion"
+    "navigation" : {
+        "chat": "Translation Chat",
+        "home": "Home",
+        "mypage": "My Page",
+        "language": "language",
+        "history": "history",
+        "preCheck": "Pre-check",
+        "scanGuide": "Scan guide",
+        "addRx": "Add Rx",
+        "rxInfo": "Rx info"
+    },
+
+    "homepage": {
+        "headerPart1": "From booking to treatment,",
+        "headerPart2": "MEDI MATE",
+        "headerPart3": " is with you!",
+        "main": "What help do you need?",
+        "serviceCard": {
+            "preVisit": {
+                "step": "Pre-visit",
+                "title": "I want to make a phone reservation",
+                "description": "Description"
+            },
+            "inVisit": {
+                "step": "In-visit",
+                "title": "I need medical interpretation",
+                "description": "Description"
+            },
+            "postVisit": {
+                "step": "Post-visit",
+                "title": "I need prescription explanation",
+                "description": "Description"
+            }
+        }
+    }
 }
