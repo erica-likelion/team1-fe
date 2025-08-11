@@ -3,8 +3,8 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import TopNavBar from "./TopNavBar";
-import BottomNavBar from "./BottomNavBar";
+import TopNavBar from "@components/commons/TopNavBar";
+import BottomNavBar from "@components/commons/BottomNavBar";
 
 const MainLayout = () => {
     const location = useLocation();
