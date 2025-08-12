@@ -18,11 +18,12 @@ const SymptomsPage = () => {
     
     const handleNext = () => {
         console.log('symptoms:', symptoms);
-        navigate('/treat-info-form-name')
+        navigate('/treat-info-form/name')
     };
 
     const maxLength = 150;
 
+    // 151까지 입력이 가능해지는 문제 해결 (150자 초과시 한글자도 입력이 안되게 수정)
     const handleSymptomsChange = (value) => {
         if (value.length <= maxLength) {
             setSymptoms(value);
@@ -51,14 +52,14 @@ const SymptomsPage = () => {
                 {symptoms.length} / {maxLength}
             </div>
     
-            <div className="">
-                <TextButton
+            
+            <TextButton
                     text="입력하기"
                     onClick={handleNext}
                     disabled={!canMoveNextStep}
                     icon={WhiteChevronRight}
-                />
-            </div>
+            />
+            
         </div>
     );
 };
