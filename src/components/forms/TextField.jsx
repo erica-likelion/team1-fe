@@ -13,7 +13,7 @@ const TextField = ({
             <textarea
                 className={`
                     flex flex-row items-start
-                    p-4 gap-2.5 w-[335px] border border-gray-200 rounded-xl 
+                    p-4 gap-2.5 w-[335px] border border-gray-200 rounded-md 
                     placeholder:text-gray-400 outline-none focus:border-blue-400
                     resize-none
                     ${height}
