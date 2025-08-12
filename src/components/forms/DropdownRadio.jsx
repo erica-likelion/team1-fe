@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import Checkbox from "@assets/images/checkbox_field.svg";
 import ActiveCheckbox from "@assets/images/active_checkbox_field.svg";
+import TopArrow from "@assets/images/top_arrow_gray.svg"
+import GraySearch from "@assets/images/gray_search.svg"
 
 const DropdownRadio = ({
   label,
@@ -74,7 +76,9 @@ const DropdownRadio = ({
         </span>
         
         {/* 상 화살표 삽입 필요 */}
-        <span className={`ml-3 transform transition-transform duration-200 text-gray-500 ${open ? 'rotate-180' : ''}`}>▲</span>
+        <span className={`ml-3 transform transition-transform duration-200 text-gray-500 ${open ? 'rotate-180' : ''}`}>
+          <img className="w-4" src={TopArrow}/>
+        </span>
       </button>
 
       
@@ -97,8 +101,9 @@ const DropdownRadio = ({
                   className="w-full pl-6 pr-10 py-2 bg-gray-200 rounded-sm focus:outline-none focus:bg-white focus:ring-1 focus:ring-mint text-sm"
                   onClick={(e) => e.stopPropagation()}
                 />
-                {/* 돋보기 아이콘 삽입 필요 */}
+                
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                <img className="w-4 h-4 mr-3" src={GraySearch}/>
                   
                 </div>
               </div>
