@@ -18,16 +18,16 @@ const PrescriptionResultPage = () => {
     return (
         <div className="px-6 py-8">
             <div className="mb-8">
-                <h2 className="text-lg font-bold mb-4">{t('prescriptionGuide.result.title')}</h2>
+                <h2 className="text-lg font-bold mb-4">{t('prescription.result.title')}</h2>
                 <p className="text-sm text-gray-600 mb-6 whitespace-pre-line">
-                    {t('prescriptionGuide.result.subtitleParts.part1')}
+                    {t('prescription.result.subtitleParts.part1')}
                     <span className="text-green-500 font-semibold">{userName}</span>
-                    {t('prescriptionGuide.result.subtitleParts.part2')}
+                    {t('prescription.result.subtitleParts.part2')}
                 </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
-                <h3 className="font-semibold mb-4">{t('prescriptionGuide.result.analysisTitle')}</h3>
+                <h3 className="font-semibold mb-4">{t('prescription.result.analysisTitle')}</h3>
                 <div className="bg-white rounded-lg p-4 min-h-[200px] text-sm text-gray-700 leading-relaxed">
                     <p className="mb-3">
                         <strong>처방 의약품:</strong> 타이레놀정 500mg, 게보린정
@@ -49,14 +49,14 @@ const PrescriptionResultPage = () => {
                     onClick={handleComplete}
                     className="w-full py-4 bg-green-500 text-white font-medium rounded-lg"
                 >
-                    {t('prescriptionGuide.buttons.home')}
+                    {t('prescription.buttons.home')}
                 </button>
                 
                 <button 
                     onClick={handleRetry}
                     className="w-full py-4 border border-green-500 text-green-500 font-medium rounded-lg"
                 >
-                    {t('prescriptionGuide.buttons.retry')}
+                    {t('prescription.buttons.retry')}
                 </button>
             </div>
         </div>

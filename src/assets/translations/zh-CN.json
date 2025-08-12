@@ -40,7 +40,7 @@
         }
     },
 
-    "prescriptionGuide": {
+    "prescription": {
         "title": "美迪伙伴将为{{name}}分析并说明处方！",
         "titleParts": {
             "part1": "美迪伙伴将为",
@@ -63,7 +63,8 @@
         },
         "upload": {
             "title": "添加处方单",
-            "description": "请在此添加您的处方单图像。"
+            "description": "请在此添加您的处方单图像。",
+            "file_format_description": "支持的格式：JPEG、PNG"
         },
         "scanning": {
             "title": "扫描中",

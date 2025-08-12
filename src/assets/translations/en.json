@@ -40,7 +40,7 @@
         }
     },
 
-    "prescriptionGuide": {
+    "prescription": {
         "title": "Medi Mate will analyze and explain {{name}}'s prescription for you!",
         "titleParts": {
             "part1": "Medi Mate will analyze and explain ",
@@ -63,7 +63,8 @@
         },
         "upload": {
             "title": "Add Prescription",
-            "description": "Please add your prescription image here."
+            "description": "Please add your prescription image here.",
+            "file_format_description": "Supported formats: JPEG, PNG"
         },
         "scanning": {
             "title": "Scanning",

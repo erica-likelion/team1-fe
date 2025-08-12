@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import Document from "@assets/images/document.svg";
+
 const PrescriptionUploadPage = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -27,14 +29,12 @@ const PrescriptionUploadPage = () => {
     };
 
     return (
-        <div className="px-6 py-8 h-full flex flex-col">
-            <div className="flex-1 flex flex-col justify-center items-center">
-                <div className="w-64 h-64 border-2 border-dashed border-gray-300 rounded-lg flex flex-col justify-center items-center mb-8">
-                    <div className="text-6xl text-gray-300 mb-4">📄</div>
-                    <p className="text-sm text-gray-500 text-center">
-                        {t('prescriptionGuide.upload.description')}
-                    </p>
-                </div>
+        <div className="flex flex-col px-5 pt-3.25 gap-6">
+            <div className="flex flex-col justify-center items-center gap-3 w-full max-w-[335px] h-[225px] bg-[#3DE0AB08] border-2 border-dashed border-[#3DE0AB] rounded-[4px] mb-8">
+                <img src={Document}/>
+                <p className="text-sm text-gray-500 text-center">
+                    {t('prescription.upload.description')}
+                </p>
             </div>
 
             <div className="space-y-3">
@@ -43,7 +43,7 @@ const PrescriptionUploadPage = () => {
                     className="w-full py-4 bg-green-500 text-white font-medium rounded-lg flex items-center justify-center gap-2"
                 >
                     <span>📷</span>
-                    {t('prescriptionGuide.buttons.camera')}
+                    {t('prescription.buttons.camera')}
                 </button>
                 
                 <button 
@@ -51,7 +51,7 @@ const PrescriptionUploadPage = () => {
                     className="w-full py-4 border border-green-500 text-green-500 font-medium rounded-lg flex items-center justify-center gap-2"
                 >
                     <span>🖼️</span>
-                    {t('prescriptionGuide.buttons.gallery')}
+                    {t('prescription.buttons.gallery')}
                 </button>
             </div>
         </div>

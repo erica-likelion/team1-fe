@@ -22,16 +22,16 @@ const PrescriptionScanningPage = () => {
             <div className="text-center">
                 <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
                 
-                <h2 className="text-lg font-bold mb-2">{t('prescriptionGuide.scanning.title')}</h2>
+                <h2 className="text-lg font-bold mb-2">{t('prescription.scanning.title')}</h2>
                 
                 <p className="text-sm text-gray-600 mb-8 whitespace-pre-line">
-                    {t('prescriptionGuide.scanning.messageParts.part1')}
+                    {t('prescription.scanning.messageParts.part1')}
                     <span className="text-green-500 font-semibold">{userName}</span>
-                    {t('prescriptionGuide.scanning.messageParts.part2')}
+                    {t('prescription.scanning.messageParts.part2')}
                 </p>
                 
                 <p className="text-xs text-gray-500">
-                    {t('prescriptionGuide.scanning.wait')}
+                    {t('prescription.scanning.wait')}
                 </p>
             </div>
         </div>
