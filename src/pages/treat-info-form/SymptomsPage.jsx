@@ -1,20 +1,65 @@
 /* 사전 문진 정보 입력 페이지 (증상) */
 
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import TextButton from "../../components/commons/TextButton";
+import TextField from "../../components/forms/TextField";
+import TitleBlock from "../../components/commons/TitleBlock";
+import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 
 const SymptomsPage = () => {
+    const [symptoms, setSymptoms] = useState('')
     const { t } = useTranslation();
+
+    const navigate = useNavigate(); 
+    
+    const canMoveNextStep = 0 < symptoms.length;
+    
+    const handleNext = () => {
+        console.log('symptoms:', symptoms);
+        navigate('/treat-info-form/name')
+    };
+
+    const maxLength = 150;
+
+    // 151까지 입력이 가능해지는 문제 해결 (150자 초과시 한글자도 입력이 안되게 수정)
+    const handleSymptomsChange = (value) => {
+        if (value.length <= maxLength) {
+            setSymptoms(value);
+        }
+    };
 
     return (
         <div className="p-5">
-            <div className="text-center">
-                <h1 className="text-xl font-bold mb-4">
-                    {t('navigation.preCheck')}
-                </h1>
-                <p>
-                    증상 입력 페이지 입니다.
-                </p>
+            <TitleBlock
+                title = "어떤 증상을 가지고 있나요?"
+                subtitle = "나타난 증상을 모두 입력해 주세요."
+            />
+            <div className="mt-13 ">
+                <TextField
+                    value={symptoms}
+                    onChange={handleSymptomsChange}
+                    placeholder="내용을 입력하세요."
+                    maxLength={150}
+                    height="h-[206px]"
+                    multiline={true} //여러줄 입력 가능->textarea를 적용
+                />
             </div>
+
+            {/* 0 / 150 구현 */}
+            <div className="text-right text-sm text-gray-400 mt-2">
+                {symptoms.length} / {maxLength}
+            </div>
+    
+            
+            <TextButton
+                    text="입력하기"
+                    onClick={handleNext}
+                    disabled={!canMoveNextStep}
+                    icon={WhiteChevronRight}
+            />
+            
         </div>
     );
 };

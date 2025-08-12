@@ -29,11 +29,11 @@ const Router = () => {
                 
                 <Route path="/" element={<SimpleLayout />}>
                     <Route path="language" element={<LanguagePage />} />
-                    <Route path='treat-info-form-name' element={<NamePage />}/>
-                    <Route path='treat-info-form-age' element={<AgePage />}/>
-                    <Route path='treat-info-form-country' element={<CountryPage />}/>
-                    <Route path='treat-info-form-gender' element={<GenderPage />}/>
-                    <Route path='treat-info-form-symptoms' element={<SymptomsPage />}/>
+                    <Route path='treat-info-form/name' element={<NamePage />}/>
+                    <Route path='treat-info-form/age' element={<AgePage />}/>
+                    <Route path='treat-info-form/country' element={<CountryPage />}/>
+                    <Route path='treat-info-form/gender' element={<GenderPage />}/>
+                    <Route path='treat-info-form/symptoms' element={<SymptomsPage />}/>
                     <Route path="prescription" element={<PrescriptionPage />} />
                     <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
                     <Route path="prescription/result" element={<PrescriptionResultPage />} />

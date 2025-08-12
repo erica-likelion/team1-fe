@@ -1,11 +1,12 @@
 /* 사전 문진 정보 입력 페이지 (이름) */
 
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+//import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import TitleBlock from "../../components/commons/TitleBlock";
 import TextField from "../../components/forms/TextField";
 import TextButton from "../../components/commons/TextButton";
+import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 
 const NamePage = () => {
     // const { t } = useTranslation();
@@ -14,11 +15,12 @@ const NamePage = () => {
 
     const navigate = useNavigate();
 
-
+    // 버튼 활성화 여부 결정
     const canMoveNextStep = lastName.trim().length > 0 && firstName.trim().length > 0;
+    
     const handleNext = () => {
         console.log('성:', lastName, '이름:', firstName);
-        navigate('/treat-info-form-age')
+        navigate('/treat-info-form/age')
     };
 
     return (
@@ -43,13 +45,14 @@ const NamePage = () => {
                     maxLength={100}
                 />
             </div>
-            <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 ">
-                <TextButton
-                    text="입력하기"
-                    onClick={handleNext}
-                    disabled={!canMoveNextStep}
-                />
-            </div>
+           
+            <TextButton
+                text="입력하기"
+                onClick={handleNext}
+                disabled={!canMoveNextStep}
+                icon={WhiteChevronRight}
+            />
+        
         </div>
     );
 };
