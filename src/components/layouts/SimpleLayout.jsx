@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import TopNavBar from "@components/commons/TopNavBar";
-import { getNavBarConfig } from "@utils/NavConfig";
+import { getNavBarConfig } from "@utils/navConfig";
 
 const SimpleLayout = () => {
     const location = useLocation();

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import TopNavBar from "@components/commons/TopNavBar";
 import BottomNavBar from "@components/commons/BottomNavBar";
-import { getNavBarConfig } from "@utils/NavConfig";
+import { getNavBarConfig } from "@utils/navConfig";
 
 const MainLayout = () => {
     const location = useLocation();
