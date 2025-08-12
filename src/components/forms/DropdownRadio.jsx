@@ -14,7 +14,8 @@ const DropdownRadio = ({
   placeholder = '** 선택',
   className = '', //추가 css 클래스
   searchable = false, // 검색 박스 삽입 여부
-  searchPlaceholder = '검색'
+  searchPlaceholder = '검색',
+  maxHeight="h-70"
 }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null); //컴포넌트 DOM 참조
@@ -46,14 +47,14 @@ const DropdownRadio = ({
 
   const selected = items.find(i => i.key === value)?.text ?? '';
 
-  //
+  
   const filteredItems = searchable 
     ? items.filter(item => 
         item.text.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : items;
   
-    //
+    
   const handleDropdownToggle = () => {
     setOpen(o => !o);
     if (!open) {
@@ -70,6 +71,7 @@ const DropdownRadio = ({
         className="w-full h-14 px-4 rounded-md border border-gray-200 flex items-center justify-between"
         aria-haspopup="listbox"
         aria-expanded={open}
+        
       >
         <span className={!selected ? "text-gray-400" : ""}>
           {selected || placeholder}
@@ -112,12 +114,12 @@ const DropdownRadio = ({
           
 
         {/* 옵션 리스트 */}
-        <div className="p-4 h-70 overflow-y-auto">
+        <div className={`p-5 ${maxHeight} overflow-y-auto`}>
             {filteredItems.length > 0 ? (
               filteredItems.map(({ key, text }) => (
                 <div
                   key={key}
-                  className="flex items-center justify-between px-4 py-5 hover:bg-gray-50 cursor-pointer border-b border-gray-400 last:border-b-0"
+                  className="flex items-center justify-between px-2 py-5 hover:bg-gray-50 cursor-pointer border-b border-gray-400 last:border-b-0"
                   onClick={() => {
                     onChange?.(key);
                     setOpen(false);

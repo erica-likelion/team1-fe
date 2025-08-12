@@ -61,7 +61,7 @@ const CountryPage = () => {
                     onChange={setCountry}
                     items={countries}               
                     placeholder = '국가 선택'
-                    className = ''
+                    className = 'h-14'
                     searchable = {true}
                     searchPlaceholder = '검색' />      
             </div>
