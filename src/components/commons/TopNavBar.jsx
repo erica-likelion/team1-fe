@@ -21,7 +21,7 @@ const NavBar = ({
     onLeftClick,
     onRightClick
 }) => {
-    const baseClasses = "flex item-center justify-between px-5 h-15.5 fixed top-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50"
+    const baseClasses = "flex item-center justify-between bg-[#FAFAFA] px-5 h-15.5 fixed top-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50"
 
     // 타입별 아이콘 설정
     const getNavConfig = () => {
