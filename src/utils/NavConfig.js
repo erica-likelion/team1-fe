@@ -6,6 +6,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
     if (pathname === '/language') return 'language';
+    if (pathname === '/prescription') return 'prescription';
     return 'default';
 };
 
@@ -18,6 +19,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.chat');
         case 'language':
             return t('navigation.language');
+        case 'prescription':
+            return t('navigation.prescription.guide');
         default:
             return "";
     }
@@ -48,6 +51,7 @@ const getNavBarHandlers = (type, navigate) => {
                 onRightClick: () => navigate('/language')
             };
         case 'language':
+        case 'prescription':
         case 'default':
         default:
             return {
