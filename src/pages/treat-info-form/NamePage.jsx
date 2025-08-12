@@ -20,7 +20,7 @@ const NamePage = () => {
     
     const handleNext = () => {
         console.log('성:', lastName, '이름:', firstName);
-        navigate('/treat-info-form-age')
+        navigate('/treat-info-form/age')
     };
 
     return (
@@ -45,14 +45,14 @@ const NamePage = () => {
                     maxLength={100}
                 />
             </div>
-            <div className="">
-                <TextButton
-                    text="입력하기"
-                    onClick={handleNext}
-                    disabled={!canMoveNextStep}
-                    icon={WhiteChevronRight}
-                />
-            </div>
+           
+            <TextButton
+                text="입력하기"
+                onClick={handleNext}
+                disabled={!canMoveNextStep}
+                icon={WhiteChevronRight}
+            />
+        
         </div>
     );
 };
