@@ -36,9 +36,10 @@ const Router = () => {
                     <Route path='treat-info-form-symptoms' element={<SymptomsPage />}/>
                     <Route path="prescription" element={<PrescriptionPage />} />
                     <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
-                    <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
                     <Route path="prescription/result" element={<PrescriptionResultPage />} />
                 </Route>
+                
+                <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
             </Routes>
         </BrowserRouter>
     )
