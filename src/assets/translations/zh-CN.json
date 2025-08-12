@@ -56,18 +56,26 @@
         },
         "buttons": {
             "start": "开始",
+            "scan": "扫描",
             "camera": "拍照",
             "gallery": "从相册选择",
             "retry": "重新扫描",
-            "home": "返回主页"
+            "home": "返回主页",
+            "capture": "拍照",
+            "cancel": "取消"
         },
         "upload": {
-            "title": "添加处方单",
             "description": "请在此添加您的处方单图像。",
-            "file_format_description": "支持的格式：JPEG、PNG"
+            "file_format_description": "支持的格式: JPEG、PNG",
+            "or": "或者",
+            "drag_and_drop": "将文件拖拽到此处",
+            "select_other_image": "选择其他文件",
+            "file_type_error": "仅支持 JPEG、PNG 文件格式。",
+            "no_file_selected": "请先上传处方单图像。",
+            "uploaded_image_alt": "已上传的处方单",
+            "file_uploaded": "文件上传成功"
         },
         "scanning": {
-            "title": "扫描中",
             "message": "正在扫描{{name}}\n添加的处方单。",
             "messageParts": {
                 "part1": "正在扫描",
@@ -76,7 +84,6 @@
             "wait": "请稍等..."
         },
         "result": {
-            "title": "药物说明",
             "subtitle": "美迪伙伴已经分析并说明了\n{{name}}的处方！",
             "subtitleParts": {
                 "part1": "美迪伙伴已经分析并说明了\n",

@@ -10,9 +10,9 @@
         "addRx": "Add Rx",
         "rxInfo": "Rx info",
         "prescription": {
-            "guide": "Prescription Scan Guide",
-            "upload": "Add Prescription to Scan",
-            "description": "Prescription Explanation"
+            "guide": "Scan Guide",
+            "upload": "Add Prescription",
+            "description": "Prescription Info"
         }
     },
 
@@ -56,18 +56,26 @@
         },
         "buttons": {
             "start": "Start",
+            "scan": "Scan",
             "camera": "Take Photo",
             "gallery": "Select from Gallery",
             "retry": "Scan Again",
-            "home": "Back to Home"
+            "home": "Back to Home",
+            "capture": "Capture",
+            "cancel": "Cancel"
         },
         "upload": {
-            "title": "Add Prescription",
             "description": "Please add your prescription image here.",
-            "file_format_description": "Supported formats: JPEG, PNG"
+            "file_format_description": "Supported formats: JPEG, PNG",
+            "or": "or",
+            "drag_and_drop": "Drop files here",
+            "select_other_image": "Select another file",
+            "file_type_error": "Only JPEG and PNG files are supported.",
+            "no_file_selected": "Please upload a prescription image first.",
+            "uploaded_image_alt": "Uploaded prescription",
+            "file_uploaded": "File uploaded successfully"
         },
         "scanning": {
-            "title": "Scanning",
             "message": "Scanning the prescription\nadded by {{name}}.",
             "messageParts": {
                 "part1": "Scanning the prescription\nadded by ",
@@ -76,7 +84,6 @@
             "wait": "Please wait a moment..."
         },
         "result": {
-            "title": "Medication Description",
             "subtitle": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
             "subtitleParts": {
                 "part1": "Medi Mate has analyzed and explained\n",

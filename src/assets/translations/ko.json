@@ -56,27 +56,34 @@
         },
         "buttons": {
             "start": "시작하기",
+            "scan": "스캔하기",
             "camera": "카메라 촬영",
             "gallery": "갤러리에서 선택",
             "retry": "다시 스캔하기",
-            "home": "홈으로 돌아가기"
+            "home": "홈으로 돌아가기",
+            "capture": "촬영하기",
+            "cancel": "취소"
         },
         "upload": {
-            "title": "처방전 추가",
-            "description": "여기에 처방전 이미지를 추가하세요.",
-            "file_format_description": "지원되는 형식: JPEG, PNG"
+            "description": "이 곳을 클릭하여 파일을 추가하세요.",
+            "file_format_description": "지원되는 형식: JPEG, PNG",
+            "or": "또는",
+            "drag_and_drop": "파일을 여기에 드롭하세요",
+            "select_other_image": "다른 파일 선택하기",
+            "file_type_error": "JPEG, PNG 파일만 업로드 가능합니다.",
+            "no_file_selected": "처방전 이미지를 먼저 업로드해주세요.",
+            "uploaded_image_alt": "업로드된 처방전",
+            "file_uploaded": "파일이 업로드되었습니다"
         },
         "scanning": {
-            "title": "스캔 중",
             "message": "{{name}}님이 추가한\n처방전을 스캔하고 있어요.",
             "messageParts": {
                 "part1": "",
-                "part2": "님이 추가한\n처방전을 스캔하고 있어요."
+                "part2": "님이 추가한\n처방전을 스캔중이에요."
             },
             "wait": "잠시만 기다려주세요..."
         },
         "result": {
-            "title": "약물명 설명",
             "subtitle": "메디 메이트가 {{name}}님의\n처방전 분석을 설명해드렸어요!",
             "subtitleParts": {
                 "part1": "메디 메이트가 ",
