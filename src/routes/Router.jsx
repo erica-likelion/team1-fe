@@ -6,6 +6,11 @@ import HomePage from '@pages/HomePage';
 import ChatPage from '@pages/ChatPage';
 import MyPage from '@pages/MyPage';
 import LanguagePage from '@pages/LanguagePage';
+import NamePage from '@pages/treat-info-form/NamePage'
+import AgePage from '../pages/treat-info-form/AgePage';
+import CountryPage from '../pages/treat-info-form/CountryPage';
+import GenderPage from '../pages/treat-info-form/GenderPage';
+import SymptomsPage from '../pages/treat-info-form/SymptomsPage';
 
 const Router = () => {
     return (
@@ -20,6 +25,11 @@ const Router = () => {
                 
                 <Route path="/" element={<SimpleLayout />}>
                     <Route path="language" element={<LanguagePage />} />
+                    <Route path='treat-info-form-name' element={<NamePage />}/>
+                    <Route path='treat-info-form-age' element={<AgePage />}/>
+                    <Route path='treat-info-form-country' element={<CountryPage />}/>
+                    <Route path='treat-info-form-gender' element={<GenderPage />}/>
+                    <Route path='treat-info-form-symptoms' element={<SymptomsPage />}/>
                 </Route>
             </Routes>
         </BrowserRouter>

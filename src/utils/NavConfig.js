@@ -6,6 +6,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
     if (pathname === '/language') return 'language';
+    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
     return 'default';
 };
 
@@ -18,6 +19,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.chat');
         case 'language':
             return t('navigation.language');
+        case 'treat-info-form':
+            return t('navigation.preCheck');
         default:
             return "";
     }

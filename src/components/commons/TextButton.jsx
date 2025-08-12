@@ -9,8 +9,8 @@ const TextButton = ({ text, onClick, disabled = false}) => {
                 className={`
                     flex flex-row justify-center items-center
                     px-5 py-2 gap-2.5
-                    w-80 h-12
-                    rounded-xl font-medium
+                    w-[335px] h-12
+                    rounded-md font-medium
                     ${disabled 
                         ? "bg-gray-200 text-white cursor-not-allowed" 
                         : "bg-[#3DE0AB] text-white hover:bg-[#00C88D] active:bg-[#00C88D]"
