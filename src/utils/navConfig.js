@@ -7,6 +7,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/chat') return 'chat';
     if (pathname === '/language') return 'language';
     if (pathname === '/prescription') return 'prescription';
+    if (pathname === '/prescription/upload') return 'prescription_upload';
     return 'default';
 };
 
@@ -21,6 +22,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.language');
         case 'prescription':
             return t('navigation.prescription.guide');
+        case 'prescription_upload':
+            return t('navigation.prescription.upload');
         default:
             return "";
     }
@@ -52,6 +55,7 @@ const getNavBarHandlers = (type, navigate) => {
             };
         case 'language':
         case 'prescription':
+        case 'prescription_upload':
         case 'default':
         default:
             return {
