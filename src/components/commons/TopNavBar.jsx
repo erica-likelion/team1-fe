@@ -1,5 +1,5 @@
 import Logo from "@assets/images/logo.svg";
-import Left from "@assets/images/chevron_left.svg";
+import LeftArrow from "@assets/images/left_arrow.svg";
 import Language from "@assets/images/language.svg";
 import Close from "@assets/images/close.svg";
 import Alert from "@assets/images/alert.svg";
@@ -39,7 +39,7 @@ const NavBar = ({
                 rightIcon: Language, 
             },
             default: {
-                leftIcon: Left,
+                leftIcon: LeftArrow,
                 rightIcon: Close,
             }
         };
