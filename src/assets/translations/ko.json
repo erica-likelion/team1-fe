@@ -8,7 +8,12 @@
         "preCheck": "사전 문진 작성",
         "scanGuide": "처방전 스캔 안내",
         "addRx": "스캔할 처방전 추가",
-        "rxInfo": "처방전 설명"
+        "rxInfo": "처방전 설명",
+        "prescription": {
+            "guide": "처방전 스캔 안내",
+            "upload": "스캔할 처방전 추가",
+            "description": "처방전 설명"
+        }
     },
 
     "homepage": {
@@ -32,6 +37,51 @@
                 "title": "처방전 설명이 필요해요",
                 "description": "Description"
             }
+        }
+    },
+
+    "prescriptionGuide": {
+        "title": "메디 메이트가 {{name}}님의\n처방전을 분석하고 설명해드릴게요!",
+        "titleParts": {
+            "part1": "메디 메이트가 ",
+            "part2": "님의\n처방전을 분석하고 설명해드릴게요!"
+        },
+        "steps": {
+            "step1": "병원에서 받은 처방전을 준비해주세요.",
+            "step2": "빛이 잘 들어오는 장소로 가주세요.",
+            "step3": "처방전의 모든 면이 잘 보이도록,\n평평하게 펴 놓고 반듯하게 촬영해주세요.",
+            "step4": "촬영한 이미지나 파일을 추가해주세요.",
+            "step5": "메디 메이트가 처방전을 스캔해서,\n분석한 내용을 바탕으로 의약품을 설명해드려요.",
+            "details": "(처방전명, 효능, 용법, 주의사항, 상호작용, 부작용, 보관방법 등)"
+        },
+        "buttons": {
+            "start": "시작하기",
+            "camera": "카메라 촬영",
+            "gallery": "갤러리에서 선택",
+            "retry": "다시 스캔하기",
+            "home": "홈으로 돌아가기"
+        },
+        "upload": {
+            "title": "처방전 추가",
+            "description": "여기에 처방전 이미지를 추가하세요."
+        },
+        "scanning": {
+            "title": "스캔 중",
+            "message": "{{name}}님이 추가한\n처방전을 스캔하고 있어요.",
+            "messageParts": {
+                "part1": "",
+                "part2": "님이 추가한\n처방전을 스캔하고 있어요."
+            },
+            "wait": "잠시만 기다려주세요..."
+        },
+        "result": {
+            "title": "약물명 설명",
+            "subtitle": "멤디 멤이트가 {{name}}님의\n처방전 분석을 설명해드렸어요!",
+            "subtitleParts": {
+                "part1": "메디 메이트가 ",
+                "part2": "님의\n처방전 분석을 설명해드렸어요!"
+            },
+            "analysisTitle": "AI 분석 텍스트"
         }
     }
 }

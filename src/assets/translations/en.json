@@ -8,7 +8,12 @@
         "preCheck": "Pre-check",
         "scanGuide": "Scan guide",
         "addRx": "Add Rx",
-        "rxInfo": "Rx info"
+        "rxInfo": "Rx info",
+        "prescription": {
+            "guide": "Prescription Scan Guide",
+            "upload": "Add Prescription to Scan",
+            "description": "Prescription Explanation"
+        }
     },
 
     "homepage": {
@@ -32,6 +37,51 @@
                 "title": "I need prescription explanation",
                 "description": "Description"
             }
+        }
+    },
+
+    "prescriptionGuide": {
+        "title": "Medi Mate will analyze and explain {{name}}'s prescription for you!",
+        "titleParts": {
+            "part1": "Medi Mate will analyze and explain ",
+            "part2": "'s prescription for you!"
+        },
+        "steps": {
+            "step1": "Please prepare the prescription you received from the hospital.",
+            "step2": "Move to an environment with good lighting.",
+            "step3": "To ensure all parts of the prescription are clearly visible,\nlay it flat and take the photo.",
+            "step4": "Please add the captured image or file.",
+            "step5": "When Medi Mate scans your prescription,\nwe will explain the medications based on the analysis.",
+            "details": "(Prescription name, efficacy, usage, precautions, interactions, side effects, storage methods, etc.)"
+        },
+        "buttons": {
+            "start": "Start",
+            "camera": "Take Photo",
+            "gallery": "Select from Gallery",
+            "retry": "Scan Again",
+            "home": "Back to Home"
+        },
+        "upload": {
+            "title": "Add Prescription",
+            "description": "Please add your prescription image here."
+        },
+        "scanning": {
+            "title": "Scanning",
+            "message": "Scanning the prescription\nadded by {{name}}.",
+            "messageParts": {
+                "part1": "Scanning the prescription\nadded by ",
+                "part2": "."
+            },
+            "wait": "Please wait a moment..."
+        },
+        "result": {
+            "title": "Medication Description",
+            "subtitle": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
+            "subtitleParts": {
+                "part1": "Medi Mate has analyzed and explained\n",
+                "part2": "'s prescription!"
+            },
+            "analysisTitle": "AI Analysis Text"
         }
     }
 }
