@@ -6,8 +6,12 @@ const getNavBarType = (pathname) => {
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
     if (pathname === '/language') return 'language';
+<<<<<<< HEAD:src/utils/navConfig.js
     if (pathname === '/prescription') return 'prescription';
     if (pathname === '/prescription/upload') return 'prescription_upload';
+=======
+    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
+>>>>>>> master:src/utils/NavConfig.js
     return 'default';
 };
 
@@ -20,10 +24,15 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.chat');
         case 'language':
             return t('navigation.language');
+<<<<<<< HEAD:src/utils/navConfig.js
         case 'prescription':
             return t('navigation.prescription.guide');
         case 'prescription_upload':
             return t('navigation.prescription.upload');
+=======
+        case 'treat-info-form':
+            return t('navigation.preCheck');
+>>>>>>> master:src/utils/NavConfig.js
         default:
             return "";
     }
