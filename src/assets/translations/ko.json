@@ -59,8 +59,6 @@
             "scan": "스캔하기",
             "camera": "카메라 촬영",
             "gallery": "갤러리에서 선택",
-            "retry": "다시 스캔하기",
-            "home": "홈으로 돌아가기",
             "capture": "촬영하기",
             "cancel": "취소"
         },
@@ -84,12 +82,11 @@
             "wait": "잠시만 기다려주세요..."
         },
         "result": {
-            "subtitle": "메디 메이트가 {{name}}님의\n처방전 분석을 설명해드렸어요!",
-            "subtitleParts": {
+            "title": "메디 메이트가 {{name}}님의\n처방전 분석을 완료했어요!",
+            "titleParts": {
                 "part1": "메디 메이트가 ",
-                "part2": "님의\n처방전 분석을 설명해드렸어요!"
-            },
-            "analysisTitle": "AI 분석 텍스트"
+                "part2": "님의\n처방전 분석을 완료했어요!"
+            }
         }
     }
 }

@@ -59,8 +59,6 @@
             "scan": "Scan",
             "camera": "Take Photo",
             "gallery": "Select from Gallery",
-            "retry": "Scan Again",
-            "home": "Back to Home",
             "capture": "Capture",
             "cancel": "Cancel"
         },
@@ -84,12 +82,11 @@
             "wait": "Please wait a moment..."
         },
         "result": {
-            "subtitle": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
-            "subtitleParts": {
+            "title": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
+            "titleParts": {
                 "part1": "Medi Mate has analyzed and explained\n",
                 "part2": "'s prescription!"
-            },
-            "analysisTitle": "AI Analysis Text"
+            }
         }
     }
 }

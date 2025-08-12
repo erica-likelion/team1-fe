@@ -59,8 +59,6 @@
             "scan": "扫描",
             "camera": "拍照",
             "gallery": "从相册选择",
-            "retry": "重新扫描",
-            "home": "返回主页",
             "capture": "拍照",
             "cancel": "取消"
         },
@@ -84,12 +82,11 @@
             "wait": "请稍等..."
         },
         "result": {
-            "subtitle": "美迪伙伴已经分析并说明了\n{{name}}的处方！",
-            "subtitleParts": {
+            "title": "美迪伙伴已经分析并说明了\n{{name}}的处方！",
+            "titleParts": {
                 "part1": "美迪伙伴已经分析并说明了\n",
                 "part2": "的处方！"
-            },
-            "analysisTitle": "AI分析文本"
+            }
         }
     }
 }
