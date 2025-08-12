@@ -8,7 +8,12 @@
         "preCheck": "填写问诊表",
         "scanGuide": "处方单扫描指南",
         "addRx": "添加处方单",
-        "rxInfo": "处方单说明"
+        "rxInfo": "处方单说明",
+        "prescription": {
+            "guide": "处方单扫描指南",
+            "upload": "添加要扫描的处方单",
+            "description": "处方单说明"
+        }
     },
 
     "homepage": {
@@ -32,6 +37,51 @@
                 "title": "我需要处方说明",
                 "description": "Description"
             }
+        }
+    },
+
+    "prescriptionGuide": {
+        "title": "美迪伙伴将为{{name}}分析并说明处方！",
+        "titleParts": {
+            "part1": "美迪伙伴将为",
+            "part2": "分析并说明处方！"
+        },
+        "steps": {
+            "step1": "请准备在医院收到的处方。",
+            "step2": "请移至光线充足的环境。",
+            "step3": "为了让处方的所有部分都清晰可见，\n请将其平铺后拍照。",
+            "step4": "请添加拍摄的图像或文件。",
+            "step5": "美迪伙伴扫描您的处方后，\n将基于分析结果为您说明药物信息。",
+            "details": "(处方名称、功效、用法、注意事项、相互作用、副作用、保存方法等)"
+        },
+        "buttons": {
+            "start": "开始",
+            "camera": "拍照",
+            "gallery": "从相册选择",
+            "retry": "重新扫描",
+            "home": "返回主页"
+        },
+        "upload": {
+            "title": "添加处方单",
+            "description": "请在此添加您的处方单图像。"
+        },
+        "scanning": {
+            "title": "扫描中",
+            "message": "正在扫描{{name}}\n添加的处方单。",
+            "messageParts": {
+                "part1": "正在扫描",
+                "part2": "\n添加的处方单。"
+            },
+            "wait": "请稍等..."
+        },
+        "result": {
+            "title": "药物说明",
+            "subtitle": "美迪伙伴已经分析并说明了\n{{name}}的处方！",
+            "subtitleParts": {
+                "part1": "美迪伙伴已经分析并说明了\n",
+                "part2": "的处方！"
+            },
+            "analysisTitle": "AI分析文本"
         }
     }
 }

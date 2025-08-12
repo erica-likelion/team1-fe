@@ -1,6 +1,7 @@
 /* 메인 홈페이지 */
 import ServiceCard from "@components/homepage/ServiceCard.jsx"
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 // ICON은 추후 디자인 업데이트 후 맞게 변경할 예정
 import PhoneIcon from "@assets/images/logo.svg";
@@ -9,6 +10,7 @@ import MedicineIcon from "@assets/images/logo.svg";
 
 const HomePage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const serviceCards = [
         {
@@ -30,7 +32,7 @@ const HomePage = () => {
             step: t('homepage.serviceCard.postVisit.step'),
             title: t('homepage.serviceCard.postVisit.title'),
             description: t('homepage.serviceCard.postVisit.description'),
-            onClick: () => console.log('진료 후 클릭')
+            onClick: () => navigate('/prescription')
         }
     ];
 

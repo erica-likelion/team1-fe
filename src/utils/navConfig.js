@@ -6,6 +6,8 @@ const getNavBarType = (pathname) => {
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
     if (pathname === '/language') return 'language';
+    if (pathname === '/prescription') return 'prescription';
+    if (pathname === '/prescription/upload') return 'prescription_upload';
     if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
     return 'default';
 };
@@ -19,6 +21,10 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.chat');
         case 'language':
             return t('navigation.language');
+        case 'prescription':
+            return t('navigation.prescription.guide');
+        case 'prescription_upload':
+            return t('navigation.prescription.upload');
         case 'treat-info-form':
             return t('navigation.preCheck');
         default:
@@ -51,6 +57,8 @@ const getNavBarHandlers = (type, navigate) => {
                 onRightClick: () => navigate('/language')
             };
         case 'language':
+        case 'prescription':
+        case 'prescription_upload':
         case 'default':
         default:
             return {

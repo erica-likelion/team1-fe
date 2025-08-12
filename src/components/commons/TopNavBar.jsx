@@ -1,5 +1,5 @@
 import Logo from "@assets/images/logo.svg";
-import Left from "@assets/images/chevron_left.svg";
+import LeftArrow from "@assets/images/left_arrow.svg";
 import Language from "@assets/images/language.svg";
 import Close from "@assets/images/close.svg";
 import Alert from "@assets/images/alert.svg";
@@ -21,7 +21,7 @@ const NavBar = ({
     onLeftClick,
     onRightClick
 }) => {
-    const baseClasses = "flex item-center justify-between px-5 h-15.5 fixed top-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50"
+    const baseClasses = "flex item-center justify-between bg-[#FAFAFA] px-5 h-15.5 fixed top-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50"
 
     // 타입별 아이콘 설정
     const getNavConfig = () => {
@@ -39,7 +39,7 @@ const NavBar = ({
                 rightIcon: Language, 
             },
             default: {
-                leftIcon: Left,
+                leftIcon: LeftArrow,
                 rightIcon: Close,
             }
         };
