@@ -23,6 +23,12 @@ const SymptomsPage = () => {
 
     const maxLength = 150;
 
+    const handleSymptomsChange = (value) => {
+        if (value.length <= maxLength) {
+            setSymptoms(value);
+        }
+    };
+
     return (
         <div className="p-5">
             <TitleBlock
@@ -32,7 +38,7 @@ const SymptomsPage = () => {
             <div className="mt-13 ">
                 <TextField
                     value={symptoms}
-                    onChange={setSymptoms}
+                    onChange={handleSymptomsChange}
                     placeholder="내용을 입력하세요."
                     maxLength={150}
                     height="h-[206px]"
