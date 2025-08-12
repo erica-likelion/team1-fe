@@ -6,6 +6,10 @@ import HomePage from '@pages/HomePage';
 import ChatPage from '@pages/ChatPage';
 import MyPage from '@pages/MyPage';
 import LanguagePage from '@pages/LanguagePage';
+import PrescriptionPage from '@pages/PrescriptionPage';
+import PrescriptionUploadPage from '@pages/PrescriptionUploadPage';
+import PrescriptionScanningPage from '@pages/PrescriptionScanningPage';
+import PrescriptionResultPage from '@pages/PrescriptionResultPage';
 
 const Router = () => {
     return (
@@ -20,6 +24,10 @@ const Router = () => {
                 
                 <Route path="/" element={<SimpleLayout />}>
                     <Route path="language" element={<LanguagePage />} />
+                    <Route path="prescription" element={<PrescriptionPage />} />
+                    <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
+                    <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
+                    <Route path="prescription/result" element={<PrescriptionResultPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
