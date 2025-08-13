@@ -1,5 +1,6 @@
 {
     "user" : {
-        "name": "멋사" 
+        "name": "멋사", 
+        "gender": "M"
     }
 }
