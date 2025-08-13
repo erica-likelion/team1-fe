@@ -16,14 +16,14 @@ const HomePage = () => {
             step: t('homepage.serviceCard.preVisit.step'),
             title: t('homepage.serviceCard.preVisit.title'),
             description: t('homepage.serviceCard.preVisit.description'),
-            onClick: () => console.log('진료 전 클릭')
+            onClick: () => navigate('/treat-info-form/name')
         },
         {
             icon: Doctor,
             step: t('homepage.serviceCard.inVisit.step'),
             title: t('homepage.serviceCard.inVisit.title'),
             description: t('homepage.serviceCard.inVisit.description'),
-            onClick: () => console.log('진료 중 클릭')
+            onClick: () => navigate('/treat-info-form/name')
         },
         {
             icon: Medicine,
