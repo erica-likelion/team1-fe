@@ -21,9 +21,9 @@ const PrescriptionPage = () => {
         <div className="pt-9.5 px-5">
             <div className="flex flex-col gap-21.5">
                 <p className="text-xl font-semibold whitespace-pre-line">
-                    {t('prescriptionGuide.titleParts.part1')}
+                    {t('prescription.titleParts.part1')}
                     <span className="text-[#00C88D]">{userName}</span>
-                    {t('prescriptionGuide.titleParts.part2')}
+                    {t('prescription.titleParts.part2')}
                 </p>
                 
                 <ol className="space-y-4 font-semibold list-none">
@@ -31,11 +31,11 @@ const PrescriptionPage = () => {
                         <li key={step}>
                             <div className="flex">
                                 <span className="mr-2 flex-shrink-0">{index + 1}.</span>
-                                <span className="whitespace-pre-line">{t(`prescriptionGuide.steps.${step}`)}</span>
+                                <span className="whitespace-pre-line">{t(`prescription.steps.${step}`)}</span>
                             </div>
                             {index === steps.length - 1 && (
                                 <div className="ml-6 text-xs font-normal">
-                                    {t('prescriptionGuide.steps.details')}
+                                    {t('prescription.steps.details')}
                                 </div>
                             )}
                         </li>
@@ -43,7 +43,7 @@ const PrescriptionPage = () => {
                 </ol>
             </div>
             
-            <TextButton text={t('prescriptionGuide.buttons.start')} icon={Right} onClick={handleNext} />
+            <TextButton text={t('prescription.buttons.start')} icon={Right} onClick={handleNext} />
         </div>
     )
 }

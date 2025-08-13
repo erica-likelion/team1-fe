@@ -11,10 +11,10 @@ import AgePage from '../pages/treat-info-form/AgePage';
 import CountryPage from '../pages/treat-info-form/CountryPage';
 import GenderPage from '../pages/treat-info-form/GenderPage';
 import SymptomsPage from '../pages/treat-info-form/SymptomsPage';
-import PrescriptionPage from '@pages/PrescriptionPage';
-// import PrescriptionUploadPage from '@pages/PrescriptionUploadPage';
-// import PrescriptionScanningPage from '@pages/PrescriptionScanningPage';
-// import PrescriptionResultPage from '@pages/PrescriptionResultPage';
+import PrescriptionPage from '@pages/prescription-page/PrescriptionPage';
+import PrescriptionUploadPage from '@pages/prescription-page/PrescriptionUploadPage';
+import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScanningPage';
+import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
 
 const Router = () => {
     return (
@@ -35,10 +35,11 @@ const Router = () => {
                     <Route path='treat-info-form/gender' element={<GenderPage />}/>
                     <Route path='treat-info-form/symptoms' element={<SymptomsPage />}/>
                     <Route path="prescription" element={<PrescriptionPage />} />
-                    {/* <Route path="prescription/upload" element={<PrescriptionUploadPage />} /> */}
-                    {/* <Route path="prescription/scanning" element={<PrescriptionScanningPage />} /> */}
-                    {/* <Route path="prescription/result" element={<PrescriptionResultPage />} /> */}
+                    <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
+                    <Route path="prescription/result" element={<PrescriptionResultPage />} />
                 </Route>
+                
+                <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
             </Routes>
         </BrowserRouter>
     )
