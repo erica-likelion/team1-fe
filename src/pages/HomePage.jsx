@@ -1,5 +1,5 @@
 /* 메인 홈페이지 */
-import ServiceCard from "@components/homepage/ServiceCard.jsx"
+import ServiceCard from "@components/commons/ServiceCard.jsx"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
