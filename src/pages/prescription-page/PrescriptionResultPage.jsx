@@ -14,7 +14,7 @@ const PrescriptionResultPage = () => {
     const userName = getUserName();
     const [showKoreanContent, setShowKoreanContent] = useState(false);
 
-    const { analysisResult, originalImage } = location.state || {};
+    const { analysisResult } = location.state || {};
 
     // 결과가 없으면 업로드 페이지로 리다이렉트
     if (!analysisResult) {

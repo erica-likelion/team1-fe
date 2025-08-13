@@ -34,9 +34,6 @@ const PrescriptionScanningPage = () => {
         // API 호출하여 처방전 분석
         const analyzePresc = async () => {
             try {
-                // 파일을 base64로 변환 (결과 페이지에서 표시하기 위해)
-                const imageBase64 = await convertFileToBase64(uploadedFile);
-                
                 // 최소 2초는 로딩 화면을 보여주기 위해 Promise.all 사용
                 const [result] = await Promise.all([
                     mockUploadPrescription(uploadedFile, language),
@@ -46,8 +43,7 @@ const PrescriptionScanningPage = () => {
                 // 결과 페이지로 이동하며 데이터 전달
                 navigate('/prescription/result', {
                     state: {
-                        analysisResult: result,
-                        originalImage: imageBase64 // base64로 변환된 이미지 사용
+                        analysisResult: result
                     }
                 });
             } catch (error) {
