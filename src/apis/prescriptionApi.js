@@ -1,48 +1,44 @@
-/**
- * API service for prescription-related operations
- */
+/* 처방전 관련 API 서비스 */
 
-const API_BASE_URL = 'http://localhost:3000'; // TODO: Replace with actual backend URL
+import api from "@utils/apiClient"; 
 
 /**
- * Upload prescription image and get AI analysis
- * @param {File} imageFile - The prescription image file
- * @param {string} language - User language ("english", "chinese", or "korean")
- * @returns {Promise<Object>} API response with analysis
+ * 처방전 이미지 업로드 및 AI 분석 요청
+ * @param {File} image - 처방전 이미지 파일
+ * @param {string} language - 사용자 언어 ("english", "chinese", "korean")
+ * @returns {Promise<Object>} 분석 결과를 포함한 API 응답
  */
-export const uploadPrescription = async (imageFile, language) => {
+export const uploadPrescription = async (language, image) => {
   try {
+    // FormData 객체 생성 및 데이터 추가
     const formData = new FormData();
-    formData.append('image', imageFile);
     formData.append('language', language === 'ko' ? 'korean' : language === 'zh-CN' ? 'chinese' : 'english');
+    formData.append('image', image);
 
-    const response = await fetch(`${API_BASE_URL}/api/prescription`, {
-      method: 'POST',
-      body: formData, // FormData는 Content-Type 헤더를 자동으로 설정
+    // POST 요청 전송
+    const response = await api.post('/api/prescription', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // 파일 업로드를 위한 헤더
+      },
     });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
-    console.error('Error uploading prescription:', error);
+    console.error('처방전 업로드 오류:', error);
     throw error;
   }
 };
 
 /**
- * Mock API response for development/testing
- * @param {File} imageFile - The prescription image file
- * @param {string} language - User language
- * @returns {Promise<Object>} Mock API response
+ * 개발/테스트용 모의 API 응답
+ * @param {File} imageFile - 처방전 이미지 파일
+ * @param {string} language - 사용자 언어
+ * @returns {Promise<Object>} 모의 API 응답
  */
 export const mockUploadPrescription = async (imageFile, language) => {
-  // Simulate API delay
+  // API 지연 시뮬레이션
   await new Promise(resolve => setTimeout(resolve, 2000));
   
+  // 언어별 모의 응답 데이터
   const mockResponses = {
     english: {
       id: 1,
@@ -58,6 +54,7 @@ export const mockUploadPrescription = async (imageFile, language) => {
     }
   };
 
+  // 언어 코드를 기반으로 적절한 응답 선택
   const lang = language === 'ko' ? 'english' : language === 'zh-CN' ? 'chinese' : 'english';
   return mockResponses[lang];
 };
