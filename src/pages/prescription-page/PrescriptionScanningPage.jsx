@@ -58,7 +58,7 @@ const PrescriptionScanningPage = () => {
                 // 결과 페이지로 이동하며 데이터 전달
                 navigate('/prescription/result', {
                     state: {
-                        analysisResult: result.content
+                        analysisResult: language==="ko" ? result.koreanContent : result.content
                     }
                 });
             } catch (error) {
