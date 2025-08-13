@@ -25,17 +25,17 @@
             "preVisit": {
                 "step": "진료 전",
                 "title": "전화 예약하고 싶어요",
-                "description": "Description"
+                "description": "문진 작성하면 AI가 병원 진료 예약해줘요"
             },
             "inVisit": {
                 "step": "진료 중",
                 "title": "진료 통역이 필요해요",
-                "description": "Description"
+                "description": "문진 작성하면 AI가 진료 통역해줘요"
             },
             "postVisit": {
                 "step": "진료 후",
                 "title": "처방전 설명이 필요해요",
-                "description": "Description"
+                "description": "처방전 사진을 찍으면 AI가 설명해줘요"
             }
         }
     },

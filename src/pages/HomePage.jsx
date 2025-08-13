@@ -3,32 +3,30 @@ import ServiceCard from "@components/homepage/ServiceCard.jsx"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-// ICON은 추후 디자인 업데이트 후 맞게 변경할 예정
-import PhoneIcon from "@assets/images/logo.svg";
-import ChatIcon from "@assets/images/logo.svg";
-import MedicineIcon from "@assets/images/logo.svg";
+import Call from "@assets/images/call.svg";
+import Doctor from "@assets/images/Doctor.svg";
+import Medicine from "@assets/images/Medicine.svg";
 
 const HomePage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-
     const serviceCards = [
         {
-            icon: PhoneIcon,
+            icon: Call,
             step: t('homepage.serviceCard.preVisit.step'),
             title: t('homepage.serviceCard.preVisit.title'),
             description: t('homepage.serviceCard.preVisit.description'),
             onClick: () => console.log('진료 전 클릭')
         },
         {
-            icon: ChatIcon,
+            icon: Doctor,
             step: t('homepage.serviceCard.inVisit.step'),
             title: t('homepage.serviceCard.inVisit.title'),
             description: t('homepage.serviceCard.inVisit.description'),
             onClick: () => console.log('진료 중 클릭')
         },
         {
-            icon: MedicineIcon,
+            icon: Medicine,
             step: t('homepage.serviceCard.postVisit.step'),
             title: t('homepage.serviceCard.postVisit.title'),
             description: t('homepage.serviceCard.postVisit.description'),
@@ -49,16 +47,17 @@ const HomePage = () => {
             <div>
                 <p className="py-10 font-semibold text-[20px]">{t('homepage.main')}</p>
             </div>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col items-center gap-5 w-full">
                 {serviceCards.map((card, index) => (
-                    <ServiceCard
-                        key={index}
-                        icon={card.icon}
-                        step={card.step}
-                        title={card.title}
-                        description={card.description}
-                        onClick={card.onClick}
-                    />
+                    <div key={index} className="flex flex-col gap-2 w-[335px]">
+                        <p className="font-semibold">{card.step}</p>
+                        <ServiceCard
+                            icon={card.icon}
+                            title={card.title}
+                            description={card.description}
+                            onClick={card.onClick}
+                        />
+                    </div>
                 ))}
             </div>
         </div>

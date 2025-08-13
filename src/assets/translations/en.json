@@ -25,17 +25,17 @@
             "preVisit": {
                 "step": "Pre-visit",
                 "title": "I want to make a phone reservation",
-                "description": "Description"
+                "description": "AI books appointments after you complete the questionnaire"
             },
             "inVisit": {
                 "step": "In-visit",
                 "title": "I need medical interpretation",
-                "description": "Description"
+                "description": "AI provides interpretation after you complete the questionnaire"
             },
             "postVisit": {
                 "step": "Post-visit",
                 "title": "I need prescription explanation",
-                "description": "Description"
+                "description": "AI explains prescriptions when you photo them"
             }
         }
     },
