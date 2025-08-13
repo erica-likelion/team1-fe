@@ -26,7 +26,7 @@ const PrescriptionUploadPage = () => {
     const { t } = useTranslation();
     
     // 업로드된 단일 파일 상태
-    const [uploadedFile, setUploadedFile] = useState(null);
+    const [image, setImage] = useState(null);
     
     // 카메라 모드 활성화 여부
     const [isCamera, setIsCamera] = useState(false);
@@ -93,7 +93,7 @@ const PrescriptionUploadPage = () => {
         
         // 유효한 파일이 있는 경우 상태 업데이트
         if (acceptedFiles.length > 0) {
-            setUploadedFile(acceptedFiles[0]);
+            setImage(acceptedFiles[0]);
             createPreviewUrl(acceptedFiles[0]);
         }
     }, [createPreviewUrl]);
@@ -150,7 +150,7 @@ const PrescriptionUploadPage = () => {
         input.onchange = (e) => {
             const file = e.target.files[0];
             if (file) {
-                setUploadedFile(file);
+                setImage(file);
                 createPreviewUrl(file);
             }
         };
@@ -179,7 +179,7 @@ const PrescriptionUploadPage = () => {
             const file = new File([blob], `prescription-${Date.now()}.jpg`, {
                 type: 'image/jpeg',
             });
-            setUploadedFile(file);
+            setImage(file);
             createPreviewUrl(file);
             stopCamera();
         }, 'image/jpeg', 1);
@@ -220,10 +220,15 @@ const PrescriptionUploadPage = () => {
      * - 현재 언어 설정도 함께 전달
      */
     const handleScan = () => {
+        if (!image) {
+            alert(t('prescription.upload.no_file_selected'));
+            return;
+        }
+        
         // 스캔 페이지로 이동하며 데이터 전달
         navigate('/prescription/scanning', { 
             state: { 
-                uploadedFile: uploadedFile
+                image: image
             } 
         });
     };
@@ -270,13 +275,13 @@ const PrescriptionUploadPage = () => {
                 className={`flex flex-col justify-center items-center gap-3 p-3 w-full h-auto max-h-[500px] min-h-[225px] border-2 border-dashed rounded-[4px] transition-colors ${
                     isDragActive 
                         ? 'bg-[#3DE0AB20] border-[#3DE0AB]' 
-                        : uploadedFile
+                        : image
                         ? 'bg-[#3DE0AB10] border-[#3DE0AB]'
                         : 'bg-[#3DE0AB08] border-[#3DE0AB]'
                 }`}
             >
                 <input {...getInputProps()} />
-                {uploadedFile ? (
+                {image ? (
                     /* 파일이 업로드된 상태 */
                     <>
                         <img 
@@ -285,12 +290,12 @@ const PrescriptionUploadPage = () => {
                             className="max-w-full max-h-[400px] object-contain rounded-md"
                         />
                         <p className="text-xs font-medium text-[#00C88D]">
-                            {t('prescription.upload.file_uploaded')}: {uploadedFile.name}
+                            {t('prescription.upload.file_uploaded')}: {image.name}
                         </p>
                         <button 
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setUploadedFile(null);
+                                setImage(null);
                                 if (previewUrl) {
                                     URL.revokeObjectURL(previewUrl);
                                     setPreviewUrl(null);
@@ -354,7 +359,7 @@ const PrescriptionUploadPage = () => {
                 text={t('prescription.buttons.scan')} 
                 icon={Right}
                 onClick={handleScan}
-                disabled={!uploadedFile}
+                disabled={!image}
             />
         </div>
     );
