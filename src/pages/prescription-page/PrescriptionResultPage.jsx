@@ -22,10 +22,6 @@ const PrescriptionResultPage = () => {
         return null;
     }
 
-    const handleRetry = () => {
-        navigate('/prescription/upload');
-    };
-
     useEffect(() => {
         // 스크롤바 숨김 스타일 추가
         const style = document.createElement('style');
@@ -59,10 +55,7 @@ const PrescriptionResultPage = () => {
                 }}
             >
                 <div className="whitespace-pre-line">
-                    {showKoreanContent && analysisResult.koreanContent 
-                        ? analysisResult.koreanContent 
-                        : analysisResult.content
-                    }
+                    {analysisResult}
                 </div>
             </div>
             <TextButton text="통역 채팅 시작하기" icon={Right} />
