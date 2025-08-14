@@ -5,7 +5,7 @@
         "home": "Home",
         "mypage": "My Page",
         "language": "language",
-        "history": "history",
+        "history": "History",
         "preCheck": "Pre-check",
         "scanGuide": "Scan guide",
         "addRx": "Add Rx",
@@ -26,20 +26,45 @@
             "preVisit": {
                 "step": "Pre-visit",
                 "title": "I want to make a phone reservation",
-                "description": "Description"
+                "description": "AI books appointments after you complete the questionnaire"
             },
             "inVisit": {
                 "step": "In-visit",
                 "title": "I need medical interpretation",
-                "description": "Description"
+                "description": "AI provides interpretation after you complete the questionnaire"
             },
             "postVisit": {
                 "step": "Post-visit",
                 "title": "I need prescription explanation",
-                "description": "Description"
+                "description": "AI explains prescriptions when you photo them"
             }
         }
     },
+
+    "mypage": {
+        "suffixMale": "Mr.",
+        "suffixFemale": "Ms.",
+        "viewMyInfo": "View My Info",
+        "buttons": {
+            "button1": {
+                "title": "Current Reservations",
+                "description": "Check your detailed hospital phone reservation history."
+            },
+            "button2": {
+                "title": "Past Records",
+                "description": "Call records / Medical records / Prescription records"
+            },
+            "button3": {
+                "title": "Settings",
+                "description": "What should we say here"
+            },
+            "button4": {
+                "title": "What else could there be",
+                "description": "Feel free to remove or add as needed"
+            }
+        }
+    },
+
 
     "prescription": {
         "title": "Medi Mate will analyze and explain {{name}}'s prescription for you!",
@@ -89,5 +114,15 @@
                 "part2": "'s prescription!"
             }
         }
+    },
+
+    "history": {
+        "viewAll": "View All",
+        "close": "Close",
+        "titles": {
+            "callHistory": "Call History",
+            "diagnosisHistory": "Diagnosis History",
+            "prescriptionHistory": "Prescription History"
+        } 
     }
 }
