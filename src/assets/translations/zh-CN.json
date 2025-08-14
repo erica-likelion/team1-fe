@@ -25,17 +25,17 @@
             "preVisit": {
                 "step": "就诊前",
                 "title": "我想电话预约",
-                "description": "Description"
+                "description": "填写问诊表后AI会帮您预约医院就诊"
             },
             "inVisit": {
                 "step": "就诊中",
                 "title": "我需要医疗翻译",
-                "description": "Description"
+                "description": "填写问诊表后AI会为您提供就诊翻译"
             },
             "postVisit": {
                 "step": "就诊后",
                 "title": "我需要处方说明",
-                "description": "Description"
+                "description": "拍摄处方照片后AI会为您解释说明"
             }
         }
     },
