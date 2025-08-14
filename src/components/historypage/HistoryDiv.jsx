@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
-import ServiceCard from "@components/homepage/ServiceCard";
+import ServiceCard from "@components/commons/ServiceCard";
 import TextButton from "@components/commons/TextButton";
 
 import Right from "@assets/images/white_chevron_right.svg";
