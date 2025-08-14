@@ -40,6 +40,31 @@
         }
     },
 
+    "mypage": {
+        "suffixMale": "Mr.",
+        "suffixFemale": "Ms.",
+        "viewMyInfo": "View My Info",
+        "buttons": {
+            "button1": {
+                "title": "Current Reservations",
+                "description": "Check your detailed hospital phone reservation history."
+            },
+            "button2": {
+                "title": "Past Records",
+                "description": "Call records / Medical records / Prescription records"
+            },
+            "button3": {
+                "title": "Settings",
+                "description": "What should we say here"
+            },
+            "button4": {
+                "title": "What else could there be",
+                "description": "Feel free to remove or add as needed"
+            }
+        }
+    },
+
+
     "prescription": {
         "title": "Medi Mate will analyze and explain {{name}}'s prescription for you!",
         "titleParts": {
