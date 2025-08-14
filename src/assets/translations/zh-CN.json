@@ -1,4 +1,5 @@
 {
+    "brand" : "Medi Mate", 
     "navigation" : {
         "chat": "翻译聊天",
         "home": "首页",

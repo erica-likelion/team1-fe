@@ -1,4 +1,5 @@
 {
+    "brand" : "Medi Mate", 
     "navigation" : {
         "chat": "Translation Chat",
         "home": "Home",
