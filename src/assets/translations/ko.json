@@ -18,24 +18,48 @@
 
     "homepage": {
         "headerPart1": "예약부터 진료까지,",
-        "headerPart2": "메디메이트",
+        "headerPart2": "메디 메이트",
         "headerPart3": "와 함께해요!",
         "main": "어떤 도움이 필요하세요?",
         "serviceCard": {
             "preVisit": {
                 "step": "진료 전",
                 "title": "전화 예약하고 싶어요",
-                "description": "Description"
+                "description": "문진 작성하면 AI가 병원 진료 예약해줘요"
             },
             "inVisit": {
                 "step": "진료 중",
                 "title": "진료 통역이 필요해요",
-                "description": "Description"
+                "description": "문진 작성하면 AI가 진료 통역해줘요"
             },
             "postVisit": {
                 "step": "진료 후",
                 "title": "처방전 설명이 필요해요",
-                "description": "Description"
+                "description": "처방전 사진을 찍으면 AI가 설명해줘요"
+            }
+        }
+    },
+
+    "mypage": {
+        "suffixMale": "님",
+        "suffixFemale": "님",
+        "viewMyInfo": "내 정보 보기",
+        "buttons": {
+            "button1": {
+                "title": "현재 예약 내역",
+                "description": "병원 전화 예약 상세 내역을 확인해보세요."
+            },
+            "button2": {
+                "title": "지난 기록",
+                "description": "통화 기록 / 진료 기록 / 처방 기록"
+            },
+            "button3": {
+                "title": "설정",
+                "description": "뭐라고하지"
+            },
+            "button4": {
+                "title": "또 뭐가 있을까요",
+                "description": "자유롭게 없애거나 추가해주세요"
             }
         }
     },
