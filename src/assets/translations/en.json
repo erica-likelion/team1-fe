@@ -4,7 +4,7 @@
         "home": "Home",
         "mypage": "My Page",
         "language": "language",
-        "history": "history",
+        "history": "History",
         "preCheck": "Pre-check",
         "scanGuide": "Scan guide",
         "addRx": "Add Rx",
@@ -113,5 +113,15 @@
                 "part2": "'s prescription!"
             }
         }
+    },
+
+    "history": {
+        "viewAll": "View All",
+        "close": "Close",
+        "titles": {
+            "callHistory": "Call History",
+            "diagnosisHistory": "Diagnosis History",
+            "prescriptionHistory": "Prescription History"
+        } 
     }
 }

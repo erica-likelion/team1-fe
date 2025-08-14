@@ -10,6 +10,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/prescription/upload') return 'prescription_upload';
     if (pathname === '/prescription/result') return 'prescription_result';
     if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
+    if (pathname === '/mypage/history') return 'history';
     return 'default';
 };
 
@@ -30,6 +31,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.prescription.description');
         case 'treat-info-form':
             return t('navigation.preCheck');
+        case 'history':
+            return t('navigation.history');
         default:
             return "";
     }
@@ -63,6 +66,7 @@ const getNavBarHandlers = (type, navigate) => {
         case 'prescription':
         case 'prescription_upload':
         case 'prescription_description':
+        case 'history':
         case 'default':
         default:
             return {
