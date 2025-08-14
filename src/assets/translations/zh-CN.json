@@ -4,7 +4,7 @@
         "home": "首页",
         "mypage": "个人中心",
         "language": "语言",
-        "history": "历史",
+        "history": "历史记录",
         "preCheck": "填写问诊表",
         "scanGuide": "处方单扫描指南",
         "addRx": "添加处方单",
@@ -88,5 +88,15 @@
                 "part2": "的处方！"
             }
         }
+    },
+
+    "history": {
+        "viewAll": "查看全部",
+        "close": "收起",
+        "titles": {
+            "callHistory": "通话记录",
+            "diagnosisHistory": "诊疗记录",
+            "prescriptionHistory": "处方记录"
+        } 
     }
 }

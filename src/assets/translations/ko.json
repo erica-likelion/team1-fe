@@ -4,7 +4,7 @@
         "home": "홈",
         "mypage": "마이페이지",
         "language": "언어",
-        "history": "히스토리",
+        "history": "지난 기록",
         "preCheck": "사전 문진 작성",
         "scanGuide": "처방전 스캔 안내",
         "addRx": "스캔할 처방전 추가",
@@ -88,5 +88,15 @@
                 "part2": "님의\n처방전 분석을 완료했어요!"
             }
         }
+    },
+
+    "history": {
+        "viewAll": "모두 보기",
+        "close": "접기",
+        "titles": {
+            "callHistory": "전화 기록",
+            "diagnosisHistory": "진료 기록",
+            "prescriptionHistory": "처방 기록"
+        } 
     }
 }
