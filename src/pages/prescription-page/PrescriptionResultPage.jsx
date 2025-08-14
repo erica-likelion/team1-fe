@@ -14,17 +14,13 @@ const PrescriptionResultPage = () => {
     const userName = getUserName();
     const [showKoreanContent, setShowKoreanContent] = useState(false);
 
-    const { analysisResult, originalImage } = location.state || {};
+    const { analysisResult } = location.state || {};
 
     // 결과가 없으면 업로드 페이지로 리다이렉트
     if (!analysisResult) {
         navigate('/prescription/upload');
         return null;
     }
-
-    const handleRetry = () => {
-        navigate('/prescription/upload');
-    };
 
     useEffect(() => {
         // 스크롤바 숨김 스타일 추가
@@ -59,10 +55,7 @@ const PrescriptionResultPage = () => {
                 }}
             >
                 <div className="whitespace-pre-line">
-                    {showKoreanContent && analysisResult.koreanContent 
-                        ? analysisResult.koreanContent 
-                        : analysisResult.content
-                    }
+                    {analysisResult}
                 </div>
             </div>
             <TextButton text="통역 채팅 시작하기" icon={Right} />
