@@ -2,6 +2,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { getUserName } from "@utils/userUtils";
+import { uploadPrescription } from "@apis/prescriptionApi";
+
+// 테스트용 목업
 import { mockUploadPrescription } from "@apis/prescriptionApi";
 
 import Loading from "@assets/images/loading.svg";
@@ -9,45 +12,53 @@ import Loading from "@assets/images/loading.svg";
 const PrescriptionScanningPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const userName = getUserName();
 
-    const { uploadedFile, language } = location.state || {};
-
-    // 파일을 base64로 변환하는 함수
-    const convertFileToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
-    };
+    const { image } = location.state || {};
+    const language = i18n.language;
 
     useEffect(() => {
         //데이터가 없으면 업로드 페이지로 리다이렉트
-        if (!uploadedFile) {
+        if (!image) {
             navigate('/prescription/upload');
             return;
         }
 
+        // API 통신 버전
+        // const analyzePresc = async () => {
+        //     try {
+        //         const [result] = await Promise.all([
+        //             uploadPrescription(language, image),
+        //             new Promise(resolve => setTimeout(resolve, 2000))
+        //         ]);
+
+        //         navigate('/prescription/result', {
+        //             state: {
+        //                 analysisResult: result.content
+        //             }
+        //         })
+        //     } catch (error) {
+        //         console.error('처방전 분석 실패:', error);
+        //         alert('처방전 분석에 실패했습니다. 다시 시도해주세요.');
+        //         navigate('/prescription/upload');
+        //     }
+        // };
+
+
         // API 호출하여 처방전 분석
         const analyzePresc = async () => {
             try {
-                // 파일을 base64로 변환 (결과 페이지에서 표시하기 위해)
-                const imageBase64 = await convertFileToBase64(uploadedFile);
-                
                 // 최소 2초는 로딩 화면을 보여주기 위해 Promise.all 사용
                 const [result] = await Promise.all([
-                    mockUploadPrescription(uploadedFile, language),
+                    mockUploadPrescription(language, image),
                     new Promise(resolve => setTimeout(resolve, 2000))
                 ]);
                 
                 // 결과 페이지로 이동하며 데이터 전달
                 navigate('/prescription/result', {
                     state: {
-                        analysisResult: result,
-                        originalImage: imageBase64 // base64로 변환된 이미지 사용
+                        analysisResult: language==="ko" ? result.koreanContent : result.content
                     }
                 });
             } catch (error) {
@@ -58,7 +69,7 @@ const PrescriptionScanningPage = () => {
         };
 
         analyzePresc();
-    }, [uploadedFile, language, navigate]);
+    }, []);
 
 
     return (

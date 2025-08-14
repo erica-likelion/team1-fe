@@ -11,23 +11,50 @@ import Gallery from "@assets/images/gallery.svg";
 import Right from "@assets/images/white_chevron_right.svg";
 import Close from "@assets/images/gray_close.svg";
 
+/**
+ * 처방전 업로드 페이지 컴포넌트
+ * - 드래그 앤 드롭으로 이미지 업로드
+ * - 카메라 촬영 기능
+ * - 갤러리에서 이미지 선택
+ * - 업로드된 이미지 스캔 처리
+ */
 const PrescriptionUploadPage = () => {
+    // 페이지 네비게이션을 위한 훅
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
-    const [uploadedFiles, setUploadedFiles] = useState([]);
+    
+    // 다국어 지원을 위한 번역 훅
+    const { t } = useTranslation();
+    
+    // 업로드된 단일 파일 상태
+    const [image, setImage] = useState(null);
+    
+    // 카메라 모드 활성화 여부
     const [isCamera, setIsCamera] = useState(false);
+    
+    // 카메라의 MediaStream 객체 (실시간 비디오 스트림)
     const [stream, setStream] = useState(null);
+    
+    // 이미지 미리보기 URL
     const [previewUrl, setPreviewUrl] = useState(null);
+    
+    // 비디오 요소에 대한 참조
     const videoRef = useRef(null);
 
+    /**
+     * stream이 변경될 때 비디오 요소에 스트림 연결
+     */
     useEffect(() => {
         if (stream && videoRef.current) {
             videoRef.current.srcObject = stream;
         }
     }, [stream]);
 
+    /**
+     * 컴포넌트 언마운트 시 리소스 정리
+     * - 카메라 스트림 트랙 중지
+     * - 미리보기 URL 메모리 해제
+     */
     useEffect(() => {
-        // 컴포넌트 언마운트시 카메라 정리
         return () => {
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
@@ -38,28 +65,45 @@ const PrescriptionUploadPage = () => {
         };
     }, [stream, previewUrl]);
 
-    const createPreviewUrl = (file) => {
-        if (previewUrl) {
-            URL.revokeObjectURL(previewUrl);
-        }
-        const url = URL.createObjectURL(file);
-        setPreviewUrl(url);
-        return url;
-    };
+    /**
+     * 파일에 대한 미리보기 URL 생성
+     * @param {File} file - 미리보기할 파일 객체
+     */
+    const createPreviewUrl = useCallback((file) => {
+        setPreviewUrl(prevUrl => {
+            // 기존 미리보기 URL이 있으면 메모리 해제
+            if (prevUrl) {
+                URL.revokeObjectURL(prevUrl);
+            }
+            return URL.createObjectURL(file);
+        });
+    }, []);
 
+    /**
+     * 드롭존에 파일이 드롭되었을 때 실행되는 콜백
+     * @param {File[]} acceptedFiles - 허용된 파일들
+     * @param {Object[]} rejectedFiles - 거부된 파일들
+     */
     const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+        // 파일 형식이 맞지 않는 경우 에러 알림
         if (rejectedFiles.length > 0) {
             alert(t('prescription.upload.file_type_error'));
             return;
         }
         
+        // 유효한 파일이 있는 경우 상태 업데이트
         if (acceptedFiles.length > 0) {
-            setUploadedFiles(acceptedFiles);
+            setImage(acceptedFiles[0]);
             createPreviewUrl(acceptedFiles[0]);
-            console.log('파일이 업로드되었습니다:', acceptedFiles);
         }
-    }, [previewUrl]);
+    }, [createPreviewUrl]);
 
+    /**
+     * react-dropzone 설정
+     * - 드래그 앤 드롭 기능
+     * - JPEG, PNG 파일만 허용
+     * - 단일 파일만 업로드 가능
+     */
     const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
         onDrop,
         accept: {
@@ -71,6 +115,12 @@ const PrescriptionUploadPage = () => {
         noKeyboard: true
     });
 
+    /**
+     * 카메라 스트림 시작
+     * - 후면 카메라 우선 사용
+     * - Full HD 해상도로 설정
+     * - 실패 시 파일 선택으로 폴백
+     */
     const startCamera = async () => {
         try {
             const mediaStream = await navigator.mediaDevices.getUserMedia({
@@ -83,28 +133,35 @@ const PrescriptionUploadPage = () => {
             setStream(mediaStream);
             setIsCamera(true);
         } catch (error) {
-            console.error('카메라 접근 실패:', error);
             // 카메라 접근 실패시 파일 선택으로 폴백
             handleFallbackFileInput();
         }
     };
 
+    /**
+     * 카메라 접근 실패 시 파일 선택 다이얼로그로 폴백
+     * - 모바일에서 카메라 촬영 기능 사용
+     */
     const handleFallbackFileInput = () => {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
-        input.capture = 'environment';
+        input.capture = 'environment'; // 모바일에서 후면 카메라 촬영
         input.onchange = (e) => {
             const file = e.target.files[0];
             if (file) {
-                setUploadedFiles([file]);
+                setImage(file);
                 createPreviewUrl(file);
-                console.log('파일로 선택된 이미지:', file);
             }
         };
         input.click();
     };
 
+    /**
+     * 비디오 스트림에서 사진 캡처
+     * - 원본 해상도 유지하여 캡처
+     * - JPEG 형식으로 저장
+     */
     const capturePhoto = () => {
         if (!videoRef.current) return;
         
@@ -117,17 +174,22 @@ const PrescriptionUploadPage = () => {
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
         
+        // Canvas를 Blob으로 변환하여 파일 생성
         canvas.toBlob((blob) => {
             const file = new File([blob], `prescription-${Date.now()}.jpg`, {
                 type: 'image/jpeg',
             });
-            setUploadedFiles([file]);
+            setImage(file);
             createPreviewUrl(file);
             stopCamera();
-            console.log('카메라로 촬영된 파일:', file);
-        }, 'image/jpeg', 0.9);
+        }, 'image/jpeg', 1);
     };
 
+    /**
+     * 카메라 스트림 중지 및 리소스 정리
+     * - 모든 비디오 트랙 중지
+     * - 카메라 모드 해제
+     */
     const stopCamera = () => {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
@@ -136,17 +198,29 @@ const PrescriptionUploadPage = () => {
         setIsCamera(false);
     };
 
+    /**
+     * 카메라 촬영 버튼 클릭 핸들러
+     * - 카메라 스트림 시작
+     */
     const handleCameraCapture = () => {
         startCamera();
     };
 
+    /**
+     * 갤러리 선택 버튼 클릭 핸들러
+     * - dropzone의 파일 선택 다이얼로그 열기
+     */
     const handleGallerySelect = () => {
-        // 갤러리 선택을 위해 dropzone의 파일 선택 다이얼로그 열기
         open();
     };
 
+    /**
+     * 스캔 버튼 클릭 핸들러
+     * - 업로드된 파일을 스캔 페이지로 전달
+     * - 현재 언어 설정도 함께 전달
+     */
     const handleScan = () => {
-        if (uploadedFiles.length === 0) {
+        if (!image) {
             alert(t('prescription.upload.no_file_selected'));
             return;
         }
@@ -154,15 +228,16 @@ const PrescriptionUploadPage = () => {
         // 스캔 페이지로 이동하며 데이터 전달
         navigate('/prescription/scanning', { 
             state: { 
-                uploadedFile: uploadedFiles[0],
-                language: i18n.language 
+                image: image
             } 
         });
     };
 
+    // 카메라 모드일 때 렌더링할 JSX
     if (isCamera) {
         return (
             <div className="flex flex-col px-5">
+                {/* 카메라 비디오 스트림 영역 */}
                 <div className="flex justify-center items-center">
                     <video
                         ref={videoRef}
@@ -172,6 +247,7 @@ const PrescriptionUploadPage = () => {
                     />
                 </div>
                 
+                {/* 카메라 제어 버튼들 */}
                 <div className="mt-8 space-y-3">
                     <TextButton 
                         text={t('prescription.buttons.capture')} 
@@ -190,20 +266,23 @@ const PrescriptionUploadPage = () => {
         );
     }
 
+    // 일반 업로드 모드일 때 렌더링할 JSX
     return (
         <div className="flex flex-col px-5 pt-3.25 gap-6">
+            {/* 드래그 앤 드롭 영역 */}
             <div 
                 {...getRootProps()} 
                 className={`flex flex-col justify-center items-center gap-3 p-3 w-full h-auto max-h-[500px] min-h-[225px] border-2 border-dashed rounded-[4px] transition-colors ${
                     isDragActive 
                         ? 'bg-[#3DE0AB20] border-[#3DE0AB]' 
-                        : uploadedFiles.length > 0
+                        : image
                         ? 'bg-[#3DE0AB10] border-[#3DE0AB]'
                         : 'bg-[#3DE0AB08] border-[#3DE0AB]'
                 }`}
             >
                 <input {...getInputProps()} />
-                {uploadedFiles.length > 0 ? (
+                {image ? (
+                    /* 파일이 업로드된 상태 */
                     <>
                         <img 
                             src={previewUrl} 
@@ -211,12 +290,12 @@ const PrescriptionUploadPage = () => {
                             className="max-w-full max-h-[400px] object-contain rounded-md"
                         />
                         <p className="text-xs font-medium text-[#00C88D]">
-                            {t('prescription.upload.file_uploaded')}: {uploadedFiles[0].name}
+                            {t('prescription.upload.file_uploaded')}: {image.name}
                         </p>
                         <button 
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setUploadedFiles([]);
+                                setImage(null);
                                 if (previewUrl) {
                                     URL.revokeObjectURL(previewUrl);
                                     setPreviewUrl(null);
@@ -228,6 +307,7 @@ const PrescriptionUploadPage = () => {
                         </button>
                     </>
                 ) : isDragActive ? (
+                    /* 드래그 중인 상태 */
                     <>
                         <img src={Document} alt="document" />
                         <p className="text-xs font-normal text-[#00C88D]">
@@ -238,6 +318,7 @@ const PrescriptionUploadPage = () => {
                         </p>
                     </>
                 ) : (
+                    /* 기본 상태 */
                     <>
                         <img src={Document} alt="document" />
                         <p className="text-xs font-normal">
@@ -250,12 +331,14 @@ const PrescriptionUploadPage = () => {
                 )}
             </div>
 
+            {/* "또는" 구분선 */}
             <div className="flex items-center h-11">
                 <div className="flex-1 h-px bg-[#A6A9AA]"></div>
                 <span className="px-[14px] text-sm text-[#A6A9AA]">{t('prescription.upload.or')}</span>
                 <div className="flex-1 h-px bg-[#A6A9AA]"></div>
             </div>
 
+            {/* 카메라/갤러리 선택 버튼들 */}
             <div className="space-y-3 mt-3.25 mb-15.25">
                 <TextButton 
                     text={t('prescription.buttons.camera')} 
@@ -271,11 +354,12 @@ const PrescriptionUploadPage = () => {
                 />
             </div>
 
+            {/* 스캔 시작 버튼 */}
             <TextButton 
                 text={t('prescription.buttons.scan')} 
                 icon={Right}
                 onClick={handleScan}
-                disabled={uploadedFiles.length === 0}
+                disabled={!image}
             />
         </div>
     );
