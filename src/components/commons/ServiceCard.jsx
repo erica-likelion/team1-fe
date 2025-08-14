@@ -1,6 +1,5 @@
 const ServiceCard = ({
   icon,
-  step,
   title,
   description,
   onClick,
