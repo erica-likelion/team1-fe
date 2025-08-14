@@ -1,6 +1,4 @@
-// 히스토리 관련 API 호출 함수들
-
-const BASE_URL = 'http://localhost:3000';
+import api from "@utils/apiClient"; 
 
 /**
  * 진료 기록(precheck) 목록을 가져오는 함수
@@ -29,15 +27,9 @@ export const fetchPrecheckHistory = async () => {
 
         // 실제 API 호출 코드 (현재 주석처리)
         /*
-        const response = await fetch(`${BASE_URL}/api/precheck`);
+        const response = await api.get('/api/precheck');
+        return response.data;*/
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        return data;
-        */
     } catch (error) {
         console.error('진료 기록을 가져오는 중 오류 발생:', error);
         throw error;
@@ -76,15 +68,9 @@ export const fetchPrescriptionHistory = async () => {
 
         // 실제 API 호출 코드 (현재 주석처리)
         /*
-        const response = await fetch(`${BASE_URL}/api/prescription`);
+        const response = await api.get('/api/prescription');
+        return response.data;*/
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        return data;
-        */
     } catch (error) {
         console.error('처방 기록을 가져오는 중 오류 발생:', error);
         throw error;
