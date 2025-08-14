@@ -4,7 +4,7 @@ import api from "@utils/apiClient";
  * 진료 기록(precheck) 목록을 가져오는 함수
  * @returns {Promise<Array>} 진료 기록 배열
  */
-export const fetchPrecheckHistory = async () => {
+export const getPrecheckHistory = async () => {
     try {
         // 지금은 목업 데이터 반환 -> 서버 통신 시에는 아래 주석 코드 사용하면 됨 
         return [
@@ -40,7 +40,7 @@ export const fetchPrecheckHistory = async () => {
  * 처방 기록(prescription) 목록을 가져오는 함수
  * @returns {Promise<Array>} 처방 기록 배열
  */
-export const fetchPrescriptionHistory = async () => {
+export const getPrescriptionHistory = async () => {
     try {
         // 지금은 목업 데이터 반환 -> 서버 통신 시에는 아래 주석 코드 사용하면 됨 
         return [
@@ -81,7 +81,7 @@ export const fetchPrescriptionHistory = async () => {
  * 통화 기록을 가져오는 함수 (향후 API 엔드포인트가 추가될 때를 대비)
  * @returns {Promise<Array>} 통화 기록 배열
  */
-export const fetchCallHistory = async () => {
+export const getCallHistory = async () => {
     try {
         // 현재는 임시 데이터 반환 (API 엔드포인트가 생기면 수정)
         return [

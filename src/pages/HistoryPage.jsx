@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import HistoryDiv from "@components/historypage/HistoryDiv";
-import { fetchCallHistory, fetchPrecheckHistory, fetchPrescriptionHistory } from "@apis/historyApi";
+import { getCallHistory, getPrecheckHistory, getPrescriptionHistory } from "@apis/historyApi";
 
 import Call from "@assets/images/logo.svg";
 import Doctor from "@assets/images/logo.svg";
@@ -23,9 +23,9 @@ const HistoryPage = () => {
                 
                 // 모든 API를 병렬로 호출
                 const [callData, diagnosisData, prescriptionData] = await Promise.all([
-                    fetchCallHistory(),
-                    fetchPrecheckHistory(),
-                    fetchPrescriptionHistory()
+                    getCallHistory(),
+                    getPrecheckHistory(),
+                    getPrescriptionHistory()
                 ]);
 
                 setCallHistory(callData);
