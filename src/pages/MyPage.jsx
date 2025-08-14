@@ -1,7 +1,7 @@
 /* 마이페이지 */
 
 import { getUserData } from "@utils/userUtils";
-import ServiceCard from "@components/homepage/ServiceCard";
+import ServiceCard from "@components/commons/ServiceCard";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
