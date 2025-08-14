@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import HistoryDiv from "@components/historypage/HistoryDiv";
 import { getCallHistory, getPrecheckHistory, getPrescriptionHistory } from "@apis/historyApi";
 
-import Call from "@assets/images/logo.svg";
-import Doctor from "@assets/images/logo.svg";
-import Medicine from "@assets/images/logo.svg";
+import Call from "@assets/images/call.svg";
+import Doctor from "@assets/images/doctor.svg";
+import Medicine from "@assets/images/medicine.svg";
 
 const HistoryPage = () => {
     const { t } = useTranslation();
