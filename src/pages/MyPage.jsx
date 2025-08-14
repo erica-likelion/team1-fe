@@ -47,7 +47,7 @@ const MyPage = () => {
             id: "2",
             title: t('mypage.buttons.button2.title'),
             description: t('mypage.buttons.button2.description'),
-            onClick: () => { navigate('/home') } // 임시
+            onClick: () => { navigate('/mypage/history') }
         },
         {
             id: "3",
