@@ -18,6 +18,8 @@ const GenderPage = () => {
     const gender_list = [
         { key: 'm', text: '남성' },
         { key: 'w', text: '여성' }]
+    
+    const canMoveNextStep = gender !== '';
 
     const handleNext = () => {
         console.log('gender:', gender);
@@ -44,7 +46,7 @@ const GenderPage = () => {
             <TextButton
                         text="입력하기"
                         onClick={handleNext}
-                        // disabled={!canMoveNextStep}
+                        disabled={!canMoveNextStep}
                         icon={WhiteChevronRight}
             /> 
             

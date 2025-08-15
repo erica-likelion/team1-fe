@@ -36,6 +36,8 @@ const CountryPage = () => {
         { key: 'sg', text: '싱가포르' }
     ];
 
+    const canMoveNextStep = country !== '';
+
     const handleNext = () => {
         console.log('country:', country);
         navigate('/treat-info-form/gender')
@@ -51,7 +53,7 @@ const CountryPage = () => {
             <TextButton
                         text="입력하기"
                         onClick={handleNext}
-                        // disabled={!canMoveNextStep}
+                        disabled={!canMoveNextStep}
                         icon={WhiteChevronRight}
             /> 
 
