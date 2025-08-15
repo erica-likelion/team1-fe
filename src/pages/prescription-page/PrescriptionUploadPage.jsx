@@ -104,7 +104,7 @@ const PrescriptionUploadPage = () => {
                     unit: '%',
                     width: 90,
                 },
-                1/Math.sqrt(2),
+                1,
                 width,
                 height
             ),
@@ -125,11 +125,16 @@ const PrescriptionUploadPage = () => {
             throw new Error('No 2d context');
         }
 
-        const pixelCrop = convertToPixelCrop(
-            crop,
-            image.naturalWidth,
-            image.naturalHeight
-        );
+        // 화면에 표시된 이미지 크기 기준으로 픽셀 좌표 계산
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+
+        const pixelCrop = {
+            x: crop.x * scaleX,
+            y: crop.y * scaleY,
+            width: crop.width * scaleX,
+            height: crop.height * scaleY
+        };
 
         canvas.width = pixelCrop.width;
         canvas.height = pixelCrop.height;
