@@ -9,15 +9,15 @@ import MyPage from '@pages/MyPage';
 import HistoryPage from '@pages/HistoryPage';
 import LanguagePage from '@pages/LanguagePage';
 import NamePage from '@pages/treat-info-form/NamePage'
-import AgePage from '../pages/treat-info-form/AgePage';
-import CountryPage from '../pages/treat-info-form/CountryPage';
-import GenderPage from '../pages/treat-info-form/GenderPage';
-import SymptomsPage from '../pages/treat-info-form/SymptomsPage';
+import AgePage from '@/pages/treat-info-form/AgePage';
+import CountryPage from '@pages/treat-info-form/CountryPage';
+import GenderPage from '@pages/treat-info-form/GenderPage';
+import SymptomsPage from '@pages/treat-info-form/SymptomsPage';
 import PrescriptionPage from '@pages/prescription-page/PrescriptionPage';
 import PrescriptionUploadPage from '@pages/prescription-page/PrescriptionUploadPage';
 import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScanningPage';
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
-import TreantInfoScanningPage from '../pages/treat-info-form/TreantInfoScanningPage';
+import TreantInfoScanningPage from '@/pages/treat-info-form/TreantInfoScanningPage';
 
 const Router = () => {
     return (
