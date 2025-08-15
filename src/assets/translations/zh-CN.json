@@ -85,7 +85,8 @@
             "camera": "拍照",
             "gallery": "从相册选择",
             "capture": "拍照",
-            "cancel": "取消"
+            "cancel": "取消",
+            "crop": "裁剪"
         },
         "upload": {
             "description": "请在此添加您的处方单图像。",
@@ -96,7 +97,14 @@
             "file_type_error": "仅支持 JPEG、PNG 文件格式。",
             "no_file_selected": "请先上传处方单图像。",
             "uploaded_image_alt": "已上传的处方单",
-            "file_uploaded": "文件上传成功"
+            "file_uploaded": "文件上传成功",
+            "recrop": "重新裁剪"
+        },
+        "crop": {
+            "title": "裁剪图片",
+            "description": "请调整区域以便处方单清晰可见。",
+            "confirm": "完成裁剪",
+            "cancel": "取消"
         },
         "scanning": {
             "message": "正在扫描{{name}}\n添加的处方单。",
