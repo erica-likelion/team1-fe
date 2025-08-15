@@ -395,9 +395,9 @@ const PrescriptionUploadPage = () => {
         return (
             <div className="flex flex-col px-5 justify-center items-center">
                 <div className="text-center mb-6 mt-2">
-                    <h2 className="text-2xl font-bold text-[#00A270] mb-2">
+                    <p className="text-2xl font-bold text-[#00A270] mb-2">
                         {t('prescription.crop.title')}
-                    </h2>
+                    </p>
                     <p className="text-sm text-gray-600 bg-[#3DE0AB]/10 px-4 py-2 rounded-lg border border-[#3DE0AB]/30">
                         {t('prescription.crop.description')}
                     </p>
@@ -418,7 +418,7 @@ const PrescriptionUploadPage = () => {
                     </ReactCrop>
                 </div>
                 
-                <div className="mt-8 space-y-3 w-full">
+                <div className="mt-8 space-y-3 w-[80%]">
                     <TextButton 
                         text={t('prescription.crop.confirm')} 
                         className="relative bg-[#3DE0AB] !text-[#00A270]"
