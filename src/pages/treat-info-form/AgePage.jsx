@@ -15,7 +15,7 @@ const AgePage = () => {
 
     const navigate = useNavigate(); 
 
-    const canMoveNextStep = 0 >= birthDate.length;
+    const canMoveNextStep = birthDate !== '';
 
     const handleNext = () => {
         console.log('birthDate:', birthDate);
