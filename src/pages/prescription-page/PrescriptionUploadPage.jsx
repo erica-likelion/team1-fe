@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCallback, useState, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
+import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 import TextButton from "@components/commons/TextButton"
 
@@ -36,6 +38,18 @@ const PrescriptionUploadPage = () => {
     
     // 이미지 미리보기 URL
     const [previewUrl, setPreviewUrl] = useState(null);
+    
+    // 크롭 모드 활성화 여부
+    const [isCropping, setIsCropping] = useState(false);
+    
+    // 크롭 영역 설정
+    const [crop, setCrop] = useState();
+    
+    // 크롭된 이미지 설정
+    const [croppedImageUrl, setCroppedImageUrl] = useState(null);
+    
+    // 크롭 이미지 요소 참조
+    const imgRef = useRef(null);
     
     // 비디오 요소에 대한 참조
     const videoRef = useRef(null);
@@ -80,6 +94,110 @@ const PrescriptionUploadPage = () => {
     }, []);
 
     /**
+     * 이미지 로드 완료 시 초기 크롭 영역 설정
+     */
+    const onImageLoad = useCallback((e) => {
+        const { width, height } = e.currentTarget;
+        const crop = centerCrop(
+            makeAspectCrop(
+                {
+                    unit: '%',
+                    width: 90,
+                },
+                1/Math.sqrt(2),
+                width,
+                height
+            ),
+            width,
+            height
+        );
+        setCrop(crop);
+    }, []);
+
+    /**
+     * 크롭된 이미지를 Canvas로 생성하여 Blob으로 변환
+     */
+    const getCroppedImg = useCallback((image, crop) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+            throw new Error('No 2d context');
+        }
+
+        const pixelCrop = convertToPixelCrop(
+            crop,
+            image.naturalWidth,
+            image.naturalHeight
+        );
+
+        canvas.width = pixelCrop.width;
+        canvas.height = pixelCrop.height;
+
+        ctx.drawImage(
+            image,
+            pixelCrop.x,
+            pixelCrop.y,
+            pixelCrop.width,
+            pixelCrop.height,
+            0,
+            0,
+            pixelCrop.width,
+            pixelCrop.height
+        );
+
+        return new Promise((resolve) => {
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    console.error('Canvas is empty');
+                    return;
+                }
+                const file = new File([blob], `cropped-prescription-${Date.now()}.jpg`, {
+                    type: 'image/jpeg',
+                });
+                resolve(file);
+            }, 'image/jpeg', 1);
+        });
+    }, []);
+
+    /**
+     * 크롭 완료 처리
+     */
+    const handleCropComplete = async () => {
+        if (!imgRef.current || !crop) return;
+
+        try {
+            const croppedFile = await getCroppedImg(imgRef.current, crop);
+            setImage(croppedFile);
+            
+            // 크롭된 이미지의 미리보기 URL 생성
+            const croppedUrl = URL.createObjectURL(croppedFile);
+            setCroppedImageUrl(croppedUrl);
+            
+            setIsCropping(false);
+        } catch (error) {
+            console.error('Crop failed:', error);
+        }
+    };
+
+    /**
+     * 크롭 취소 처리
+     */
+    const handleCropCancel = () => {
+        setIsCropping(false);
+        setCrop(undefined);
+    };
+
+    /**
+     * 크롭 모드 시작
+     */
+    const startCropping = () => {
+        if (image) {
+            setIsCropping(true);
+        }
+    };
+
+    /**
      * 드롭존에 파일이 드롭되었을 때 실행되는 콜백
      * @param {File[]} acceptedFiles - 허용된 파일들
      * @param {Object[]} rejectedFiles - 거부된 파일들
@@ -95,6 +213,8 @@ const PrescriptionUploadPage = () => {
         if (acceptedFiles.length > 0) {
             setImage(acceptedFiles[0]);
             createPreviewUrl(acceptedFiles[0]);
+            setCroppedImageUrl(null); // 새 이미지 선택 시 크롭된 이미지 초기화
+            setIsCropping(true); // 자동으로 크롭 모드로 전환
         }
     }, [createPreviewUrl]);
 
@@ -152,6 +272,8 @@ const PrescriptionUploadPage = () => {
             if (file) {
                 setImage(file);
                 createPreviewUrl(file);
+                setCroppedImageUrl(null); // 새 이미지 선택 시 크롭된 이미지 초기화
+                setIsCropping(true); // 자동으로 크롭 모드로 전환
             }
         };
         input.click();
@@ -181,6 +303,8 @@ const PrescriptionUploadPage = () => {
             });
             setImage(file);
             createPreviewUrl(file);
+            setCroppedImageUrl(null); // 새 이미지 선택 시 크롭된 이미지 초기화
+            setIsCropping(true); // 자동으로 크롭 모드로 전환
             stopCamera();
         }, 'image/jpeg', 1);
     };
@@ -266,6 +390,50 @@ const PrescriptionUploadPage = () => {
         );
     }
 
+    // 크롭 모드일 때 렌더링할 JSX
+    if (isCropping) {
+        return (
+            <div className="flex flex-col px-5 justify-center items-center">
+                <div className="text-center mb-6 mt-2">
+                    <h2 className="text-2xl font-bold text-[#00A270] mb-2">
+                        {t('prescription.crop.title')}
+                    </h2>
+                    <p className="text-sm text-gray-600 bg-[#3DE0AB]/10 px-4 py-2 rounded-lg border border-[#3DE0AB]/30">
+                        {t('prescription.crop.description')}
+                    </p>
+                </div>
+                <div className="flex max-w-[80%] mb-4 bg-black">
+                    <ReactCrop
+                        crop={crop}
+                        onChange={(c) => setCrop(c)}
+                        aspect={undefined}
+                        className=""
+                    >
+                        <img
+                            ref={imgRef}
+                            src={previewUrl}
+                            onLoad={onImageLoad}
+                            className="max-w-full object-contain"
+                        />
+                    </ReactCrop>
+                </div>
+                
+                <div className="mt-8 space-y-3 w-full">
+                    <TextButton 
+                        text={t('prescription.crop.confirm')} 
+                        className="relative bg-[#3DE0AB] !text-[#00A270]"
+                        onClick={handleCropComplete}
+                    />
+                    <TextButton 
+                        text={t('prescription.crop.cancel')}
+                        className="relative bg-gray-300 !text-[#909394]"
+                        onClick={handleCropCancel}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     // 일반 업로드 모드일 때 렌더링할 JSX
     return (
         <div className="flex flex-col px-5 pt-3.25 gap-6">
@@ -285,26 +453,41 @@ const PrescriptionUploadPage = () => {
                     /* 파일이 업로드된 상태 */
                     <>
                         <img 
-                            src={previewUrl} 
+                            src={croppedImageUrl || previewUrl} 
                             alt={t('prescription.upload.uploaded_image_alt')} 
                             className="max-w-full max-h-[400px] object-contain rounded-md"
                         />
                         <p className="text-xs font-medium text-[#00C88D]">
-                            {t('prescription.upload.file_uploaded')}: {image.name}
+                            {t('prescription.upload.file_uploaded')}
                         </p>
-                        <button 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setImage(null);
-                                if (previewUrl) {
-                                    URL.revokeObjectURL(previewUrl);
-                                    setPreviewUrl(null);
-                                }
-                            }}
-                            className="text-xs text-red-500 hover:text-red-700 underline"
-                        >
-                            {t('prescription.upload.select_other_image')}
-                        </button>
+                        <div className="flex gap-2 mt-2">
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    startCropping();
+                                }}
+                                className="text-xs text-blue-500 hover:text-blue-700 underline"
+                            >
+                                {t('prescription.upload.recrop')}
+                            </button>
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setImage(null);
+                                    if (previewUrl) {
+                                        URL.revokeObjectURL(previewUrl);
+                                        setPreviewUrl(null);
+                                    }
+                                    if (croppedImageUrl) {
+                                        URL.revokeObjectURL(croppedImageUrl);
+                                        setCroppedImageUrl(null);
+                                    }
+                                }}
+                                className="text-xs text-red-500 hover:text-red-700 underline"
+                            >
+                                {t('prescription.upload.select_other_image')}
+                            </button>
+                        </div>
                     </>
                 ) : isDragActive ? (
                     /* 드래그 중인 상태 */
