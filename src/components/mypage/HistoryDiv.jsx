@@ -35,7 +35,7 @@ const HistoryDiv = ({
             <div className="flex justify-between">
                 <p className="font-semibold text-black">{title}</p>
                 <TextButton 
-                    text={showAll ? t('history.close') : t('history.viewAll')} 
+                    text={showAll ? t('mypage.history.close') : t('mypage.history.viewAll')} 
                     icon={Right} 
                     onClick={handleShowAllClick} 
                     className={`!gap-1 !w-22 h-6.5 text-[12px] !p-0 font-medium ${relativeStyles} [&>img]:w-4 [&>img]:h-4`}
