@@ -116,6 +116,14 @@
         }
     },
 
+    "chat": {
+        "title": "Translation Chat",
+        "noneChat": {
+            "title": "No translation chat history.",
+            "description": "Press the + button below to start a new chat."
+        }
+    },
+
     "history": {
         "viewAll": "View All",
         "close": "Close",

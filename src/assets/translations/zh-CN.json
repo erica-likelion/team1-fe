@@ -115,6 +115,14 @@
         }
     },
 
+    "chat": {
+        "title": "翻译聊天",
+        "noneChat": {
+            "title": "没有翻译聊天记录。",
+            "description": "点击下方 + 按钮开始新的聊天。"
+        }
+    },
+
     "history": {
         "viewAll": "查看全部",
         "close": "收起",
