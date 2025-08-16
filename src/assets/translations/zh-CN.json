@@ -125,7 +125,7 @@
 
     "chat": {
         "title": "翻译聊天",
-        "noneChat": {
+        "noneChatList": {
             "title": "没有翻译聊天记录。",
             "description": "点击下方 + 按钮开始新的聊天。"
         }
