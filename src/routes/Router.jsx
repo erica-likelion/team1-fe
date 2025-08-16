@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SearchProvider } from '@contexts/SearchContext';
 
 import MainLayout from '@components/layouts/MainLayout';
 import SimpleLayout from '@components/layouts/SimpleLayout';
@@ -22,7 +23,8 @@ import TreantInfoScanningPage from '@/pages/treat-info-form/TreantInfoScanningPa
 const Router = () => {
     return (
         <BrowserRouter>
-            <Routes>
+            <SearchProvider>
+                <Routes>
                 <Route path="/" element={<SplashPage />} />
                 
                 <Route path="/" element={<MainLayout />}>
@@ -47,7 +49,8 @@ const Router = () => {
                 <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
                 <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
 
-            </Routes>
+                </Routes>
+            </SearchProvider>
         </BrowserRouter>
     )
 }

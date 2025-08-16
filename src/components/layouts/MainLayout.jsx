@@ -2,6 +2,7 @@
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSearch } from "@contexts/SearchContext";
 
 import TopNavBar from "@components/commons/TopNavBar";
 import BottomNavBar from "@components/commons/BottomNavBar";
@@ -11,8 +12,9 @@ const MainLayout = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { toggleSearch } = useSearch();
     
-    const navBarConfig = getNavBarConfig(location.pathname, navigate, t);
+    const navBarConfig = getNavBarConfig(location.pathname, navigate, t, toggleSearch);
 
     return (
         <div className="max-w-[375px] mx-auto">

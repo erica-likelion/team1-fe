@@ -39,7 +39,7 @@ const getNavBarTitle = (type, t) => {
 };
 
 // NavBar 타입별 핸들러 생성, LeftClick RightClick 순
-const getNavBarHandlers = (type, navigate) => {
+const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
     switch (type) {
         case 'home':
             return {
@@ -58,8 +58,11 @@ const getNavBarHandlers = (type, navigate) => {
             return {
                 onLeftClick: () => navigate('/home'),
                 onRightClick: () => {
-                    // 추후 수정: 검색 기능
-                    console.log('검색 클릭');
+                    if (toggleSearch) {
+                        toggleSearch('chatList');
+                    } else {
+                        console.log('검색 클릭 - toggleSearch 함수를 찾을 수 없음');
+                    }
                 }
             };
         case 'language':
@@ -77,10 +80,10 @@ const getNavBarHandlers = (type, navigate) => {
 };
 
 // NavBar 설정 통합 함수
-export const getNavBarConfig = (pathname, navigate, t) => {
+export const getNavBarConfig = (pathname, navigate, t, toggleSearch = null) => {
     const type = getNavBarType(pathname);
     const title = getNavBarTitle(type, t);
-    const handlers = getNavBarHandlers(type, navigate);
+    const handlers = getNavBarHandlers(type, navigate, toggleSearch);
 
     return {
         type,
