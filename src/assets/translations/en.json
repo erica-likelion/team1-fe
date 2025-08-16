@@ -80,7 +80,8 @@
             "camera": "Take Photo",
             "gallery": "Select from Gallery",
             "capture": "Capture",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "crop": "Crop"
         },
         "upload": {
             "description": "Please add your prescription image here.",
@@ -91,7 +92,14 @@
             "file_type_error": "Only JPEG and PNG files are supported.",
             "no_file_selected": "Please upload a prescription image first.",
             "uploaded_image_alt": "Uploaded prescription",
-            "file_uploaded": "File uploaded successfully"
+            "file_uploaded": "File uploaded successfully",
+            "recrop": "Crop Again"
+        },
+        "crop": {
+            "title": "Crop Image",
+            "description": "Please adjust the area so the prescription is clearly visible.",
+            "confirm": "Complete Crop",
+            "cancel": "Cancel"
         },
         "scanning": {
             "message": "Scanning the prescription\nadded by {{name}}.",

@@ -78,7 +78,8 @@
             "camera": "카메라 촬영",
             "gallery": "갤러리에서 선택",
             "capture": "촬영하기",
-            "cancel": "취소"
+            "cancel": "취소",
+            "crop": "크롭하기"
         },
         "upload": {
             "description": "이 곳을 클릭하여 파일을 추가하세요.",
@@ -89,7 +90,14 @@
             "file_type_error": "JPEG, PNG 파일만 업로드 가능합니다.",
             "no_file_selected": "처방전 이미지를 먼저 업로드해주세요.",
             "uploaded_image_alt": "업로드된 처방전",
-            "file_uploaded": "파일이 업로드되었습니다"
+            "file_uploaded": "파일이 업로드되었습니다",
+            "recrop": "다시 자르기"
+        },
+        "crop": {
+            "title": "이미지 자르기",
+            "description": "처방전이 잘 보이도록 영역을 조정해주세요.",
+            "confirm": "자르기 완료",
+            "cancel": "취소"
         },
         "scanning": {
             "message": "{{name}}님이 추가한\n처방전을 스캔하고 있어요.",
