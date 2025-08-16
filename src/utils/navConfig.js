@@ -19,8 +19,6 @@ const getNavBarTitle = (type, t) => {
     switch (type) {
         case 'mypage':
             return t('navigation.mypage');
-        case 'chat':
-            return t('navigation.chat');
         case 'language':
             return t('navigation.language');
         case 'prescription':
@@ -33,6 +31,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.preCheck');
         case 'history':
             return t('navigation.history');
+        case 'home':
+        case 'chat':
         default:
             return "";
     }
@@ -56,11 +56,11 @@ const getNavBarHandlers = (type, navigate) => {
             };
         case 'chat':
             return {
-                onLeftClick: () => {
+                onLeftClick: () => navigate('/home'),
+                onRightClick: () => {
                     // 추후 수정: 검색 기능
                     console.log('검색 클릭');
-                },
-                onRightClick: () => navigate('/language')
+                }
             };
         case 'language':
         case 'prescription':

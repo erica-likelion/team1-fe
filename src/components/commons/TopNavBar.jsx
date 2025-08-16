@@ -35,8 +35,8 @@ const NavBar = ({
                 rightIcon: Language,
             },
             chat: {
-                leftIcon: Search,
-                rightIcon: Language, 
+                leftIcon: Logo,
+                rightIcon: Search, 
             },
             default: {
                 leftIcon: LeftArrow,
