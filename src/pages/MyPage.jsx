@@ -1,16 +1,53 @@
 /* 마이페이지 */
 
 import { getUserData } from "@utils/userUtils";
-import ServiceCard from "@components/commons/ServiceCard";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+
+import HistoryDiv from "@components/mypage/HistoryDiv";
+import { getCallHistory, getPrecheckHistory, getPrescriptionHistory } from "@apis/historyApi";
+
+import Call from "@assets/images/call.svg";
+import Doctor from "@assets/images/doctor.svg";
+import Medicine from "@assets/images/medicine.svg";
 
 const MyPage = () => {
     const { t, i18n } = useTranslation();
-    const navigate = useNavigate();
     const user = getUserData();
     const {name: userName, gender: userGender} = user;
     const language = i18n.language;
+
+    const [callHistory, setCallHistory] = useState([]);
+    const [diagnosisHistory, setDiagnosisHistory] = useState([]);
+    const [prescriptionHistory, setPrescriptionHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    
+    // 컴포넌트 마운트 시 모든 히스토리 데이터 로드
+    useEffect(() => {
+        const loadHistoryData = async () => {
+            try {
+                setLoading(true);
+                
+                // 모든 API를 병렬로 호출
+                const [callData, diagnosisData, prescriptionData] = await Promise.all([
+                    getCallHistory(),
+                    getPrecheckHistory(),
+                    getPrescriptionHistory()
+                ]);
+
+                setCallHistory(callData);
+                setDiagnosisHistory(diagnosisData);
+                setPrescriptionHistory(prescriptionData);
+            } catch (err) {
+                console.error('히스토리 데이터 로드 실패:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadHistoryData();
+    }, []);
 
     const UserName = () => {
         return (
@@ -32,54 +69,28 @@ const MyPage = () => {
         )
     }
 
-    const handleUserInfo = () => {
-        navigate('/home'); // 임시
-    }
-
-    const serviceCardInfos = [
-        {
-            id: "1",
-            title: t('mypage.buttons.button1.title'),
-            description: t('mypage.buttons.button1.description'),
-            onClick: () => { navigate('/home') } // 임시
-        },
-        {
-            id: "2",
-            title: t('mypage.buttons.button2.title'),
-            description: t('mypage.buttons.button2.description'),
-            onClick: () => { navigate('/mypage/history') }
-        },
-        {
-            id: "3",
-            title: t('mypage.buttons.button3.title'),
-            description: t('mypage.buttons.button3.description'),
-            onClick: () => { navigate('/home') } // 임시
-        },
-        {
-            id: "4",
-            title: t('mypage.buttons.button4.title'),
-            description: t('mypage.buttons.button4.description'),
-            onClick: () => { navigate('/home') } // 임시
-        },
-    ];
-
     return (
         <div className="px-5">
-            <div className="flex justify-between items-center px-5 h-25 my-3">
-                <div className="flex text-[28px]">
+            <div className="flex justify-start items-center text-[28px] px-5 h-25 my-3">
                     <UserName />
-                </div>
-                <div className="cursor-pointer" onClick={handleUserInfo}>
-                    <p className="text-[12px] text-[#BDBDBD] underline underline-offset-2">{t('mypage.viewMyInfo')}</p>
-                </div>
             </div>
-
             <div className="mx-[-20px] w-[375px] h-2 bg-[#E9E9EA] mb-10"></div>
-
-            <div className="space-y-3">
-                {serviceCardInfos.map((info, idx) => (
-                    <ServiceCard key={info.id} title={info.title} description={info.description} onClick={info.onClick} className={idx%2 === 1 ? "mb-10" : ""}/>
-                ))}
+            <div className="space-y-6 my-6">
+                <HistoryDiv 
+                    title={t('mypage.history.titles.callHistory')} 
+                    icon={Call} 
+                    historyList={callHistory}
+                />
+                <HistoryDiv 
+                    title={t('mypage.history.titles.diagnosisHistory')} 
+                    icon={Doctor} 
+                    historyList={diagnosisHistory}
+                />
+                <HistoryDiv 
+                    title={t('mypage.history.titles.prescriptionHistory')} 
+                    icon={Medicine} 
+                    historyList={prescriptionHistory}
+                />
             </div>
         </div>
     );
