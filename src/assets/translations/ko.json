@@ -50,7 +50,11 @@
                 "callHistory": "전화 기록",
                 "diagnosisHistory": "진료 기록",
                 "prescriptionHistory": "처방 기록"
-            } 
+            },
+            "noneHistory": {
+                "title": "아직 기록이 없어요",
+                "description": "서비스를 이용하시면 기록이 표시돼요."
+            }
         }
     },
 

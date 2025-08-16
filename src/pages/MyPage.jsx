@@ -71,7 +71,7 @@ const MyPage = () => {
 
     return (
         <div className="px-5">
-            <div className="flex justify-start items-center text-[28px] px-5 h-25 my-3">
+            <div className="flex justify-start items-center text-[28px] h-25 my-3">
                     <UserName />
             </div>
             <div className="mx-[-20px] w-[375px] h-2 bg-[#E9E9EA] mb-10"></div>

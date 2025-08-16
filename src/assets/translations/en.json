@@ -51,7 +51,11 @@
                 "callHistory": "Call History",
                 "diagnosisHistory": "Diagnosis History",
                 "prescriptionHistory": "Prescription History"
-            } 
+            },
+            "noneHistory": {
+                "title": "No records yet",
+                "description": "Your records will appear once you use the service."
+            }
         }
     },
 
