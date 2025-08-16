@@ -6,7 +6,6 @@ import SplashPage from '@pages/SplashPage';
 import HomePage from '@pages/HomePage';
 import ChatPage from '@pages/ChatPage';
 import MyPage from '@pages/MyPage';
-import HistoryPage from '@pages/HistoryPage';
 import LanguagePage from '@pages/LanguagePage';
 import NamePage from '@pages/treat-info-form/NamePage'
 import AgePage from '@/pages/treat-info-form/AgePage';
@@ -41,12 +40,10 @@ const Router = () => {
                     <Route path="prescription" element={<PrescriptionPage />} />
                     <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
                     <Route path="prescription/result" element={<PrescriptionResultPage />} />
-                    <Route path="mypage/history" element={<HistoryPage />} />
                 </Route>
                 
                 <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
                 <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
-
             </Routes>
         </BrowserRouter>
     )

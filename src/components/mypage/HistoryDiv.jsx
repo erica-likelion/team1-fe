@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import ServiceCard from "@components/commons/ServiceCard";
 import TextButton from "@components/commons/TextButton";
 
+import Close from "@assets/images/circle_close.svg";
 import Right from "@assets/images/white_chevron_right.svg";
 
 const HistoryDiv = ({
@@ -31,25 +32,33 @@ const HistoryDiv = ({
     const relativeStyles = "relative bottom-auto left-auto transform-none translate-x-0 z-auto";
 
     return (
-        <div className="flex flex-col gap-2 px-5">
+        <div className="flex flex-col gap-2">
             <div className="flex justify-between">
                 <p className="font-semibold text-black">{title}</p>
                 <TextButton 
-                    text={showAll ? t('history.close') : t('history.viewAll')} 
+                    text={showAll ? t('mypage.history.close') : t('mypage.history.viewAll')} 
                     icon={Right} 
                     onClick={handleShowAllClick} 
                     className={`!gap-1 !w-22 h-6.5 text-[12px] !p-0 font-medium ${relativeStyles} [&>img]:w-4 [&>img]:h-4`}
                 />
             </div>
-            {displayedHistoryList.map((history) => (
+            {!displayedHistoryList.length ?
                 <ServiceCard 
-                    key={history.id}
-                    icon={icon} 
-                    title={history.title} 
-                    description={history.createdAt} 
-                    onClick={() => handleCardClick()}
+                    icon={Close} 
+                    title={t('mypage.history.noneHistory.title')} 
+                    description={t('mypage.history.noneHistory.description')}
                 />
-            ))}
+            :
+                displayedHistoryList.map((history) => (
+                    <ServiceCard 
+                        key={history.id}
+                        icon={icon} 
+                        title={history.title} 
+                        description={history.createdAt} 
+                        onClick={() => handleCardClick()}
+                    />
+                ))
+            }
         </div>
     )
 }
