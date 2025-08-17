@@ -57,7 +57,7 @@ const ChatPage = () => {
                 {isSearchMode ? (
                     <input
                         type="text"
-                        placeholder="채팅방 검색..."
+                        placeholder={t('chat.searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setQuery(e.target.value)}
                         className="w-full text-2xl font-medium bg-transparent border-none outline-none placeholder-[#BDBDBD]"
@@ -73,7 +73,7 @@ const ChatPage = () => {
             {filteredChatRooms.length === 0 ? (
                 <div className="flex flex-col w-full my-[220px] justify-center items-center gap-10">
                     <p className="font-semibold text-[#BDBDBD]">
-                        {isSearchMode && searchQuery ? '검색 결과가 없습니다.' : t('chat.noneChatList.title')}
+                        {isSearchMode && searchQuery ? t('chat.noSearch') : t('chat.noneChatList.title')}
                     </p>
                     {!isSearchMode && (
                         <p className="font-semibold text-center whitespace-pre-line">{t('chat.noneChatList.description')}</p>
@@ -82,7 +82,7 @@ const ChatPage = () => {
             ) : (
                 <div className="mt-4 space-y-3">
                     {filteredChatRooms.map((room) => (
-                        <>
+                        <div key={room.id} className="m-0">
                             <ServiceCard 
                                 icon={Logo}
                                 title={room.title}
@@ -91,8 +91,8 @@ const ChatPage = () => {
                                 onClick={() => handleChatRoomClick(room.id)}
                                 className="shadow-none"
                             />
-                            <div className="h-[2px] border-b-1 border-[#E9E9EA]" />
-                        </>
+                            <div className="my-0.5 border-b-1 border-[#E9E9EA]" />
+                        </div>
                     ))}
                 </div>
             )}
