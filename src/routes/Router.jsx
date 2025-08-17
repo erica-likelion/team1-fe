@@ -6,6 +6,7 @@ import SimpleLayout from '@components/layouts/SimpleLayout';
 import SplashPage from '@pages/SplashPage';
 import HomePage from '@pages/HomePage';
 import ChatPage from '@pages/ChatPage';
+import ChatRoomPage from '@pages/ChatRoomPage';
 import MyPage from '@pages/MyPage';
 import HistoryPage from '@pages/HistoryPage';
 import LanguagePage from '@pages/LanguagePage';
@@ -34,6 +35,7 @@ const Router = () => {
                 </Route>
                 
                 <Route path="/" element={<SimpleLayout />}>
+                    <Route path="chat/:id" element={<ChatRoomPage />} />
                     <Route path="language" element={<LanguagePage />} />
                     <Route path='treat-info-form/name' element={<NamePage />}/>
                     <Route path='treat-info-form/age' element={<AgePage />}/>
