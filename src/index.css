@@ -12,6 +12,11 @@ body {
   "Segoe UI Symbol", sans-serif;
   color: #17171B;
   background-color: #FAFAFA;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @layer utilities {
