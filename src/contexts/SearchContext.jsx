@@ -33,63 +33,80 @@ const initialState = {
 
 // 3. 액션 타입 정의 - 상태를 변경할 수 있는 모든 액션들
 const SEARCH_ACTIONS = {
-  TOGGLE_SEARCH: 'TOGGLE_SEARCH',           // 검색 모드 토글 (on ↔ off)
-  SET_QUERY: 'SET_QUERY',                   // 검색어 설정
-  CLEAR_SEARCH: 'CLEAR_SEARCH',             // 검색 상태 전체 초기화
-  SET_SEARCH_TYPE: 'SET_SEARCH_TYPE',       // 검색 타입 변경
-  SET_HIGHLIGHT_INDEX: 'SET_HIGHLIGHT_INDEX', // 하이라이트 인덱스 설정
-  SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS'  // 검색 결과 설정
+  // 🔧 액션을 더 명확하게 분리
+  TOGGLE_SEARCH_MODE: 'TOGGLE_SEARCH_MODE',     // 단순 on/off 토글
+  ENTER_SEARCH_MODE: 'ENTER_SEARCH_MODE',       // 특정 타입으로 검색 모드 진입
+  EXIT_SEARCH_MODE: 'EXIT_SEARCH_MODE',         // 검색 모드 완전 종료
+  SET_QUERY: 'SET_QUERY',
+  SET_SEARCH_TYPE: 'SET_SEARCH_TYPE',
+  SET_HIGHLIGHT_INDEX: 'SET_HIGHLIGHT_INDEX',
+  SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS'
 };
 
 // 4. 리듀서 함수 - 액션에 따라 상태를 어떻게 변경할지 정의
 // 📝 리듀서란? (state, action) => newState 형태의 순수함수
 const searchReducer = (state, action) => {
   switch (action.type) {
-    case SEARCH_ACTIONS.TOGGLE_SEARCH:
+    // 🎯 단순 토글 (타입 변경 없음)
+    case SEARCH_ACTIONS.TOGGLE_SEARCH_MODE:
       return {
         ...state,
         isSearchMode: !state.isSearchMode,
-        searchType: action.payload?.type || state.searchType,
-        // 검색 모드 해제 시 검색어와 결과 초기화
-        searchQuery: state.isSearchMode ? '' : state.searchQuery,
-        searchResults: state.isSearchMode ? [] : state.searchResults,
-        highlightedIndex: 0
+        // 검색 모드 종료 시에만 초기화
+        ...(state.isSearchMode && {
+          searchQuery: '',
+          searchResults: [],
+          highlightedIndex: 0
+        })
       };
-    
-    case SEARCH_ACTIONS.SET_QUERY:
+
+    // 🎯 특정 타입으로 검색 모드 진입
+    case SEARCH_ACTIONS.ENTER_SEARCH_MODE:
       return {
         ...state,
-        searchQuery: action.payload,
-        highlightedIndex: 0 // 새 검색어 입력 시 하이라이트 인덱스 리셋
+        isSearchMode: true,
+        searchType: action.payload, // payload는 무조건 있어야 함
+        searchQuery: '',
+        searchResults: [],
+        highlightedIndex: 0
       };
-    
-    case SEARCH_ACTIONS.CLEAR_SEARCH:
+
+    // 🎯 검색 모드 완전 종료
+    case SEARCH_ACTIONS.EXIT_SEARCH_MODE:
       return {
         ...state,
         isSearchMode: false,
         searchQuery: '',
         searchResults: [],
         highlightedIndex: 0
+        // searchType은 유지 (다음번 진입 시 기본값으로 사용)
       };
-    
+
+    case SEARCH_ACTIONS.SET_QUERY:
+      return {
+        ...state,
+        searchQuery: action.payload,
+        highlightedIndex: 0
+      };
+
     case SEARCH_ACTIONS.SET_SEARCH_TYPE:
       return {
         ...state,
         searchType: action.payload
       };
-    
+
     case SEARCH_ACTIONS.SET_HIGHLIGHT_INDEX:
       return {
         ...state,
         highlightedIndex: action.payload
       };
-    
+
     case SEARCH_ACTIONS.SET_SEARCH_RESULTS:
       return {
         ...state,
         searchResults: action.payload
       };
-    
+
     default:
       return state;
   }
@@ -103,29 +120,41 @@ export const SearchProvider = ({ children }) => {
 
   // 6. 액션 생성자들 - 컴포넌트에서 쉽게 사용할 수 있도록 함수로 래핑
   const actions = {
-    // 검색 모드 토글 (NavBar 검색 버튼 클릭 시 사용)
-    toggleSearch: (type = 'chatList') => 
-      dispatch({ type: SEARCH_ACTIONS.TOGGLE_SEARCH, payload: { type } }),
+    // 🔧 더 명확한 함수들
+    toggleSearchMode: () => 
+      dispatch({ type: SEARCH_ACTIONS.TOGGLE_SEARCH_MODE }),
     
-    // 검색어 설정 (사용자가 검색창에 타이핑할 때 사용)
+    enterSearchMode: (type = 'chatList') => 
+      dispatch({ type: SEARCH_ACTIONS.ENTER_SEARCH_MODE, payload: type }),
+    
+    exitSearchMode: () => 
+      dispatch({ type: SEARCH_ACTIONS.EXIT_SEARCH_MODE }),
+    
     setQuery: (query) => 
       dispatch({ type: SEARCH_ACTIONS.SET_QUERY, payload: query }),
     
-    // 검색 상태 전체 초기화
-    clearSearch: () => 
-      dispatch({ type: SEARCH_ACTIONS.CLEAR_SEARCH }),
-    
-    // 검색 타입 변경 (chatList ↔ chatMessage)
     setSearchType: (type) => 
       dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_TYPE, payload: type }),
     
-    // 하이라이트 인덱스 설정 (검색 결과 네비게이션용)
     setHighlightIndex: (index) => 
       dispatch({ type: SEARCH_ACTIONS.SET_HIGHLIGHT_INDEX, payload: index }),
     
-    // 검색 결과 설정
     setSearchResults: (results) => 
-      dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_RESULTS, payload: results })
+      dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_RESULTS, payload: results }),
+
+    // 🎯 편의 함수들
+    startChatListSearch: () => 
+      dispatch({ type: SEARCH_ACTIONS.ENTER_SEARCH_MODE, payload: 'chatList' }),
+    
+    startChatMessageSearch: () => 
+      dispatch({ type: SEARCH_ACTIONS.ENTER_SEARCH_MODE, payload: 'chatMessage' }),
+
+    // 🔄 기존 호환성을 위한 함수 (기존 코드가 깨지지 않도록)
+    toggleSearch: (type = 'chatList') => 
+      dispatch({ type: SEARCH_ACTIONS.ENTER_SEARCH_MODE, payload: type }),
+    
+    clearSearch: () => 
+      dispatch({ type: SEARCH_ACTIONS.EXIT_SEARCH_MODE })
   };
 
   // Provider로 state와 actions를 하위 컴포넌트들에게 제공
@@ -137,7 +166,6 @@ export const SearchProvider = ({ children }) => {
 };
 
 // 7. useSearch 커스텀 훅 - Context 값을 쉽게 사용할 수 있게 해주는 훅
-// 📝 사용법: const { isSearchMode, toggleSearch } = useSearch();
 export const useSearch = () => {
   const context = useContext(SearchContext);
   
@@ -148,3 +176,24 @@ export const useSearch = () => {
   
   return context;
 };
+
+/* 
+🎯 사용 예시:
+
+// NavBar에서 검색 버튼 클릭
+const { enterSearchMode } = useSearch();
+enterSearchMode('chatList'); // 채팅방 목록 검색 모드로 진입
+
+// 단순 토글만 하고 싶을 때
+const { toggleSearchMode } = useSearch();
+toggleSearchMode(); // 현재 상태만 뒤집기
+
+// 검색 종료
+const { exitSearchMode } = useSearch();
+exitSearchMode(); // 모든 검색 관련 상태 초기화
+
+// 편의 함수 사용
+const { startChatListSearch, startChatMessageSearch } = useSearch();
+startChatListSearch(); // 채팅방 목록 검색 시작
+startChatMessageSearch(); // 채팅 메시지 검색 시작
+*/
