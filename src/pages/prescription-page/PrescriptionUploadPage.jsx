@@ -99,18 +99,19 @@ const PrescriptionUploadPage = () => {
     const onImageLoad = useCallback((e) => {
         const { width, height } = e.currentTarget;
         const crop = centerCrop(
-            makeAspectCrop(
-                {
-                    unit: '%',
-                    width: 90,
-                },
-                1,
+                makeAspectCrop(
+                    {
+                        unit: 'px',
+                        width: width * 0.9,
+                    },
+                    1,
+                    width,
+                    height,
+                ),
                 width,
-                height
-            ),
-            width,
-            height
-        );
+                height,
+            );
+
         setCrop(crop);
     }, []);
 
