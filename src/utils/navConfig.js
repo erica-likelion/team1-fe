@@ -41,7 +41,7 @@ const getNavBarTitle = (type, t) => {
 };
 
 // NavBar 타입별 핸들러 생성, LeftClick RightClick 순
-const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
+const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
     switch (type) {
         case 'home':
             return {
@@ -60,10 +60,10 @@ const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
             return {
                 onLeftClick: () => navigate('/home'),
                 onRightClick: () => {
-                    if (toggleSearch) {
-                        toggleSearch('chatList');
+                    if (toggleSearchMode) {
+                        toggleSearchMode();
                     } else {
-                        console.log('검색 클릭 - toggleSearch 함수를 찾을 수 없음');
+                        console.log('검색 클릭 - toggleSearchMode 함수를 찾을 수 없음');
                     }
                 }
             };
@@ -71,10 +71,10 @@ const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
             return {
                 onLeftClick: () => navigate(-1), 
                 onRightClick: () => {
-                    if (toggleSearch) {
-                        toggleSearch('chatMessage'); 
+                    if (toggleSearchMode) {
+                        toggleSearchMode();
                     } else {
-                        console.log('검색 클릭 - toggleSearch 함수를 찾을 수 없음');
+                        console.log('검색 클릭 - toggleSearchMode 함수를 찾을 수 없음');
                     }
                 }
             };
@@ -93,10 +93,10 @@ const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
 };
 
 // NavBar 설정 통합 함수
-export const getNavBarConfig = (pathname, navigate, t, toggleSearch = null) => {
+export const getNavBarConfig = (pathname, navigate, t, toggleSearchMode = null) => {
     const type = getNavBarType(pathname);
     const title = getNavBarTitle(type, t);
-    const handlers = getNavBarHandlers(type, navigate, toggleSearch);
+    const handlers = getNavBarHandlers(type, navigate, toggleSearchMode);
 
     return {
         type,

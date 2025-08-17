@@ -12,9 +12,9 @@ const MainLayout = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const { toggleSearch } = useSearch();
+    const { toggleSearchMode } = useSearch();
     
-    const navBarConfig = getNavBarConfig(location.pathname, navigate, t, toggleSearch);
+    const navBarConfig = getNavBarConfig(location.pathname, navigate, t, toggleSearchMode);
 
     return (
         <div className="max-w-[375px] mx-auto">
