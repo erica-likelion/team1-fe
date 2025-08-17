@@ -128,6 +128,14 @@
         "noneChatList": {
             "title": "没有翻译聊天记录。",
             "description": "点击下方 + 按钮开始新的聊天。"
+        },
+        "noSearch": "没有搜索结果。",
+        "searchPlaceholder": "搜索聊天室...",
+        "selectChatType": "请点击聊天室按钮。",
+        "enterMessage": "请输入消息...",
+        "type": {
+            "consultation": "诊疗",
+            "prescription": "处方"
         }
     },
 

@@ -126,9 +126,17 @@
 
     "chat": {
         "title": "Translation Chat",
-        "noneChat": {
+        "noneChatList": {
             "title": "No translation chat history.",
             "description": "Press the + button below to start a new chat."
+        },
+        "noSearch": "No search results found.",
+        "searchPlaceholder": "Search chat rooms...",
+        "selectChatType": "Please click the chat room button.",
+        "enterMessage": "Please enter a message...",
+        "type": {
+            "consultation": "Consultation",
+            "prescription": "Prescription"
         }
     },
 

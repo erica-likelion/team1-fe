@@ -2,6 +2,7 @@
     "brand" : "메디 메이트", 
     "navigation" : {
         "chat": "통역 채팅",
+        "chatroom": "채팅",
         "home": "홈",
         "mypage": "마이페이지",
         "language": "언어",
@@ -128,6 +129,14 @@
         "noneChatList": {
             "title": "통역 채팅 내역이 없어요.",
             "description": "아래 + 버튼을 눌러\n 새 채팅을 시작해보세요."
+        },
+        "noSearch": "검색 결과가 없습니다.",
+        "searchPlaceholder": "채팅방 검색...",
+        "selectChatType": "채팅방의 버튼을 클릭해주세요.",
+        "enterMessage": "채팅을 입력해주세요...",
+        "type": {
+            "consultation": "진료",
+            "prescription": "처방"
         }
     },
 
@@ -140,6 +149,10 @@
         },
         "wait": "잠시만 기다려주세요..."
         }
+    },
+
+    "common": {
+        "loading": "로딩 중..."
     },
 
     "history": {
