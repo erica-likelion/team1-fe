@@ -20,8 +20,6 @@ const getNavBarTitle = (type, t) => {
     switch (type) {
         case 'mypage':
             return t('navigation.mypage');
-        case 'chatroom':
-            return t('navigation.chatroom');
         case 'language':
             return t('navigation.language');
         case 'prescription':
@@ -36,6 +34,7 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.history');
         case 'home':
         case 'chat':
+        case 'chatroom':
         default:
             return "";
     }
