@@ -38,6 +38,10 @@ const NavBar = ({
                 leftIcon: Logo,
                 rightIcon: Search, 
             },
+            chatroom: {
+                leftIcon: LeftArrow,
+                rightIcon: Search,
+            },
             default: {
                 leftIcon: LeftArrow,
                 rightIcon: Close,

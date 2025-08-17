@@ -5,6 +5,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/home' || pathname === '/') return 'home';
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
+    if (pathname.startsWith('/chat/')) return 'chatroom'; 
     if (pathname === '/language') return 'language';
     if (pathname === '/prescription') return 'prescription';
     if (pathname === '/prescription/upload') return 'prescription_upload';
@@ -19,6 +20,8 @@ const getNavBarTitle = (type, t) => {
     switch (type) {
         case 'mypage':
             return t('navigation.mypage');
+        case 'chatroom':
+            return t('navigation.chatroom');
         case 'language':
             return t('navigation.language');
         case 'prescription':
@@ -60,6 +63,17 @@ const getNavBarHandlers = (type, navigate, toggleSearch = null) => {
                 onRightClick: () => {
                     if (toggleSearch) {
                         toggleSearch('chatList');
+                    } else {
+                        console.log('검색 클릭 - toggleSearch 함수를 찾을 수 없음');
+                    }
+                }
+            };
+        case 'chatroom':
+            return {
+                onLeftClick: () => navigate(-1), 
+                onRightClick: () => {
+                    if (toggleSearch) {
+                        toggleSearch('chatMessage'); 
                     } else {
                         console.log('검색 클릭 - toggleSearch 함수를 찾을 수 없음');
                     }
