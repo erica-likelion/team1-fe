@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { getChatRooms } from "@apis/chatApi";
 import { useSearch } from "@contexts/SearchContext";
 
@@ -12,6 +13,7 @@ import Plus from "@assets/images/plus.svg";
 
 const ChatPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [chatRooms, setChatRooms] = useState([]);
     const { isSearchMode, searchQuery, setQuery, toggleSearch } = useSearch();
 
@@ -38,9 +40,15 @@ const ChatPage = () => {
         );
     }, [chatRooms, searchQuery]);
 
+    // 채팅방 클릭 시 해당 채팅방으로 이동
+    const handleChatRoomClick = (roomId) => {
+        navigate(`/chat/${roomId}`);
+    };
+
     const createNewChat = () => {
-        // 새 채팅 생성 로직
-        console.log('새 채팅 생성');
+        // 새 채팅 생성 로직 (임시: 새로운 ID로 채팅방 생성)
+        const newRoomId = `room-${Date.now()}`;
+        navigate(`/chat/${newRoomId}`);
     };
 
     return (
@@ -80,7 +88,7 @@ const ChatPage = () => {
                                 title={room.title}
                                 description={room.description}
                                 description2={room.createdAt}
-                                onClick={() => {}}
+                                onClick={() => handleChatRoomClick(room.id)}
                                 className="shadow-none"
                             />
                             <div className="h-[2px] border-b-1 border-[#E9E9EA]" />
