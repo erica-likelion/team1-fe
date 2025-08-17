@@ -15,7 +15,7 @@ const ChatPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [chatRooms, setChatRooms] = useState([]);
-    const { isSearchMode, searchQuery, setQuery, toggleSearch } = useSearch();
+    const { isSearchMode, searchQuery, setQuery } = useSearch();
 
     useEffect(() => {
         loadChatRooms();
@@ -53,25 +53,26 @@ const ChatPage = () => {
 
     return (
         <div className="p-5 h-auto">
-            <div className="border-b-1 border-[#E0E0E0] p-2.5 bg-[#FAFAFA] relative z-30">
+            <div className="flex flex-col item-center mx-5 bg-[#FAFAFA] fixed top-15.5 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50">
                 {isSearchMode ? (
                     <input
                         type="text"
                         placeholder={t('chat.searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="w-full text-2xl font-medium bg-transparent border-none outline-none placeholder-[#BDBDBD]"
+                        className="p-2.5 pt-4.5 w-full text-2xl font-medium border-none outline-none placeholder-[#BDBDBD]"
                         autoFocus
                     />
                 ) : (
-                    <p className="text-2xl font-medium">
+                    <p className="p-2.5 pt-4.5 text-2xl w-full font-medium">
                         {t('chat.title')}
                     </p>
                 )}
+                <div className="h-[1px] w-[335px] bg-[#E0E0E0]"/>
             </div>
 
             {filteredChatRooms.length === 0 ? (
-                <div className="flex flex-col w-full my-[220px] justify-center items-center gap-10">
+                <div className="flex flex-col w-full my-[220px] justify-center items-center gap-10 pt-19">
                     <p className="font-semibold text-[#BDBDBD]">
                         {isSearchMode && searchQuery ? t('chat.noSearch') : t('chat.noneChatList.title')}
                     </p>
@@ -80,7 +81,7 @@ const ChatPage = () => {
                     )}
                 </div>
             ) : (
-                <div className="mt-4 space-y-3">
+                <div className="mt-16 space-y-3">
                     {filteredChatRooms.map((room) => (
                         <div key={room.id} className="m-0">
                             <ServiceCard 
