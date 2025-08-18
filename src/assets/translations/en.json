@@ -142,7 +142,8 @@
         "qr": {
             "title": "Invite Medical Staff",
             "scanGuide": "When the other person scans the QR code,\nthey can join the chat room.",
-            "share": "Share"
+            "share": "Share",
+            "copy": "Medical staff URL has been copied."
         }
     },
 

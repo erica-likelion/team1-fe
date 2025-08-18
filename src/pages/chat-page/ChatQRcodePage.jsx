@@ -1,5 +1,6 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import QRCode from 'react-qr-code';
 
 import TextButton from "@components/commons/TextButton";
 
@@ -10,19 +11,16 @@ const ChatQRcodePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
-    
     const { roomCode } = location.state || {};
+
+    const mediURL = `${window.location.origin}/chat/${id}?userType=medi`;
 
     // 공유하기 버튼 클릭 핸들러
     const handleShareClick = () => {
-        console.log('QR 코드 공유하기');
-        // 추후 공유 기능 구현
+        navigator.clipboard.writeText(mediURL);
+        alert(t('chat.qr.copy'));
     };
 
-    // 채팅으로 돌아가기
-    const handleBackToChat = () => {
-        navigate(`/chat/${id}`);
-    };
 
     return (
         <div className="flex flex-col h-full px-5">
@@ -38,9 +36,10 @@ const ChatQRcodePage = () => {
             {/* QR 코드 영역 */}
             <div className="flex flex-col items-center justify-center pt-19">
                 <div className="w-full aspect-square border-1 border-[#D3D4D4] rounded-sm flex items-center justify-center mb-6">
-                    <span className="font-medium text-[#BDBDBD] text-2xl">
-                        {t('navigation.qrCode')}
-                    </span>
+                    <QRCode 
+                        value={mediURL}
+                        className='p-5 w-full h-full'
+                    />
                 </div>
                 <p className="text-center text-[#909394] whitespace-pre-line">
                     {t('chat.qr.scanGuide')}
@@ -49,7 +48,7 @@ const ChatQRcodePage = () => {
             <TextButton 
                 text={t('chat.qr.share')} 
                 icon={Right}
-                onClick={() => {}}
+                onClick={handleShareClick}
             />
         </div>
     );

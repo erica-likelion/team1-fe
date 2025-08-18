@@ -58,7 +58,7 @@ const ChatRoomPage = () => {
         fetchMessages();
 
         // 임시 추후 변경 가능 
-        setChatRoomInfo({type: "consulation", date: "2025-08-18"});
+        setChatRoomInfo({type: "consultation", date: "2025-08-18"});
         return () => disconnect();
     }, [id]);
 
