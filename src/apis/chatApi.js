@@ -24,20 +24,23 @@ export const getChatRooms = async () => {
     //const response = await api.get('/api/chat/rooms');
     return [
       {
-        id: "chat_001",
+        id: 1,
         title: "Name1",
+        roomCode: "slfknl2n2d",
         description: "내과 예약 관련 통역 채팅",
         createdAt: "2025-03-12"
       },
       {
-        id: "chat_002",
+        id: 2,
         title: "Name2",
+        roomCode: "slfknl2n2d",
         description: "내과 예약 관련 통역 채팅",
         createdAt: "2025-03-12"
       },
       {
-        id: "chat_003",
+        id: 3,
         title: "Name3",
+        roomCode: "slfknl2n2d",
         description: "내과 예약 관련 통역 채팅",
         createdAt: "2025-03-12"
       },
@@ -93,71 +96,48 @@ export const getChatMessages = async (roomId) => {
     // 화면 표시용 목업 데이터
     return [
       {
-        id: '1',
-        sender: 'doctor',
-        content: '안녕하세요! 어떤 건강 관련 질문이 있으신가요?',
+        id: 1,
+        sender: 'medi',
+        message: '안녕하세요! 어떤 건강 관련 질문이 있으신가요?',
         koreanContent: 'k안녕하세요! 어떤 건강 관련 질문이 있으신가요?',
-        timestamp: new Date(Date.now() - 3600000).toISOString()
+        createdAt: new Date(Date.now() - 3600000).toISOString(),
+        roomId: 1
       },
       {
-        id: '2',
+        id: 2,
         sender: 'user',
-        content: '최근에 두통이 자주 발생해서 걱정이에요.',
+        message: '최근에 두통이 자주 발생해서 걱정이에요.',
         koreanContent: 'k최근에 두통이 자주 발생해서 걱정이에요.',
-        timestamp: new Date(Date.now() - 3000000).toISOString()
+        createdAt: new Date(Date.now() - 3000000).toISOString(),
+        roomId: 1
       },
       {
-        id: '3',
+        id: 3,
         sender: 'doctor',
-        content: '두통의 빈도와 강도에 대해 자세히 알려주시겠어요? 언제부터 시작되었고, 어떤 상황에서 더 심해지는지 궁금합니다.',
+        message: '두통의 빈도와 강도에 대해 자세히 알려주시겠어요? 언제부터 시작되었고, 어떤 상황에서 더 심해지는지 궁금합니다.',
         koreanContent: 'k두통의 빈도와 강도에 대해 자세히 알려주시겠어요? 언제부터 시작되었고, 어떤 상황에서 더 심해지는지 궁금합니다.',
-        timestamp: new Date(Date.now() - 2900000).toISOString()
+        createdAt: new Date(Date.now() - 2900000).toISOString(),
+        roomId: 1
       },
       {
         id: '4',
         sender: 'user',
-        content: '일주일 전부터 하루에 2-3번 정도 발생하고, 스트레스를 받을 때 더 심해지는 것 같아요.',
+        message: 'dd일주일 전부터 하루에 2-3번 정도 발생하고, 스트레스를 받을 때 더 심해지는 것 같아요.',
         koreanContent: 'k일주일 전부터 하루에 2-3번 정도 발생하고, 스트레스를 받을 때 더 심해지는 것 같아요.',
-        timestamp: new Date(Date.now() - 2800000).toISOString()
+        createdAt: new Date(Date.now() - 2800000).toISOString(),
+        roomId: 1
       },
       {
         id: '5',
         sender: 'doctor',
-        content: '스트레스성 두통일 가능성이 높아 보입니다. 충분한 휴식과 수분 섭취를 권합니다. 증상이 지속되면 병원 방문을 추천드려요.',
+        message: '스트레스성 두통일 가능성이 높아 보입니다. 충분한 휴식과 수분 섭취를 권합니다. 증상이 지속되면 병원 방문을 추천드려요.',
         koreanContent: 'k스트레스성 두통일 가능성이 높아 보입니다. 충분한 휴식과 수분 섭취를 권합니다. 증상이 지속되면 병원 방문을 추천드려요.',
-        timestamp: new Date(Date.now() - 2700000).toISOString()
+        createdAt: new Date(Date.now() - 2700000).toISOString(),
+        roomId: 1
       }
     ];
   } catch (error) {
     console.error('채팅 메시지 조회 실패:', error);
-    throw error;
-  }
-};
-
-/**
- * 채팅방에 새 메시지 전송
- * @param {object} messageData - 메시지 데이터
- * @param {number} messageData.roomId - 채팅방 ID (정수형)
- * @param {string} messageData.sender - 발신자 ("user" | "doctor")
- * @param {string} messageData.language - 사용자 언어 ("korean" | "english" | "chinese")
- * @param {string} messageData.message - 메시지 원문
- * @returns {Promise<void>} 반환값 없음 (실시간 소켓 통신으로 처리)
- * @example
- * await sendChatMessage({
- *   roomId: 1,
- *   sender: "user",
- *   language: "english",
- *   message: "Hello, I have a headache"
- * });
- */
-export const sendChatMessage = async (messageData) => {
-  try {
-    // await api.post('/api/chat/message', messageData);
-    
-    // 임시: 실제 API 호출 없이 성공으로 처리
-    console.log('메시지 전송:', messageData);
-  } catch (error) {
-    console.error('메시지 전송 실패:', error);
     throw error;
   }
 };
