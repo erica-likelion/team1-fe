@@ -19,15 +19,20 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
-import { getChatMessages, sendChatMessage } from '@apis/chatApi';
+import { getChatMessages } from '@apis/chatApi';
 import ChatBar from '@components/chatpage/ChatBar';
 import Message from '@components/chatpage/Message';
+import { useUser } from '@contexts/userContext';
 
+import { Stomp } from "@stomp/stompjs";
+ 
 const ChatRoomPage = () => {
     const { id } = useParams(); // URL에서 채팅방 ID 추출
+    const location = useLocation();
+    const { user: currentUser } = useUser();
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { isSearchMode, searchQuery, setQuery, highlightedIndex, setHighlightIndex } = useSearch();
@@ -42,11 +47,56 @@ const ChatRoomPage = () => {
     const messagesContainerRef = useRef(null);
     const messageRefs = useRef({});
 
+    // STOMP 클라이언트를 위한 ref, 웹소켓 연결을 유지하기 위해 사용
+    const stompClient = useRef(null);
+
+    const { roomCode } = location.state || {};
+
     // 컴포넌트 마운트 시 채팅방 데이터 로드
     useEffect(() => {
-        loadChatRoomData();
+        connect();
+        fetchMessages();
+
+        // 임시 추후 변경 가능 
+        setChatRoomInfo({type: "consulation", date: "2025-08-18"});
+        return () => disconnect();
     }, [id]);
 
+    const connect = () => {
+        const socket = new WebSocket("ws://localhost:8080/ws");
+        stompClient.current = Stomp.over(() => socket);
+        stompClient.current.connect({}, () => {
+            console.log("WebSocket 연결 성공");
+            stompClient.current.subscribe(`/sub/chat/rooms/${id}`, 
+                (message) => {
+                    console.log("메시지 수신:", message.body);
+                    const newMessage = JSON.parse(message.body);
+                    setMessages((prev) => [...prev, newMessage]);
+            });
+        }, (error) => {
+            console.error("WebSocket 연결 실패:", error);
+        });
+        console.log("방 번호", id);
+    }
+
+    const disconnect = () => {
+        if (stompClient.current) {
+            stompClient.current.disconnect();
+        }
+    }
+
+    const fetchMessages = async () => {
+        try {
+            setIsLoading(true);
+            const messages = await getChatMessages(id);
+            setMessages(messages);
+        } catch (err) {
+            console.log(err);
+            setMessages([]);
+        } finally {
+            setIsLoading(false);
+        }
+    }
     // 새 메시지 추가 시 자동 스크롤
     useEffect(() => {
         scrollToBottom();
@@ -81,72 +131,31 @@ const ChatRoomPage = () => {
         }
     }, [searchQuery]);
 
-    // 채팅방 데이터 로드 함수
-    const loadChatRoomData = async () => {
-        try {
-            setIsLoading(true);
-            
-            // API에서 채팅 메시지 가져오기 (이미 화면 표시용 형태로 반환)
-            const messages = await getChatMessages(id);
-            
-            // 임시 채팅방 정보 (추후 getChatRoom API로 대체 가능)
-            const chatRoomInfo = {
-                id: id,
-                type: "consultation", // "consultation" | "prescription"
-                title: `채팅방 ${id}`,
-                date: "2025-08-26",
-                participants: ['사용자', '의료진']
+    // 새 메세지를 보내는 함수
+    const handleSendMessage = (message) => {
+        if (stompClient.current && message) {
+            const now = new Date();
+            //const kstTime = now.getTime() + (9 * 60 * 60 * 1000); // 9시간 추가
+            //const kstDate = (new Date(kstTime)).toISOString().split("T")[0];
+            const messageObj = {
+                sender: currentUser.type,
+                message: message,
+                createdAt: now.toISOString(), 
+                roomId: id
             };
-
-            setChatRoomInfo(chatRoomInfo);
-            setMessages(messages);
-        } catch (error) {
-            console.error('채팅방 데이터 로드 실패:', error);
-            // 에러 발생 시 빈 배열로 설정
-            setMessages([]);
-        } finally {
-            setIsLoading(false);
+            console.log("메시지 전송:", messageObj);
+            stompClient.current.send('/pub/chat/message', {}, JSON.stringify(messageObj));
         }
+        console.log("현재 메시지 목록:", messages);
     };
 
-    // 메시지 전송 핸들러
-    const handleSendMessage = async (messageContent) => {
-        try {
-            // 1. 사용자 메시지를 즉시 화면에 추가 (낙관적 업데이트)
-            const userMessage = {
-                id: `msg-${Date.now()}`,
-                sender: 'user',
-                content: messageContent,
-                koreanContent: messageContent,
-                timestamp: new Date().toISOString()
-            };
-            setMessages(prev => [...prev, userMessage]);
-
-            // 2. API로 메시지 전송
-            await sendChatMessage({
-                roomId: parseInt(id),
-                sender: "user",
-                language: "korean", // 임시로 한국어 고정
-                message: messageContent
-            });
-
-            // 3. 임시: AI 응답 시뮬레이션 (추후 실시간 소켓으로 대체)
-            setTimeout(() => {
-                const aiResponse = {
-                    id: `ai-${Date.now()}`,
-                    sender: '의료진',
-                    content: '답변을 분석 중입니다. 잠시만 기다려주세요.',
-                    koreanContent: '답변을 분석 중입니다. 잠시만 기다려주세요.',
-                    timestamp: new Date().toISOString(),
-                    type: 'received'
-                };
-                setMessages(prev => [...prev, aiResponse]);
-            }, 1000);
-
-        } catch (error) {
-            console.error('메시지 전송 실패:', error);
-            // TODO: 에러 처리 (실패한 메시지 표시, 재전송 기능 등)
-        }
+    // QR 버튼 클릭 핸들러
+    const handleQrCodeClick = () => {
+        navigate(`/chat/${id}/qr`, {
+            state: {
+                roomCode: roomCode
+            }
+        });
     };
 
     // Plus 버튼 클릭 핸들러
@@ -170,8 +179,8 @@ const ChatRoomPage = () => {
     const getSearchResults = () => {
         if (!searchQuery) return [];
         return messages.filter(message => 
-            message.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            message.koreanContent.toLowerCase().includes(searchQuery.toLowerCase())
+            (message.message || message.content || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (message.koreanMessage || message.koreanContent || '').toLowerCase().includes(searchQuery.toLowerCase())
         );
     };
 
@@ -242,9 +251,9 @@ const ChatRoomPage = () => {
                 ref={messagesContainerRef}
                 className="overflow-y-auto space-y-4 pt-16 mt-12.5 mb-15"
             >
-                {messages.map((message) => (
+                {messages.map((message, index) => (
                     <Message 
-                        key={message.id}
+                        key={`${message.id}-${index}`}
                         message={message}
                         ref={(el) => messageRefs.current[message.id] = el}
                     />
@@ -257,9 +266,10 @@ const ChatRoomPage = () => {
             {/* 메시지 입력 컴포넌트 */}
             <ChatBar 
                 onSendMessage={handleSendMessage}
+                onQrCodeClick={handleQrCodeClick}
                 onPlusClick={handlePlusClick}
                 onMicClick={handleMicClick}
-                disabled={isLoading}
+                disabled={isLoading} 
             />
         </div>
     );

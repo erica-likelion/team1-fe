@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from 'react';
 const userContext = createContext();
 
 export const UserProvider= ({children}) =>{
-    const [user, setUser] = useState({name: "멋사", gender: "M"});
+    const [user, setUser] = useState({id: 1, type: "user", name: "멋사", gender: "M"});
 
     return (
         <userContext.Provider value={{user, setUser}}>
