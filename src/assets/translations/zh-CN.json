@@ -14,7 +14,8 @@
             "guide": "处方单扫描指南",
             "upload": "添加要扫描的处方单",
             "description": "处方单说明"
-        }
+        },
+        "qrCode": "聊天室 QR"
     },
 
     "homepage": {
@@ -120,7 +121,8 @@
                 "part1": "美迪伙伴已经分析并说明了\n",
                 "part2": "的处方！"
             }
-        }
+        },
+        "qrCode": "聊天室 QR"
     },
 
     "chat": {
@@ -136,6 +138,11 @@
         "type": {
             "consultation": "诊疗",
             "prescription": "处方"
+        },
+        "qr": {
+            "title": "邀请医护人员",
+            "scanGuide": "对方扫描二维码后\n即可加入聊天室。",
+            "share": "分享"
         }
     },
 

@@ -5,13 +5,16 @@ const getNavBarType = (pathname) => {
     if (pathname === '/home' || pathname === '/') return 'home';
     if (pathname === '/mypage') return 'mypage';
     if (pathname === '/chat') return 'chat';
-    if (pathname.startsWith('/chat/')) return 'chatroom'; 
     if (pathname === '/language') return 'language';
     if (pathname === '/prescription') return 'prescription';
     if (pathname === '/prescription/upload') return 'prescription_upload';
     if (pathname === '/prescription/result') return 'prescription_result';
-    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
     if (pathname === '/mypage/history') return 'history';
+
+    if (pathname.endsWith('/qr')) return 'qr';
+    if (pathname.startsWith('/chat/')) return 'chatroom';
+    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
+
     return 'default';
 };
 
@@ -32,6 +35,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.preCheck');
         case 'history':
             return t('navigation.history');
+        case 'qr':
+            return t('navigation.qrCode');
         case 'home':
         case 'chat':
         case 'chatroom':
@@ -77,6 +82,11 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
                         console.log('검색 클릭 - toggleSearchMode 함수를 찾을 수 없음');
                     }
                 }
+            };
+        case 'qr':
+            return {
+                onLeftClick: () => navigate(-1), // 채팅방으로 뒤로가기
+                onRightClick: null // 오른쪽 버튼 없음
             };
         case 'language':
         case 'prescription':

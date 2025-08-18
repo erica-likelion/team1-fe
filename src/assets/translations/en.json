@@ -14,7 +14,8 @@
             "guide": "Scan Guide",
             "upload": "Add Prescription",
             "description": "Prescription Info"
-        }
+        },
+        "qrCode": "Chat Room QR"
     },
 
     "homepage": {
@@ -137,6 +138,11 @@
         "type": {
             "consultation": "Consultation",
             "prescription": "Prescription"
+        },
+        "qr": {
+            "title": "Invite Medical Staff",
+            "scanGuide": "When the other person scans the QR code,\nthey can join the chat room.",
+            "share": "Share"
         }
     },
 

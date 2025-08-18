@@ -8,6 +8,7 @@ import SplashPage from '@pages/SplashPage';
 import HomePage from '@pages/HomePage';
 import ChatPage from '@pages/chat-page/ChatPage';
 import ChatRoomPage from '@pages/chat-page/ChatRoomPage';
+import ChatQRcodePage from '@pages/chat-page/ChatQRcodePage';
 import MyPage from '@pages/MyPage';
 import HistoryPage from '@pages/HistoryPage';
 import LanguagePage from '@pages/LanguagePage';
@@ -38,6 +39,7 @@ const Router = () => {
                         
                         <Route path="/" element={<SimpleLayout />}>
                             <Route path="chat/:id" element={<ChatRoomPage />} />
+                            <Route path="chat/:id/qr" element={<ChatQRcodePage />}/>
                             <Route path="language" element={<LanguagePage />} />
                             <Route path='treat-info-form/name' element={<NamePage />}/>
                             <Route path='treat-info-form/age' element={<AgePage />}/>

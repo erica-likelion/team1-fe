@@ -9,6 +9,7 @@ import Arrow from "@assets/images/top_arrow.svg";
 
 const ChatBar = ({ 
     onSendMessage, // 메세지 전송 처리 함수
+    onQrCodeClick,
     onPlusClick, // 파일 추가 버튼 클릭 함수
     onMicClick, // 마이크 버튼 클릭 함수
     placeholder, 
@@ -61,7 +62,7 @@ const ChatBar = ({
         <div className={`bg-[#FAFAFA] px-6 pt-4 pb-9 shadow-[0_-1px_2px_0_rgba(0,0,0,0.10)] rounded-l-sm rounded-r-sm fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50 ${className}`}>
             <div className="flex justify-between items-center">
                 <button 
-                    onClick={() => console.log('QR코드 기능')}
+                    onClick={onQrCodeClick}
                     disabled={disabled}
                     className="cursor-pointer"
                 >

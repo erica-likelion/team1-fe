@@ -42,6 +42,10 @@ const NavBar = ({
                 leftIcon: LeftArrow,
                 rightIcon: Search,
             },
+            qr: {
+                leftIcon: LeftArrow,
+                rightIcon: null
+            },
             default: {
                 leftIcon: LeftArrow,
                 rightIcon: Close,
@@ -66,11 +70,11 @@ const NavBar = ({
                 <p className="font-semibold text-5">{title}</p>
             </div>
             <div className="flex-1 flex justify-end items-center">
-                <img 
+                {config.rightIcon && <img 
                     className="w-6 h-6 hover:cursor-pointer"
                     src={config.rightIcon} 
                     onClick={onRightClick}
-                />
+                />}
             </div>
         </div>
     )

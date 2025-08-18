@@ -41,8 +41,12 @@ const ChatPage = () => {
     }, [chatRooms, searchQuery]);
 
     // 채팅방 클릭 시 해당 채팅방으로 이동
-    const handleChatRoomClick = (roomId) => {
-        navigate(`/chat/${roomId}`);
+    const handleChatRoomClick = (roomId, roomCode) => {
+        navigate(`/chat/${roomId}`, {
+            state: {
+                roomCode: roomCode
+            }
+        });
     };
 
     const createNewChat = () => {
@@ -89,7 +93,7 @@ const ChatPage = () => {
                                 title={room.title}
                                 description={room.description}
                                 description2={room.createdAt}
-                                onClick={() => handleChatRoomClick(room.id)}
+                                onClick={() => handleChatRoomClick(room.id, room.roomCode)}
                                 className="shadow-none"
                             />
                             <div className="my-0.5 border-b-1 border-[#E9E9EA]" />

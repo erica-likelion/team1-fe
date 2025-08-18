@@ -15,7 +15,8 @@
             "guide": "처방전 스캔 안내",
             "upload": "스캔할 처방전 추가",
             "description": "처방전 설명"
-        }
+        },
+        "qrCode": "채팅방 QR"
     },
 
     "homepage": {
@@ -137,6 +138,11 @@
         "type": {
             "consultation": "진료",
             "prescription": "처방"
+        },
+        "qr": {
+            "title": "의료진 초대",
+            "scanGuide": "상대방이 QR 코드를 스캔하면\n채팅방에 참여할 수 있습니다.",
+            "share": "공유하기"
         }
     },
 
