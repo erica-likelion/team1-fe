@@ -10,7 +10,6 @@ import ChatPage from '@pages/chat-page/ChatPage';
 import ChatRoomPage from '@pages/chat-page/ChatRoomPage';
 import ChatQRcodePage from '@pages/chat-page/ChatQRcodePage';
 import MyPage from '@pages/MyPage';
-import HistoryPage from '@pages/HistoryPage';
 import LanguagePage from '@pages/LanguagePage';
 import NamePage from '@pages/treat-info-form/NamePage'
 import AgePage from '@/pages/treat-info-form/AgePage';
