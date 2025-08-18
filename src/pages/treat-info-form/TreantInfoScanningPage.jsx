@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { getUserName } from "@utils/userUtils";
+import { useUser } from "@contexts/UserContext";
 
 
 
@@ -12,7 +12,7 @@ const TreantInfoScanningPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const userName = getUserName();
+    const { user } = useUser();
 
     const language = i18n.language;
 
@@ -22,7 +22,7 @@ const TreantInfoScanningPage = () => {
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('precheck.scanning.messageParts.part1')}
-                    <span className="text-[#3DE0AB] font-semibold">{userName}</span>
+                    <span className="text-[#3DE0AB] font-semibold">{user.name}</span>
                     {t('precheck.scanning.messageParts.part2')}
                 </p>
                 

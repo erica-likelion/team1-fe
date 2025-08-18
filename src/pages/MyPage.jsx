@@ -1,15 +1,14 @@
 /* 마이페이지 */
 
-import { getUserData } from "@utils/userUtils";
 import ServiceCard from "@components/commons/ServiceCard";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useUser } from "@contexts/UserContext";
 
 const MyPage = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const user = getUserData();
-    const {name: userName, gender: userGender} = user;
+    const { user: {name: userName, gender: userGender} } = useUser();
     const language = i18n.language;
 
     const UserName = () => {

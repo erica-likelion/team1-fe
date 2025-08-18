@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SearchProvider } from '@contexts/SearchContext';
+import { UserProvider } from '@contexts/UserContext';
 
 import MainLayout from '@components/layouts/MainLayout';
 import SimpleLayout from '@components/layouts/SimpleLayout';
@@ -25,33 +26,34 @@ const Router = () => {
     return (
         <BrowserRouter>
             <SearchProvider>
-                <Routes>
-                <Route path="/" element={<SplashPage />} />
-                
-                <Route path="/" element={<MainLayout />}>
-                    <Route path="home" element={<HomePage />} />
-                    <Route path="chat" element={<ChatPage />} />
-                    <Route path="mypage" element={<MyPage />} />
-                </Route>
-                
-                <Route path="/" element={<SimpleLayout />}>
-                    <Route path="chat/:id" element={<ChatRoomPage />} />
-                    <Route path="language" element={<LanguagePage />} />
-                    <Route path='treat-info-form/name' element={<NamePage />}/>
-                    <Route path='treat-info-form/age' element={<AgePage />}/>
-                    <Route path='treat-info-form/country' element={<CountryPage />}/>
-                    <Route path='treat-info-form/gender' element={<GenderPage />}/>
-                    <Route path='treat-info-form/symptoms' element={<SymptomsPage />}/>
-                    <Route path="prescription" element={<PrescriptionPage />} />
-                    <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
-                    <Route path="prescription/result" element={<PrescriptionResultPage />} />
-                    <Route path="mypage/history" element={<HistoryPage />} />
-                </Route>
-                
-                <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
-                <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
-
-                </Routes>
+                <UserProvider>
+                    <Routes>
+                        <Route path="/" element={<SplashPage />} />
+                        
+                        <Route path="/" element={<MainLayout />}>
+                            <Route path="home" element={<HomePage />} />
+                            <Route path="chat" element={<ChatPage />} />
+                            <Route path="mypage" element={<MyPage />} />
+                        </Route>
+                        
+                        <Route path="/" element={<SimpleLayout />}>
+                            <Route path="chat/:id" element={<ChatRoomPage />} />
+                            <Route path="language" element={<LanguagePage />} />
+                            <Route path='treat-info-form/name' element={<NamePage />}/>
+                            <Route path='treat-info-form/age' element={<AgePage />}/>
+                            <Route path='treat-info-form/country' element={<CountryPage />}/>
+                            <Route path='treat-info-form/gender' element={<GenderPage />}/>
+                            <Route path='treat-info-form/symptoms' element={<SymptomsPage />}/>
+                            <Route path="prescription" element={<PrescriptionPage />} />
+                            <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
+                            <Route path="prescription/result" element={<PrescriptionResultPage />} />
+                            <Route path="mypage/history" element={<HistoryPage />} />
+                        </Route>
+                        
+                        <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
+                        <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
+                    </Routes>
+                </UserProvider>
             </SearchProvider>
         </BrowserRouter>
     )

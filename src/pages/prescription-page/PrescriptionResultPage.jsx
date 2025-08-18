@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { getUserName } from "@utils/userUtils";
+import { useUser } from "@contexts/UserContext";
 
 import Right from "@assets/images/white_chevron_right.svg";
 
@@ -11,7 +11,7 @@ const PrescriptionResultPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const userName = getUserName();
+    const { user } = useUser;
     const [showKoreanContent, setShowKoreanContent] = useState(false);
 
     const { analysisResult } = location.state || {};
@@ -27,7 +27,7 @@ const PrescriptionResultPage = () => {
             <div className="flex justify-center items-center mb-6">
                 <p className="text-xl font-semibold whitespace-pre-line text-center">
                     {t('prescription.result.titleParts.part1')}
-                    <span className="text-green-500 font-semibold">{userName}</span>
+                    <span className="text-green-500 font-semibold">{user.name}</span>
                     {t('prescription.result.titleParts.part2')}
                 </p>
             </div>
