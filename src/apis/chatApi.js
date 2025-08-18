@@ -113,7 +113,7 @@ export const getChatMessages = async (roomId) => {
       },
       {
         id: 3,
-        sender: 'doctor',
+        sender: 'medi',
         message: '두통의 빈도와 강도에 대해 자세히 알려주시겠어요? 언제부터 시작되었고, 어떤 상황에서 더 심해지는지 궁금합니다.',
         koreanContent: 'k두통의 빈도와 강도에 대해 자세히 알려주시겠어요? 언제부터 시작되었고, 어떤 상황에서 더 심해지는지 궁금합니다.',
         createdAt: new Date(Date.now() - 2900000).toISOString(),
@@ -129,7 +129,7 @@ export const getChatMessages = async (roomId) => {
       },
       {
         id: '5',
-        sender: 'doctor',
+        sender: 'medi',
         message: '스트레스성 두통일 가능성이 높아 보입니다. 충분한 휴식과 수분 섭취를 권합니다. 증상이 지속되면 병원 방문을 추천드려요.',
         koreanContent: 'k스트레스성 두통일 가능성이 높아 보입니다. 충분한 휴식과 수분 섭취를 권합니다. 증상이 지속되면 병원 방문을 추천드려요.',
         createdAt: new Date(Date.now() - 2700000).toISOString(),
