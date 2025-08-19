@@ -21,13 +21,19 @@ const Message = forwardRef(({ message }, ref) => {
         return (
             <div ref={ref} className="flex justify-end w-full">
                 <div className="flex justify-end w-full items-start m-2 gap-2">
-                    <img src={translate ? Exchange : World} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
+                    <img src={translate ? World : Exchange} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                     <div className={`${messageDivStyle} bg-[#C5F4E1] text-[#00A270]`}>
+                        {user.type === "medi" ? 
                         <Highlighter
                             searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? (message.message || message.content) : (message.koreanMessage || message.koreanContent)}
+                            textToHighlight={translate ? message.koreanMessage : message}
                             highlightClassName="bg-yellow-200 text-black"
-                        />
+                        />:
+                        <Highlighter
+                            searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
+                            textToHighlight={translate ? message.message : message.koreanMessage}
+                            highlightClassName="bg-yellow-200 text-black"
+                        />}
                     </div>
                 </div>
             </div>
@@ -43,11 +49,17 @@ const Message = forwardRef(({ message }, ref) => {
                     </div>
                     {/* 메시지 내용 */}
                     <div className={`${messageDivStyle} bg-[#F6F6F6] text-[#000000]`}>
+                        {user.type === "medi" ? 
                         <Highlighter
                             searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? (message.message || message.content) : (message.koreanMessage || message.koreanContent)}
-                            highlightClassName="bg-yellow-200"
-                        />
+                            textToHighlight={translate ? message.koreanMessage : message.message}
+                            highlightClassName="bg-yellow-200 text-black"
+                        />:
+                        <Highlighter
+                            searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
+                            textToHighlight={translate ? message.message : message.koreanMessage}
+                            highlightClassName="bg-yellow-200 text-black"
+                        />}
                     </div>
                     <img src={translate ? Exchange : World} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                 </div>
