@@ -11,7 +11,8 @@ import Right from "@assets/images/white_chevron_right.svg";
 const HistoryDiv = ({
     title,
     historyList,
-    icon
+    icon,
+    onSelectHistory = () => {},
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -20,8 +21,10 @@ const HistoryDiv = ({
     // showAll 상태에 따라 표시할 리스트 결정 (기본 2개, 전체 보기 시 모든 항목)
     const displayedHistoryList = showAll ? historyList : historyList.slice(0, 2);
 
-    const handleCardClick = () => {
-        // 현재로서는 클릭 기능 불필요
+    const handleCardClick = (history) => {
+        if (onSelectHistory) {
+            onSelectHistory(history.id);
+        }
     }
 
     // TextButton 클릭 시 showAll 상태 토글
@@ -55,7 +58,7 @@ const HistoryDiv = ({
                         icon={icon} 
                         title={history.title} 
                         description={history.createdAt} 
-                        onClick={() => handleCardClick()}
+                        onClick={() => handleCardClick(history)}
                     />
                 ))
             }
