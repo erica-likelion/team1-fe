@@ -3,21 +3,17 @@ import { useTranslation } from 'react-i18next';
 import QRCode from 'react-qr-code';
 
 import TextButton from "@components/commons/TextButton";
-import { useUser } from "@contexts/UserContext";
 
 import Right from "@assets/images/white_chevron_right.svg";
 
 const ChatQRcodePage = () => {
-    const { id } = useParams(); // URL에서 채팅방 ID 추출
+    const { roomId, roomCode } = useParams(); // URL에서 채팅방 ID 추출
     const navigate = useNavigate();
-    const location = useLocation();
     const { t, i18n } = useTranslation();
-    const { user } = useUser();
-    const { roomCode } = location.state || {};
 
     // 현재 사용자 언어를 URL 파라미터에 추가
     const currentUserLang = i18n.language === 'ko' ? 'korean' : i18n.language === 'en' ? 'english' : 'chinese';
-    const mediURL = `${window.location.origin}/chat/${id}?userType=medi&opponentLang=${currentUserLang}`;
+    const mediURL = `${window.location.origin}/chat/${roomId}/${roomCode}?userType=medi&opponentLang=${currentUserLang}`;
 
     // 공유하기 버튼 클릭 핸들러
     const handleShareClick = () => {

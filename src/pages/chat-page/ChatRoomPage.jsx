@@ -19,7 +19,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
 import { getChatMessages } from '@apis/chatApi';
@@ -30,8 +30,7 @@ import { useUser } from '@contexts/userContext';
 import { Stomp } from "@stomp/stompjs";
  
 const ChatRoomPage = () => {
-    const { id } = useParams(); // URL에서 채팅방 ID 추출
-    const location = useLocation();
+    const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출
     const { user: currentUser } = useUser();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -50,20 +49,17 @@ const ChatRoomPage = () => {
     // STOMP 클라이언트를 위한 ref, 웹소켓 연결을 유지하기 위해 사용
     const stompClient = useRef(null);
 
-    const { roomCode } = location.state || {};
-
     // 컴포넌트 마운트 시 채팅방 데이터 로드
     useEffect(() => {
         connect();
         fetchMessages();
-
         // 임시 추후 변경 가능 
         setChatRoomInfo({type: "consultation", date: "2025-08-18"});
         return () => disconnect();
     }, [id]);
 
     const connect = () => {
-        const socket = new WebSocket("ws://localhost:8080/ws");
+        const socket = new WebSocket(`ws://${import.meta.env.VITE_WS_BASE_URL}/ws`);
         stompClient.current = Stomp.over(() => socket);
         stompClient.current.connect({}, () => {
             console.log("WebSocket 연결 성공");
@@ -134,13 +130,10 @@ const ChatRoomPage = () => {
     // 새 메세지를 보내는 함수
     const handleSendMessage = (message) => {
         if (stompClient.current && message) {
-            const now = new Date();
-            //const kstTime = now.getTime() + (9 * 60 * 60 * 1000); // 9시간 추가
-            //const kstDate = (new Date(kstTime)).toISOString().split("T")[0];
             const messageObj = {
                 sender: currentUser.type,
                 message: message,
-                createdAt: now.toISOString(), 
+                language: currentUser.opponentLanguage,
                 roomId: id
             };
             console.log("메시지 전송:", messageObj);
@@ -151,11 +144,7 @@ const ChatRoomPage = () => {
 
     // QR 버튼 클릭 핸들러
     const handleQrCodeClick = () => {
-        navigate(`/chat/${id}/qr`, {
-            state: {
-                roomCode: roomCode
-            }
-        });
+        navigate(`/chat/${id}/${roomCode}/qr`);
     };
 
     // Plus 버튼 클릭 핸들러

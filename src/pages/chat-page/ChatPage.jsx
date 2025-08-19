@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { getChatRooms } from "@apis/chatApi";
+import { getChatRooms, createChatRoom } from "@apis/chatApi";
 import { useSearch } from "@contexts/SearchContext";
 
 import ServiceCard from "@components/commons/ServiceCard";
@@ -42,17 +42,16 @@ const ChatPage = () => {
 
     // 채팅방 클릭 시 해당 채팅방으로 이동
     const handleChatRoomClick = (roomId, roomCode) => {
-        navigate(`/chat/${roomId}`, {
-            state: {
-                roomCode: roomCode
-            }
-        });
+        navigate(`/chat/${roomId}/${roomCode}`);
     };
 
-    const createNewChat = () => {
-        // 새 채팅 생성 로직 (임시: 새로운 ID로 채팅방 생성)
-        const newRoomId = `room-${Date.now()}`;
-        navigate(`/chat/${newRoomId}`);
+    const createNewChat = async () => {
+        try {
+            const chatData = await createChatRoom();
+            navigate(`/chat/${chatData.roomId}/${chatData.roomCode}`);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
@@ -90,8 +89,8 @@ const ChatPage = () => {
                         <div key={room.id} className="m-0">
                             <ServiceCard 
                                 icon={Logo}
-                                title={room.title}
-                                description={room.description}
+                                title={room.roomCode}
+                                description={room.lastChat}
                                 description2={room.createdAt}
                                 onClick={() => handleChatRoomClick(room.id, room.roomCode)}
                                 className="shadow-none"

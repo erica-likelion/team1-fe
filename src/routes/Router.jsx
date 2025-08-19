@@ -37,8 +37,8 @@ const Router = () => {
                         </Route>
                         
                         <Route path="/" element={<SimpleLayout />}>
-                            <Route path="chat/:id" element={<ChatRoomPage />} />
-                            <Route path="chat/:id/qr" element={<ChatQRcodePage />}/>
+                            <Route path="chat/:roomId/:roomCode" element={<ChatRoomPage />} />
+                            <Route path="chat/:roomId/:roomCode/qr" element={<ChatQRcodePage />}/>
                             <Route path="language" element={<LanguagePage />} />
                             <Route path='treat-info-form/name' element={<NamePage />}/>
                             <Route path='treat-info-form/age' element={<AgePage />}/>
