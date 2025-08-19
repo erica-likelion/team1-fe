@@ -77,7 +77,7 @@ const PrescriptionScanningPage = () => {
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.scanning.messageParts.part1')}
-                    <span className="text-green-500 font-semibold">{user.name}</span>
+                    {user && <span className="text-green-500 font-semibold">{user.name}</span>}
                     {t('prescription.scanning.messageParts.part2')}
                 </p>
                 

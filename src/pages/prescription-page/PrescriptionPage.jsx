@@ -22,7 +22,7 @@ const PrescriptionPage = () => {
             <div className="flex flex-col gap-21.5">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.titleParts.part1')}
-                    <span className="text-[#00C88D]">{user.name}</span>
+                    {user && <span className="text-[#00C88D]">{user.name}</span>}
                     {t('prescription.titleParts.part2')}
                 </p>
                 

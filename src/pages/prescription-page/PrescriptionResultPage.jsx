@@ -26,7 +26,7 @@ const PrescriptionResultPage = () => {
             <div className="flex justify-center items-center mb-6">
                 <p className="text-xl font-semibold whitespace-pre-line text-center">
                     {t('prescription.result.titleParts.part1')}
-                    <span className="text-green-500 font-semibold">{user.name}</span>
+                    {user && <span className="text-green-500 font-semibold">{user.name}</span>}
                     {t('prescription.result.titleParts.part2')}
                 </p>
             </div>
