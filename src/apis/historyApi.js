@@ -6,30 +6,8 @@ import api from "@utils/apiClient";
  */
 export const getPrecheckHistory = async () => {
     try {
-        // 지금은 목업 데이터 반환 -> 서버 통신 시에는 아래 주석 코드 사용하면 됨 
-        return [
-            {
-                "id": 1,
-                "title": "심장 관련 사전 문진",
-                "createdAt": "2024-08-21"
-            },
-            {
-                "id": 2,
-                "title": "당뇨 관련 사전 문진",
-                "createdAt": "2024-08-21"
-            },
-            {
-                "id": 3,
-                "title": "고혈압 관련 사전 문진",
-                "createdAt": "2024-08-20"
-            }
-        ];
-
-        // 실제 API 호출 코드 (현재 주석처리)
-        /*
         const response = await api.get('/api/precheck');
-        return response.data;*/
-        
+        return response.data;
     } catch (error) {
         console.error('진료 기록을 가져오는 중 오류 발생:', error);
         throw error;
@@ -42,35 +20,8 @@ export const getPrecheckHistory = async () => {
  */
 export const getPrescriptionHistory = async () => {
     try {
-        // 지금은 목업 데이터 반환 -> 서버 통신 시에는 아래 주석 코드 사용하면 됨 
-        return [
-            {
-                "id": 1,
-                "title": "감기약 처방전",
-                "createdAt": "2025-08-22"
-            },
-            {
-                "id": 2,
-                "title": "소화제 처방전",
-                "createdAt": "2025-08-22"
-            },
-            {
-                "id": 3,
-                "title": "진통제 처방전",
-                "createdAt": "2025-08-21"
-            },
-            {
-                "id": 4,
-                "title": "항생제 처방전",
-                "createdAt": "2025-08-20"
-            }
-        ];
-
-        // 실제 API 호출 코드 (현재 주석처리)
-        /*
         const response = await api.get('/api/prescription');
-        return response.data;*/
-        
+        return response.data;
     } catch (error) {
         console.error('처방 기록을 가져오는 중 오류 발생:', error);
         throw error;
