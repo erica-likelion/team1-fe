@@ -23,8 +23,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
 import { getChatMessages } from '@apis/chatApi';
+import { getPrecheckById, getPrescriptionById } from '@apis/prescriptionApi';
 import ChatBar from '@components/chatpage/ChatBar';
 import Message from '@components/chatpage/Message';
+import TextButton from '@components/commons/TextButton';
+import HistoryModal from '@components/chatpage/HistoryModal';
 import { useUser } from '@contexts/userContext';
 
 import { Stomp } from "@stomp/stompjs";
@@ -40,6 +43,8 @@ const ChatRoomPage = () => {
     const [messages, setMessages] = useState([]);
     const [chatRoomInfo, setChatRoomInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
+    const [activeHistoryModal, setActiveHistoryModal] = useState(null); // 'precheck', 'prescription', null
     
     // 스크롤 관리를 위한 ref
     const messagesEndRef = useRef(null);
@@ -53,8 +58,7 @@ const ChatRoomPage = () => {
     useEffect(() => {
         connect();
         fetchMessages();
-        // 임시 추후 변경 가능 
-        setChatRoomInfo({type: "consultation", date: "2025-08-18"});
+
         return () => disconnect();
     }, [id]);
 
@@ -84,11 +88,27 @@ const ChatRoomPage = () => {
     const fetchMessages = async () => {
         try {
             setIsLoading(true);
-            const messages = await getChatMessages(id);
-            setMessages(messages);
+            const fetchedMessages = await getChatMessages(id);
+            setMessages(fetchedMessages);
+            setHasUserSentMessage(fetchedMessages.length > 1);
+            
+            // 가장 첫 번째 메시지의 createdAt을 chatRoomInfo에 저장
+            const firstMessageDate = fetchedMessages.length > 0 ? new Date(fetchedMessages[0].createdAt) : new Date();
+            setChatRoomInfo({
+                type: "newChat", 
+                date: firstMessageDate.toISOString().split('T')[0],
+                time: firstMessageDate.toISOString().split('T')[1].substring(0, 5)
+            });
         } catch (err) {
             console.log(err);
             setMessages([]);
+            setHasUserSentMessage(false);
+            const currentDate = new Date();
+            setChatRoomInfo({
+                type: "newChat", 
+                date: currentDate.toISOString().split('T')[0],
+                time: currentDate.toISOString().split('T')[1].substring(0, 5)
+            });
         } finally {
             setIsLoading(false);
         }
@@ -127,6 +147,22 @@ const ChatRoomPage = () => {
         }
     }, [searchQuery]);
 
+    const timeFormatting = (timeString) => {
+        if (!timeString) return '';
+        
+        const [hours, minutes] = timeString.split(':').map(Number);
+        
+        if (hours === 0) {
+            return `${t('common.time.am')} 12:${minutes.toString().padStart(2, '0')}`;
+        } else if (hours < 12) {
+            return `${t('common.time.am')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        } else if (hours === 12) {
+            return `${t('common.time.pm')} 12:${minutes.toString().padStart(2, '0')}`;
+        } else {
+            return `${t('common.time.pm')} ${(hours - 12).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        }
+    }
+
     // 새 메세지를 보내는 함수
     const handleSendMessage = (message) => {
         if (stompClient.current && message) {
@@ -139,6 +175,7 @@ const ChatRoomPage = () => {
             console.log("메시지 전송:", messageObj);
             stompClient.current.send('/pub/chat/message', {}, JSON.stringify(messageObj));
         }
+        setHasUserSentMessage(true);
         console.log("현재 메시지 목록:", messages);
     };
 
@@ -204,7 +241,38 @@ const ChatRoomPage = () => {
         }
     };
 
+    const selectPrecheck = async (id) => {
+        try {
+            const precheckData = await getPrecheckById(id);
+            handleSendMessage(precheckData.content);
+        } catch (err) {
+            console.log("precheck 데이터 가져오기 실패", err);
+        }
+    }
 
+    const selectPrescription = async (id) => {
+        try {
+            const prescriptionData = await getPrescriptionById(id);
+            handleSendMessage(prescriptionData.content);
+        } catch (err) {
+            console.log("prescription 데이터 가져오기 실패", err);
+        }
+    }
+
+    const initBtnList = [
+        {
+            text: t('chat.buttons.interpretation'),
+            onClick: handleQrCodeClick
+        },
+        {
+            text: t('chat.buttons.loadPrecheck'),
+            onClick: () => setActiveHistoryModal('precheck')
+        },
+        {
+            text: t('chat.buttons.loadPrescription'),
+            onClick: () => setActiveHistoryModal('prescription')
+        }
+    ]
 
     if (isLoading) {
         return (
@@ -235,22 +303,53 @@ const ChatRoomPage = () => {
                 <div className="h-[1px] w-[335px] bg-[#E0E0E0]"/>
             </div>
 
+            <div className="self-center mt-17 text-[12px] text-[#BDBDBD]">
+                {chatRoomInfo && timeFormatting(chatRoomInfo.time)}
+            </div>
+
             {/* 메시지 영역 */}
             <div 
                 ref={messagesContainerRef}
-                className="overflow-y-auto space-y-4 pt-16 mt-12.5 mb-15"
+                className="overflow-y-auto space-y-4 mt-4 mb-15"
             >
                 {messages.map((message, index) => (
-                    <Message 
-                        key={`${message.id}-${index}`}
-                        message={message}
-                        ref={(el) => messageRefs.current[message.id] = el}
-                    />
+                    <div key={`${message.id}-${index}`}>
+                        <Message 
+                            message={message}
+                            ref={(el) => messageRefs.current[message.id] = el}
+                        />
+                        {/* 첫 번째 메시지 아래에 버튼들 렌더링 */}
+                        {index === 0 && chatRoomInfo && chatRoomInfo.type === "newChat" && !hasUserSentMessage && (
+                            <div className="pl-13.75 py-2 mb-4 flex flex-col items-start gap-2">
+                                {initBtnList.map((btn, btnIndex) => (
+                                    <TextButton 
+                                        key={btnIndex}
+                                        text={btn.text}
+                                        onClick={btn.onClick}
+                                        className="bg-[#C5F4E1] border-1 border-[#00C88D] !text-[#00A270] hover:!text-[#FAFAFA] !w-auto !px-3 !py-1 text-[14px] relative bottom-auto left-auto transform-none translate-x-0 z-auto"
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 ))}
-                
                 {/* 자동 스크롤을 위한 빈 요소 */}
                 <div ref={messagesEndRef} />
             </div>
+            
+            {activeHistoryModal && 
+                <HistoryModal
+                    onClose={() => setActiveHistoryModal(null)}
+                    title={t(`chat.buttons.load${activeHistoryModal === 'precheck' ? 'Precheck' : 'Prescription'}`)}
+                    historyType={activeHistoryModal}
+                    onSelectHistory={(historyId) => {
+                        if (activeHistoryModal === 'precheck') selectPrecheck(historyId);
+                        else selectPrescription(historyId);
+
+                        setActiveHistoryModal(null);
+                    }}
+                />
+            }
 
             {/* 메시지 입력 컴포넌트 */}
             <ChatBar 
