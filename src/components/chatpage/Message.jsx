@@ -15,7 +15,20 @@ const Message = forwardRef(({ message }, ref) => {
 
     const handleTranslateClick = () => { useTranslate(prev => !prev); }
 
-    const messageDivStyle = "max-w-[75%] text-[12px] rounded-sm font-medium p-4 shadow-[2px_2px_8px_0_rgba(23,23,27,0.15)]" 
+    const unescapeString = (str) => {
+        return str
+        .replace(/\\n/g, '\n');
+    };
+
+    const getDisplayText = () => {
+        const rawText = user.type === "medi" 
+            ? (translate ? message.koreanMessage : message.message)
+            : (translate ? message.message : message.koreanMessage);
+            
+        return unescapeString(rawText); 
+    };
+
+    const messageDivStyle = "max-w-[75%] text-[12px] rounded-sm font-medium p-4 shadow-[2px_2px_8px_0_rgba(23,23,27,0.15)] whitespace-pre-wrap break-words overflow-wrap-anywhere" 
     if (message.sender === user.type) {
         // 사용자 메시지 구조
         return (
@@ -23,17 +36,11 @@ const Message = forwardRef(({ message }, ref) => {
                 <div className="flex justify-end w-full items-start m-2 gap-2">
                     <img src={translate ? World : Exchange} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                     <div className={`${messageDivStyle} bg-[#C5F4E1] text-[#00A270]`}>
-                        {user.type === "medi" ? 
                         <Highlighter
                             searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? message.koreanMessage : message}
+                            textToHighlight={getDisplayText()}
                             highlightClassName="bg-yellow-200 text-black"
-                        />:
-                        <Highlighter
-                            searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? message.message : message.koreanMessage}
-                            highlightClassName="bg-yellow-200 text-black"
-                        />}
+                        />
                     </div>
                 </div>
             </div>
@@ -49,17 +56,12 @@ const Message = forwardRef(({ message }, ref) => {
                     </div>
                     {/* 메시지 내용 */}
                     <div className={`${messageDivStyle} bg-[#F6F6F6] text-[#000000]`}>
-                        {user.type === "medi" ? 
                         <Highlighter
                             searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? message.koreanMessage : message.message}
+                            textToHighlight={getDisplayText()}
                             highlightClassName="bg-yellow-200 text-black"
-                        />:
-                        <Highlighter
-                            searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
-                            textToHighlight={translate ? message.message : message.koreanMessage}
-                            highlightClassName="bg-yellow-200 text-black"
-                        />}
+                            className="whitespace-pre-wrap"
+                        />
                     </div>
                     <img src={translate ? Exchange : World} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                 </div>
