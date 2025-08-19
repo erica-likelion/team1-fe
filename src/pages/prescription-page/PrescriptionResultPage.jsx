@@ -11,8 +11,7 @@ const PrescriptionResultPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const { user } = useUser;
-    const [showKoreanContent, setShowKoreanContent] = useState(false);
+    const { user } = useUser();
 
     const { analysisResult } = location.state || {};
 
