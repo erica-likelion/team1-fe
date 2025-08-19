@@ -130,7 +130,8 @@
         "selectChatType": "请点击聊天室按钮。",
         "enterMessage": "请输入消息...",
         "type": {
-            "consultation": "诊疗",
+            "newChat": "新聊天",
+            "precheck": "诊疗",
             "prescription": "处方"
         },
         "qr": {
@@ -138,6 +139,29 @@
             "scanGuide": "对方扫描二维码后\n即可加入聊天室。",
             "share": "分享",
             "copy": "医护人员链接已复制。"
+        },
+        "buttons": {
+            "interpretation": "诊疗翻译",
+            "loadPrecheck": "调取预问诊",
+            "loadPrescription": "Load prescription"
+        }
+    },
+
+    "common": {
+        "loading": "加载中...",
+        "time": {
+            "am": "上午",
+            "pm": "下午"
+        }
+    },
+
+    "history": {
+        "viewAll": "查看全部",
+        "close": "收起",
+        "titles": {
+            "callHistory": "通话记录",
+            "diagnosisHistory": "诊疗记录",
+            "prescriptionHistory": "处方记录"
         }
     }
 }

@@ -130,7 +130,8 @@
         "selectChatType": "Please click the chat room button.",
         "enterMessage": "Please enter a message...",
         "type": {
-            "consultation": "Consultation",
+            "newChat": "New Chat",
+            "precheck": "Consultation",
             "prescription": "Prescription"
         },
         "qr": {
@@ -138,6 +139,19 @@
             "scanGuide": "When the other person scans the QR code,\nthey can join the chat room.",
             "share": "Share",
             "copy": "Medical staff URL has been copied."
+        },
+        "buttons": {
+            "interpretation": "Medical interpreting",
+            "loadPrecheck": "Load pre-check questionnaire",
+            "loadPrescription": "Load prescription"
+        }
+    },
+
+    "common": {
+        "loading": "Loading...",
+        "time": {
+            "am": "AM",
+            "pm": "PM"
         }
     },
 

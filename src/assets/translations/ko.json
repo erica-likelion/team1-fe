@@ -129,7 +129,8 @@
         "selectChatType": "채팅방의 버튼을 클릭해주세요.",
         "enterMessage": "채팅을 입력해주세요...",
         "type": {
-            "consultation": "진료",
+            "newChat": "신규",
+            "precheck": "진료",
             "prescription": "처방"
         },
         "qr": {
@@ -137,6 +138,11 @@
             "scanGuide": "상대방이 QR 코드를 스캔하면\n채팅방에 참여할 수 있습니다.",
             "share": "공유하기",
             "copy": "의료진용 URL이 복사되었습니다."
+        },
+        "buttons": {
+            "interpretation": "진료 통역하기",
+            "loadPrecheck": "사전 문진 불러오기",
+            "loadPrescription": "처방전 불러오기"
         }
     },
 
@@ -152,7 +158,11 @@
     },
 
     "common": {
-        "loading": "로딩 중..."
+        "loading": "로딩 중...",
+        "time": {
+            "am": "오전",
+            "pm": "오후"
+        }
     },
 
     "history": {
