@@ -21,6 +21,7 @@ import PrescriptionUploadPage from '@pages/prescription-page/PrescriptionUploadP
 import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScanningPage';
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
 import TreantInfoScanningPage from '@/pages/treat-info-form/TreantInfoScanningPage';
+import TreantInfoResultPage from '@/pages/treat-info-form/TreatInfoResultPage';
 
 const Router = () => {
     return (
