@@ -22,7 +22,7 @@ const TreantInfoScanningPage = () => {
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('precheck.scanning.messageParts.part1')}
-                    <span className="text-[#3DE0AB] font-semibold">{user.name}</span>
+                    {user && <span className="text-[#3DE0AB] font-semibold">{user.name}</span>}
                     {t('precheck.scanning.messageParts.part2')}
                 </p>
                 
