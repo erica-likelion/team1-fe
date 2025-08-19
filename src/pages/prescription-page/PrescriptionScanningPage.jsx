@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { getUserName } from "@utils/userUtils";
+import { useUser } from "@contexts/UserContext";
 import { uploadPrescription } from "@apis/prescriptionApi";
 
 // 테스트용 목업
@@ -13,7 +13,7 @@ const PrescriptionScanningPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const userName = getUserName();
+    const { user } = useUser();
 
     const { image } = location.state || {};
     const language = i18n.language;
@@ -51,7 +51,7 @@ const PrescriptionScanningPage = () => {
             try {
                 // 최소 2초는 로딩 화면을 보여주기 위해 Promise.all 사용
                 const [result] = await Promise.all([
-                    mockUploadPrescription(language, image),
+                    uploadPrescription(language, image),
                     new Promise(resolve => setTimeout(resolve, 2000))
                 ]);
                 
@@ -77,7 +77,7 @@ const PrescriptionScanningPage = () => {
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.scanning.messageParts.part1')}
-                    <span className="text-green-500 font-semibold">{userName}</span>
+                    {user && <span className="text-green-500 font-semibold">{user.name}</span>}
                     {t('prescription.scanning.messageParts.part2')}
                 </p>
                 

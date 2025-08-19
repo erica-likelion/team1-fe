@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import TextButton from "@components/commons/TextButton";
 import TextField from "@components/forms/TextField";
 
-import { getUserName } from "@utils/userUtils";
+import { useUser } from "@contexts/UserContext";
 
 import GreenChevronRight from "@assets/images/green_chevron_right.svg";
 
@@ -11,7 +11,7 @@ const TreantInfoResultPage = () => {
 
     const {t} = useTranslation();
     const navigate = useNavigate();
-    const userName = getUserName();
+    const { user } = useUser();
 
     const handleNavigation = (path) => {
         console.log('작동 여부: O');
@@ -20,11 +20,10 @@ const TreantInfoResultPage = () => {
 
     return (
         <div>
-            
             <div className="flex flex-col justify-center items-center px-5 mt-15">
                 <p className=" text-center text-xl font-semibold whitespace-pre-line">
                     {t('precheck.result.messageParts.part1')}
-                    <span className="text-[#3DE0AB] font-semibold">{userName}</span>
+                    {user && <span className="text-[#3DE0AB] font-semibold">{user.name}</span>}
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField

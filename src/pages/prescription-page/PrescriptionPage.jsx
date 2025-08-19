@@ -2,14 +2,14 @@ import TextButton from "@components/commons/TextButton";
 
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getUserName } from "@utils/userUtils";
+import { useUser } from "@contexts/UserContext";
 
 import Right from "@assets/images/white_chevron_right.svg"
 
 const PrescriptionPage = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const userName = getUserName();
+    const { user } = useUser();
 
     const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
 
@@ -22,7 +22,7 @@ const PrescriptionPage = () => {
             <div className="flex flex-col gap-21.5">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.titleParts.part1')}
-                    <span className="text-[#00C88D]">{userName}</span>
+                    {user && <span className="text-[#00C88D]">{user.name}</span>}
                     {t('prescription.titleParts.part2')}
                 </p>
                 

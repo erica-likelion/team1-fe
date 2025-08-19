@@ -9,9 +9,14 @@ const getNavBarType = (pathname) => {
     if (pathname === '/prescription') return 'prescription';
     if (pathname === '/prescription/upload') return 'prescription_upload';
     if (pathname === '/prescription/result') return 'prescription_result';
-    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form';
     if (pathname === ('/treat-info/result')) return 'precheck';
     if (pathname === '/mypage/history') return 'history';
+
+    if (pathname.endsWith('/qr')) return 'qr';
+    if (pathname.startsWith('/chat/')) return 'chatroom';
+    if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
+    
+
     return 'default';
 };
 
@@ -20,8 +25,6 @@ const getNavBarTitle = (type, t) => {
     switch (type) {
         case 'mypage':
             return t('navigation.mypage');
-        case 'chat':
-            return t('navigation.chat');
         case 'language':
             return t('navigation.language');
         case 'prescription':
@@ -36,13 +39,18 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.preCheck');
         case 'history':
             return t('navigation.history');
+        case 'qr':
+            return t('navigation.qrCode');
+        case 'home':
+        case 'chat':
+        case 'chatroom':
         default:
             return "";
     }
 };
 
 // NavBar 타입별 핸들러 생성, LeftClick RightClick 순
-const getNavBarHandlers = (type, navigate) => {
+const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
     switch (type) {
         case 'home':
             return {
@@ -59,11 +67,30 @@ const getNavBarHandlers = (type, navigate) => {
             };
         case 'chat':
             return {
-                onLeftClick: () => {
-                    // 추후 수정: 검색 기능
-                    console.log('검색 클릭');
-                },
-                onRightClick: () => navigate('/language')
+                onLeftClick: () => navigate('/home'),
+                onRightClick: () => {
+                    if (toggleSearchMode) {
+                        toggleSearchMode();
+                    } else {
+                        console.log('검색 클릭 - toggleSearchMode 함수를 찾을 수 없음');
+                    }
+                }
+            };
+        case 'chatroom':
+            return {
+                onLeftClick: () => navigate(-1), 
+                onRightClick: () => {
+                    if (toggleSearchMode) {
+                        toggleSearchMode();
+                    } else {
+                        console.log('검색 클릭 - toggleSearchMode 함수를 찾을 수 없음');
+                    }
+                }
+            };
+        case 'qr':
+            return {
+                onLeftClick: () => navigate(-1), // 채팅방으로 뒤로가기
+                onRightClick: null // 오른쪽 버튼 없음
             };
         case 'precheck':
             return {
@@ -74,7 +101,6 @@ const getNavBarHandlers = (type, navigate) => {
         case 'prescription_upload':
         case 'prescription_description':
         case 'history':
-        
         case 'default':
         default:
             return {
@@ -85,10 +111,10 @@ const getNavBarHandlers = (type, navigate) => {
 };
 
 // NavBar 설정 통합 함수
-export const getNavBarConfig = (pathname, navigate, t) => {
+export const getNavBarConfig = (pathname, navigate, t, toggleSearchMode = null) => {
     const type = getNavBarType(pathname);
     const title = getNavBarTitle(type, t);
-    const handlers = getNavBarHandlers(type, navigate);
+    const handlers = getNavBarHandlers(type, navigate, toggleSearchMode);
 
     return {
         type,

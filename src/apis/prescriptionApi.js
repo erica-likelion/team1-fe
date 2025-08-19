@@ -58,3 +58,33 @@ export const mockUploadPrescription = async (imageFile, language) => {
   const lang = language === 'ko' ? 'english' : language === 'zh-CN' ? 'chinese' : 'english';
   return mockResponses[lang];
 };
+
+/**
+ * 고유번호로 처방전 정보를 조회하는 함수
+ * @param {string|number} prescriptionId - 처방전 고유번호
+ * @returns {Promise<Object>} 처방전 상세 정보
+ */
+export const getPrescriptionById = async (prescriptionId) => {
+    try {
+        const response = await api.get(`/api/prescription/${prescriptionId}`);
+        return response.data;
+    } catch (error) {
+        console.error(`처방전 ID ${prescriptionId} 조회 중 오류 발생:`, error);
+        throw error;
+    }
+};
+
+/**
+ * 고유번호로 사전 문진 정보를 조회하는 함수
+ * @param {string|number} precheckId - 사전 문진 고유번호
+ * @returns {Promise<Object>} 사전 문진 상세 정보
+ */
+export const getPrecheckById = async (precheckId) => {
+    try {
+        const response = await api.get(`/api/precheck/${precheckId}`);
+        return response.data;
+    } catch (error) {
+        console.error(`사전 문진 ID ${precheckId} 조회 중 오류 발생:`, error);
+        throw error;
+    }
+};

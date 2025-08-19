@@ -2,6 +2,7 @@
     "brand" : "메디 메이트", 
     "navigation" : {
         "chat": "통역 채팅",
+        "chatroom": "채팅",
         "home": "홈",
         "mypage": "마이페이지",
         "language": "언어",
@@ -13,7 +14,8 @@
             "guide": "처방전 스캔 안내",
             "upload": "스캔할 처방전 추가",
             "description": "처방전 설명"
-        }
+        },
+        "qrCode": "채팅방 QR"
     },
 
     "homepage": {
@@ -116,6 +118,34 @@
         }
     },
 
+    "chat": {
+        "title": "통역 채팅",
+        "noneChatList": {
+            "title": "통역 채팅 내역이 없어요.",
+            "description": "아래 + 버튼을 눌러\n 새 채팅을 시작해보세요."
+        },
+        "noSearch": "검색 결과가 없습니다.",
+        "searchPlaceholder": "채팅방 검색...",
+        "selectChatType": "채팅방의 버튼을 클릭해주세요.",
+        "enterMessage": "채팅을 입력해주세요...",
+        "type": {
+            "newChat": "신규",
+            "precheck": "진료",
+            "prescription": "처방"
+        },
+        "qr": {
+            "title": "의료진 초대",
+            "scanGuide": "상대방이 QR 코드를 스캔하면\n채팅방에 참여할 수 있습니다.",
+            "share": "공유하기",
+            "copy": "의료진용 URL이 복사되었습니다."
+        },
+        "buttons": {
+            "interpretation": "진료 통역하기",
+            "loadPrecheck": "사전 문진 불러오기",
+            "loadPrescription": "처방전 불러오기"
+        }
+    },
+
     "precheck": {
         "scanning": {
         "message": "{{name}}님이 입력한 정보를 바탕으로\n메디 메이트가 사전문진을 작성중이에요.",
@@ -132,5 +162,23 @@
                 "part2": " 님의\n사전 문진 작성을 완료했어요!"
         }
         }
+    },
+
+    "common": {
+        "loading": "로딩 중...",
+        "time": {
+            "am": "오전",
+            "pm": "오후"
+        }
+    },
+
+    "history": {
+        "viewAll": "모두 보기",
+        "close": "접기",
+        "titles": {
+            "callHistory": "전화 기록",
+            "diagnosisHistory": "진료 기록",
+            "prescriptionHistory": "처방 기록"
+        } 
     }
 }
