@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 
-import HistoryDiv from "@components/mypage/HistoryDiv";
+import HistoryDiv from "@components/commons/HistoryDiv";
 import { getCallHistory, getPrecheckHistory, getPrescriptionHistory } from "@apis/historyApi";
 
 import Call from "@assets/images/call.svg";
@@ -15,7 +15,7 @@ import { useUser } from "@contexts/UserContext";
 const MyPage = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const { user: {name: userName, gender: userGender} } = useUser();
+    const { user } = useUser();
     const language = i18n.language;
 
     const [callHistory, setCallHistory] = useState([]);
@@ -51,19 +51,21 @@ const MyPage = () => {
     }, []);
 
     const UserName = () => {
+        if (!user) return null;
+        
         return (
             <>
                 {language === "en" ? 
                 <>
                     <p>
-                        {userGender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
+                        {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>
-                    <span className="font-bold">{userName}</span>
+                    <span className="font-bold">{user.name}</span>
                 </>: 
                 <>
-                    <span className="font-bold">{userName}</span>
+                    <span className="font-bold">{user.name}</span>
                     <p>
-                        {userGender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
+                        {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>
                 </>}
             </>

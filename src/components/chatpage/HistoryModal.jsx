@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import HistoryDiv from '@components/mypage/HistoryDiv';
+import HistoryDiv from '@components/commons/HistoryDiv';
 import { getPrecheckHistory, getPrescriptionHistory } from '@apis/historyApi';
 
 import Close from "@assets/images/close.svg"; 
