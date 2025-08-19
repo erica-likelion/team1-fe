@@ -96,16 +96,11 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             return {
                 onRightClick: () => navigate('/home')
             };
-        case 'precheck':
-            return {
-                onRightClick: () => navigate('/home')
-            };
         case 'language':
         case 'prescription':
         case 'prescription_upload':
         case 'prescription_description':
         case 'history':
-        
         case 'default':
         default:
             return {
