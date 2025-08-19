@@ -10,6 +10,7 @@ export const UserProvider= ({children}) =>{
 
     useEffect(() => {
         const userType = searchParams.get('userType');
+        const opponentLang = searchParams.get('opponentLang');
 
         if (userType === 'medi') {
             setUser({
@@ -17,7 +18,8 @@ export const UserProvider= ({children}) =>{
                 type: "medi",
                 name: "doctor",
                 gender: "M",
-                isTemporary: true
+                isTemporary: true,
+                opponentLanguage: opponentLang 
             });
         } else {
             setUser({
@@ -25,6 +27,7 @@ export const UserProvider= ({children}) =>{
                 type: "user",
                 name: "멋사",
                 gender: "M",
+                opponentLanguage: "korean",
             });
         }
     }, [searchParams]);
