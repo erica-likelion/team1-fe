@@ -51,7 +51,7 @@ const PrescriptionScanningPage = () => {
             try {
                 // 최소 2초는 로딩 화면을 보여주기 위해 Promise.all 사용
                 const [result] = await Promise.all([
-                    mockUploadPrescription(language, image),
+                    uploadPrescription(language, image),
                     new Promise(resolve => setTimeout(resolve, 2000))
                 ]);
                 
