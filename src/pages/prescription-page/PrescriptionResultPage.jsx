@@ -28,7 +28,7 @@ const PrescriptionResultPage = () => {
 
         setIsLoading(true);
         try {
-            const roomInfo = await createChatRoom({ type: "precheck", id: 1});
+            const roomInfo = await createChatRoom({ type: "precheck", id});
             navigate(`/chat/${roomInfo.id}/${roomInfo.roomCode}`, {
                 state: {
                     type: 'prescription'
