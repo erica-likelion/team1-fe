@@ -27,8 +27,6 @@ const AgePage = () => {
         }
     }, [formData.age]);
 
-    const canMoveNextStep = birthDate !== '' && isValidBirthDate(birthDate);
-
     const calculateAge = (birthDate) => {
         const birth = new Date(birthDate);
         const today = new Date();
@@ -46,6 +44,8 @@ const AgePage = () => {
         const today = new Date();
         return birth <= today; // 오늘 이전 날짜만 유효
     };
+
+    const canMoveNextStep = birthDate !== '' && isValidBirthDate(birthDate);
 
     const handleNext = () => {
         const age = calculateAge(birthDate);
