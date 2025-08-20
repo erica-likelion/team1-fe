@@ -79,6 +79,7 @@
             "scan": "扫描",
             "camera": "拍照",
             "gallery": "从相册选择",
+            "sample": "选择样本处方",
             "capture": "拍照",
             "cancel": "取消",
             "crop": "裁剪"
@@ -93,7 +94,29 @@
             "no_file_selected": "请先上传处方单图像。",
             "uploaded_image_alt": "已上传的处方单",
             "file_uploaded": "文件上传成功",
-            "recrop": "重新裁剪"
+            "recrop": "重新裁剪",
+            "samples": {
+                "cold": {
+                    "title": "感冒症状处方",
+                    "description": "用于缓解头痛、发热、咳嗽痰多等感冒症状的处方。"
+                },
+                "gastrointestinal": {
+                    "title": "消化系统疾病处方",
+                    "description": "用于治疗胃炎、消化不良、胃灼热等胃肠疾病的处方。"
+                },
+                "ophthalmologic": {
+                    "title": "干眼症处方",
+                    "description": "用于缓解干眼症和眼部不适的处方。"
+                },
+                "musculoskeletal": {
+                    "title": "肌肉骨骼疼痛处方",
+                    "description": "用于缓解关节痛、肌肉痛等肌肉骨骼疼痛的处方。"
+                },
+                "nutritional": {
+                    "title": "营养补充处方",
+                    "description": "用于疲劳恢复和营养补充的维生素处方。"
+                }
+            }
         },
         "crop": {
             "title": "裁剪图片",

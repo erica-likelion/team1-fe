@@ -6,12 +6,21 @@ import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react
 import 'react-image-crop/dist/ReactCrop.css';
 
 import TextButton from "@components/commons/TextButton"
+import ServiceCard from "@components/commons/ServiceCard"
 
 import Document from "@assets/images/document.svg";
 import Camera from "@assets/images/camera.svg";
 import Gallery from "@assets/images/gallery.svg";
+import Medicine from "@assets/images/green_medicine.svg";
+import Note from "@assets/images/note.svg";
 import Right from "@assets/images/white_chevron_right.svg";
 import Close from "@assets/images/gray_close.svg";
+
+import Cold from "@assets/sample-prescriptions/cold.jpg"
+import Gastrointestinal from "@assets/sample-prescriptions/gastrointestinal.jpg"
+import Musculoskeletal from "@assets/sample-prescriptions/musculoskeletal.jpg" 
+import Nutritional from "@assets/sample-prescriptions/nutritional.jpg" 
+import Ophthalmologic from "@assets/sample-prescriptions/ophthalmologic.jpg" 
 
 /**
  * 처방전 업로드 페이지 컴포넌트
@@ -53,6 +62,38 @@ const PrescriptionUploadPage = () => {
     
     // 비디오 요소에 대한 참조
     const videoRef = useRef(null);
+
+    // 샘플 처방전 선택 버튼 클릭 여부
+    const [isSample, setIsSample] = useState(false);
+
+    // 샘플 처방전 리스트 
+    const samplePrescriptions = [
+        {
+            image: Cold,
+            title: t('prescription.upload.samples.cold.title'),
+            description: t('prescription.upload.samples.cold.description')
+        },
+        {
+            image: Gastrointestinal,
+            title: t('prescription.upload.samples.gastrointestinal.title'),
+            description: t('prescription.upload.samples.gastrointestinal.description')
+        },
+        {
+            image: Ophthalmologic,
+            title: t('prescription.upload.samples.ophthalmologic.title'),
+            description: t('prescription.upload.samples.ophthalmologic.description')
+        },
+        {
+            image: Musculoskeletal,
+            title: t('prescription.upload.samples.musculoskeletal.title'),
+            description: t('prescription.upload.samples.musculoskeletal.description')
+        },
+        {
+            image: Nutritional,
+            title: t('prescription.upload.samples.nutritional.title'),
+            description: t('prescription.upload.samples.nutritional.description')
+        }
+    ]
 
     /**
      * stream이 변경될 때 비디오 요소에 스트림 연결
@@ -345,6 +386,42 @@ const PrescriptionUploadPage = () => {
     };
 
     /**
+     * 샘플 처방전 선택 버튼 클릭 핸들러
+     */
+    const handleSampleSelect = () => {
+        setIsSample(prev => {
+            const newValue = !prev;
+            if (newValue) {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 0); 
+            }
+            return newValue;
+        });
+    }
+
+    /**
+     * 샘플 처방전 항목 클릭 핸들러
+     */
+    const handleSampleItemSelect = (prescription) => {
+        fetch(prescription.image)
+            .then(res => res.blob())
+            .then(blob => {
+                const file = new File([blob], `prescription-${Date.now()}.jpg`, {
+                    type: 'image/jpeg',
+                });
+                setImage(file);
+                createPreviewUrl(file);
+                setCroppedImageUrl(null);
+                setIsSample(false);
+                setIsCropping(true);
+            });
+    }
+
+    /**
      * 스캔 버튼 클릭 핸들러
      * - 업로드된 파일을 스캔 페이지로 전달
      * - 현재 언어 설정도 함께 전달
@@ -362,6 +439,8 @@ const PrescriptionUploadPage = () => {
             } 
         });
     };
+
+    const relativeStyles = "relative bottom-auto left-auto transform-none translate-x-0 z-auto";
 
     // 카메라 모드일 때 렌더링할 JSX
     if (isCamera) {
@@ -528,19 +607,45 @@ const PrescriptionUploadPage = () => {
             </div>
 
             {/* 카메라/갤러리 선택 버튼들 */}
-            <div className="space-y-3 mt-3.25 mb-15.25">
-                <TextButton 
-                    text={t('prescription.buttons.camera')} 
-                    icon={Camera} 
-                    className="relative bg-[#9DEECF] !text-[#00A270]"
-                    onClick={handleCameraCapture}
-                />
-                <TextButton 
-                    text={t('prescription.buttons.gallery')} 
-                    icon={Gallery} 
-                    className="relative bg-[#9DEECF] !text-[#00A270]"
-                    onClick={handleGallerySelect}
-                />
+            <div className="mb-15.25">
+                <div className="space-y-3">
+                    <TextButton 
+                        text={t('prescription.buttons.camera')} 
+                        icon={Camera} 
+                        className={`${relativeStyles} bg-[#9DEECF] !text-[#00A270]`}
+                        onClick={handleCameraCapture}
+                    />
+                    <TextButton 
+                        text={t('prescription.buttons.gallery')} 
+                        icon={Gallery} 
+                        className={`${relativeStyles} bg-[#9DEECF] !text-[#00A270]`}
+                        onClick={handleGallerySelect}
+                    />
+                    <TextButton 
+                        text={t('prescription.buttons.sample')} 
+                        icon={Medicine} 
+                        className={`${relativeStyles} bg-[#9DEECF] !text-[#00A270]`}
+                        onClick={handleSampleSelect}
+                    />
+                </div>
+                {isSample && (
+                    <div className="space-y-0 mt-2 p-4 bg-[#C5F4E1] rounded-lg border border-[#9DEECF] shadow-inner">
+                        {samplePrescriptions.map((prescription, index) => (
+                            <ServiceCard 
+                                key={index}
+                                icon={Note}
+                                title={prescription.title}
+                                description={prescription.description}
+                                onClick={() => handleSampleItemSelect(prescription)}
+                                className="cursor-pointer shadow-none !rounded-lg border border-[#FAFAFA] bg-[#FAFAFA] hover:bg-[#F5F5F5] hover:shadow-sm transition-all duration-200 mb-2 last:mb-0
+                                    [&>div:first-child]:bg-[#9DEECF] [&>div:first-child]:border [&>div:first-child]:border-[#9DEECF]
+                                    [&>div:nth-child(2)>p:first-child]:text-[#00A270] [&>div:nth-child(2)>p:first-child]:font-semibold [&>div:nth-child(2)>p:first-child]:text-sm
+                                    [&>div:nth-child(2)>p:last-child]:text-[#757575] [&>div:nth-child(2)>p:last-child]:text-xs [&>div:nth-child(2)>p:last-child]:leading-relaxed
+                                    hover:[&>div:nth-child(2)>p:first-child]:text-[#00C88D]"
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* 스캔 시작 버튼 */}
