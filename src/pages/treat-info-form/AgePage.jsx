@@ -1,8 +1,9 @@
 /* 사전 문진 정보 입력 페이지 (생년월일) */
 
 //import { useTranslation } from "react-i18next";
-import { useState,useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useTreatInfo } from "@contexts/TreatInfoContext";
 import TextButton from "../../components/commons/TextButton";
 import TextField from "../../components/forms/TextField";
 import TitleBlock from "../../components/commons/TitleBlock";
@@ -14,12 +15,42 @@ const AgePage = () => {
     // const { t } = useTranslation();
     const [birthDate, setBirthDate] = useState('');
     const inputRef = useRef(null);
+    const { formData, updateField } = useTreatInfo();
     const navigate = useNavigate(); 
 
-    const canMoveNextStep = birthDate !== '';
+    // Context에서 나이 로드 (생년월일 -> 나이 계산)
+    useEffect(() => {
+        if (formData.age) {
+            const currentYear = new Date().getFullYear();
+            const birthYear = currentYear - parseInt(formData.age);
+            setBirthDate(`${birthYear}-01-01`);
+        }
+    }, [formData.age]);
+
+    const canMoveNextStep = birthDate !== '' && isValidBirthDate(birthDate);
+
+    const calculateAge = (birthDate) => {
+        const birth = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
+    const isValidBirthDate = (birthDate) => {
+        if (!birthDate) return false;
+        const birth = new Date(birthDate);
+        const today = new Date();
+        return birth <= today; // 오늘 이전 날짜만 유효
+    };
 
     const handleNext = () => {
-        console.log('birthDate:', birthDate);
+        const age = calculateAge(birthDate);
+        updateField('age', age.toString());
+        console.log('birthDate:', birthDate, 'calculated age:', age);
         navigate('/treat-info-form/country')
     };
 

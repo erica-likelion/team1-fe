@@ -1,8 +1,9 @@
 /* 사전 문진 정보 입력 페이지 (성별) */
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useTreatInfo } from "@contexts/TreatInfoContext";
 import TextButton from "../../components/commons/TextButton";
 import DropdownRadio from "../../components/forms/DropdownRadio";
 import TitleBlock from "../../components/commons/TitleBlock";
@@ -12,8 +13,16 @@ import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 const GenderPage = () => {
     const { t } = useTranslation();
     const [gender, setGender] = useState('');
+    const { formData, updateField } = useTreatInfo();
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+
+    // Context에서 성별 로드
+    useEffect(() => {
+        if (formData.gender) {
+            setGender(formData.gender === 'M' ? 'm' : 'w');
+        }
+    }, [formData.gender]); 
 
     const gender_list = [
         { key: 'm', text: '남성' },
@@ -22,7 +31,9 @@ const GenderPage = () => {
     const canMoveNextStep = gender !== '';
 
     const handleNext = () => {
-        console.log('gender:', gender);
+        const genderForAPI = gender === 'm' ? 'M' : 'F';
+        updateField('gender', genderForAPI);
+        console.log('gender:', gender, 'for API:', genderForAPI);
         navigate('/treat-info-form/symptoms')
     };
     return (

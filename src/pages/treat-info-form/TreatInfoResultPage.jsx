@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useTreatInfo } from "@contexts/TreatInfoContext";
+import { useUser } from "@contexts/UserContext";
 import TextButton from "@components/commons/TextButton";
 import TextField from "@components/forms/TextField";
-
-import { useUser } from "@contexts/UserContext";
 
 import GreenChevronRight from "@assets/images/green_chevron_right.svg";
 
@@ -12,6 +12,7 @@ const TreantInfoResultPage = () => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const { user } = useUser();
+    const { result, error, isLoading } = useTreatInfo();
 
     const handleNavigation = (path) => {
         console.log('작동 여부: O');
@@ -27,8 +28,8 @@ const TreantInfoResultPage = () => {
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
-                    // value={symptoms}
-                    // onChange={handleSymptomsChange}
+                    value={error ? `오류: ${error}` : result ? result.koreanContent || result.content : '로딩 중...'}
+                    readOnly={true}
                     placeholder="AI 생성 텍스트"
                     maxLength={1000000}
                     height="h-[303px]"
