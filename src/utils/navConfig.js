@@ -11,7 +11,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/prescription/result') return 'prescription_result';
     if (pathname === ('/treat-info/result')) return 'precheck';
     if (pathname === '/mypage/history') return 'history';
-
+    if (pathname.startsWith ('/call-reservation')) return 'call';
     if (pathname.endsWith('/qr')) return 'qr';
     if (pathname.startsWith('/chat/')) return 'chatroom';
     if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
@@ -41,6 +41,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.history');
         case 'qr':
             return t('navigation.qrCode');
+        case 'call':
+            return t('navigation.call')
         case 'home':
         case 'chat':
         case 'chatroom':

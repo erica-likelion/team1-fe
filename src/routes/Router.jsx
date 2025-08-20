@@ -23,6 +23,7 @@ import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScann
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
 import TreantInfoScanningPage from '@/pages/treat-info-form/TreantInfoScanningPage';
 import TreantInfoResultPage from '@/pages/treat-info-form/TreatInfoResultPage';
+import CallNumberPage from '@/pages/call-reservation-page/CallNumberPage';
 
 const Router = () => {
     return (
@@ -52,6 +53,7 @@ const Router = () => {
                             <Route path="prescription" element={<PrescriptionPage />} />
                             <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
                             <Route path="prescription/result" element={<PrescriptionResultPage />} />
+                            <Route path='call-reservation/number' element={<CallNumberPage/>}/>
                         </Route>
                         
                         <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />

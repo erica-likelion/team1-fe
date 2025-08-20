@@ -15,7 +15,8 @@
             "upload": "스캔할 처방전 추가",
             "description": "처방전 설명"
         },
-        "qrCode": "채팅방 QR"
+        "qrCode": "채팅방 QR",
+        "call" : "병원 전화 예약"
     },
 
     "homepage": {
@@ -181,5 +182,9 @@
             "diagnosisHistory": "진료 기록",
             "prescriptionHistory": "처방 기록"
         } 
+    },
+
+    "call" : {
+        
     }
 }

@@ -55,6 +55,10 @@ const NavBar = ({
             precheck: {
                 rightIcon:Close,
             },
+            call: {
+                leftIcon: LeftArrow,
+                rightIcon: Close,
+            },
             default: {
                 leftIcon: LeftArrow,
                 rightIcon: Close,
