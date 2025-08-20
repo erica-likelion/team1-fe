@@ -19,7 +19,7 @@ export const UserProvider= ({children}) =>{
                 name: "doctor",
                 gender: "M",
                 isTemporary: true,
-                opponentLanguage: opponentLang 
+                opponentLanguage: opponentLang || "english"
             });
         } else {
             setUser({
