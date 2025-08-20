@@ -1,0 +1,219 @@
+import api from "@utils/apiClient";
+
+/**
+ * 사전문진 API 서비스
+ * API 명세서에 맞춘 실제 구현
+ */
+
+/**
+ * 사전문진 생성 및 AI 분석 요청
+ * @param {Object} precheckData - 사전문진 데이터
+ * @param {string} precheckData.language - 입력 언어 ("english" | "chinese")
+ * @param {string} precheckData.name - 환자 이름
+ * @param {number} precheckData.age - 나이
+ * @param {string} precheckData.nationality - 국적
+ * @param {string} precheckData.gender - 성별 ("M" | "F")
+ * @param {string} precheckData.description - 증상 설명
+ * @returns {Promise<Object>} AI 분석 결과
+ */
+export const createPrecheck = async (precheckData) => {
+    try {
+        console.log('사전문진 API 요청:', precheckData);
+
+        // API 명세서에 맞는 요청 데이터 검증
+        const requiredFields = ['language', 'name', 'age', 'nationality', 'gender', 'description'];
+        for (const field of requiredFields) {
+            if (!precheckData[field]) {
+                throw new Error(`필수 필드가 누락되었습니다: ${field}`);
+            }
+        }
+
+        // 성별 값 검증
+        if (!['M', 'F'].includes(precheckData.gender)) {
+            throw new Error('성별은 M 또는 F 값이어야 합니다.');
+        }
+
+        // 언어 값 검증
+        if (!['english', 'chinese'].includes(precheckData.language)) {
+            throw new Error('언어는 english 또는 chinese 값이어야 합니다.');
+        }
+
+        // 나이가 숫자인지 확인
+        if (typeof precheckData.age !== 'number' || precheckData.age <= 0) {
+            throw new Error('나이는 양수여야 합니다.');
+        }
+
+        const response = await api.post('/api/precheck', {
+            language: precheckData.language,
+            name: precheckData.name,
+            age: precheckData.age,
+            nationality: precheckData.nationality,
+            gender: precheckData.gender,
+            description: precheckData.description
+        });
+
+        if (!response.data) {
+            throw new Error('API 응답 데이터가 없습니다.');
+        }
+
+        console.log('사전문진 API 응답:', response.data);
+
+        // 응답 데이터 구조 검증
+        const requiredResponseFields = ['id', 'title', 'koreanTitle', 'content', 'koreanContent', 'createdAt'];
+        for (const field of requiredResponseFields) {
+            if (response.data[field] === undefined) {
+                console.warn(`응답에서 필드가 누락되었습니다: ${field}`);
+            }
+        }
+
+        return response.data;
+
+    } catch (error) {
+        console.error('사전문진 생성 중 오류 발생:', error);
+        
+        // HTTP 상태 코드별 에러 처리
+        if (error.response) {
+            const status = error.response.status;
+            const message = error.response.data?.message || error.message;
+            
+            switch (status) {
+                case 400:
+                    throw new Error(`잘못된 요청입니다: ${message}`);
+                case 401:
+                    throw new Error('인증이 필요합니다.');
+                case 403:
+                    throw new Error('접근 권한이 없습니다.');
+                case 404:
+                    throw new Error('API 엔드포인트를 찾을 수 없습니다.');
+                case 429:
+                    throw new Error('요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.');
+                case 500:
+                    throw new Error('서버 내부 오류가 발생했습니다.');
+                default:
+                    throw new Error(`API 오류 (${status}): ${message}`);
+            }
+        } else if (error.request) {
+            throw new Error('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
+        } else {
+            throw new Error(`사전문진 생성 실패: ${error.message}`);
+        }
+    }
+};
+
+/**
+ * 언어 코드 변환 유틸리티 함수
+ * i18n 언어 코드를 API에서 요구하는 형식으로 변환
+ * @param {string} i18nLanguage - i18n 언어 코드 (예: 'en', 'zh', 'ko')
+ * @returns {string} API 언어 형식 ('english' | 'chinese')
+ */
+export const convertLanguageForAPI = (i18nLanguage) => {
+    const languageMap = {
+        'en': 'english',
+        'en-US': 'english',
+        'en-GB': 'english',
+        'zh': 'chinese',
+        'zh-CN': 'chinese',
+        'zh-TW': 'chinese',
+        'ko': 'english', // 한국어는 기본적으로 영어로 처리
+        'ko-KR': 'english'
+    };
+
+    return languageMap[i18nLanguage] || 'english';
+};
+
+/**
+ * 성별 코드 변환 유틸리티 함수
+ * 다양한 성별 표현을 API 형식으로 변환
+ * @param {string} gender - 성별 (한국어/영어/기타)
+ * @returns {string} API 성별 코드 ('M' | 'F')
+ */
+export const convertGenderForAPI = (gender) => {
+    const genderStr = gender.toLowerCase();
+    
+    if (genderStr.includes('남') || genderStr.includes('male') || genderStr === 'm') {
+        return 'M';
+    } else if (genderStr.includes('여') || genderStr.includes('female') || genderStr === 'f') {
+        return 'F';
+    }
+    
+    throw new Error('올바른 성별 정보를 입력해주세요.');
+};
+
+/**
+ * 사전문진 생성을 위한 헬퍼 함수
+ * 폼 데이터를 API 형식으로 변환하여 요청
+ * @param {Object} formData - 폼에서 입력받은 데이터
+ * @param {string} formData.symptoms - 증상 설명
+ * @param {string} formData.name - 환자 이름
+ * @param {number|string} formData.age - 나이
+ * @param {string} formData.gender - 성별
+ * @param {string} formData.nationality - 국적
+ * @param {string} currentLanguage - 현재 언어 설정
+ * @returns {Promise<Object>} 사전문진 결과
+ */
+export const createPrecheckFromForm = async (formData, currentLanguage = 'en') => {
+    try {
+        // 폼 데이터를 API 형식으로 변환
+        const apiData = {
+            language: convertLanguageForAPI(currentLanguage),
+            name: formData.name.trim(),
+            age: typeof formData.age === 'string' ? parseInt(formData.age) : formData.age,
+            nationality: formData.nationality.trim().toLowerCase(),
+            gender: convertGenderForAPI(formData.gender),
+            description: formData.symptoms.trim()
+        };
+
+        // 추가 검증
+        if (!apiData.name || apiData.name.length < 1) {
+            throw new Error('이름을 입력해주세요.');
+        }
+
+        if (isNaN(apiData.age) || apiData.age < 1 || apiData.age > 150) {
+            throw new Error('올바른 나이를 입력해주세요. (1-150)');
+        }
+
+        if (!apiData.nationality || apiData.nationality.length < 2) {
+            throw new Error('국적을 입력해주세요.');
+        }
+
+        if (!apiData.description || apiData.description.length < 1) {
+            throw new Error('증상을 입력해주세요.');
+        }
+
+        return await createPrecheck(apiData);
+
+    } catch (error) {
+        console.error('폼 데이터 처리 중 오류:', error);
+        throw error;
+    }
+};
+
+/**
+ * 목업 데이터를 위한 개발용 함수 (개발 단계에서만 사용)
+ * 실제 API 호출 전에 테스트용으로 사용
+ */
+export const createPrecheckMock = async (precheckData) => {
+    // 개발 환경에서만 작동
+    if (process.env.NODE_ENV !== 'development') {
+        throw new Error('목업 함수는 개발 환경에서만 사용할 수 있습니다.');
+    }
+
+    // 2-3초 지연 시뮬레이션
+    await new Promise(resolve => setTimeout(resolve, 2500));
+
+    // 목업 응답 생성
+    const mockResponse = {
+        id: Date.now(),
+        title: precheckData.language === 'english' 
+            ? `Medical consultation for ${precheckData.name}` 
+            : `${precheckData.name}的医疗咨询`,
+        koreanTitle: `${precheckData.name}님의 의료 상담`,
+        content: precheckData.language === 'english'
+            ? `Patient ${precheckData.name} (${precheckData.age} years old, ${precheckData.nationality}) reports: ${precheckData.description}. Based on the symptoms described, we recommend scheduling a consultation with a healthcare provider for proper evaluation and treatment.`
+            : `患者${precheckData.name}（${precheckData.age}岁，${precheckData.nationality}）报告：${precheckData.description}。根据所描述的症状，我们建议安排与医疗保健提供者的咨询，以进行适当的评估和治疗。`,
+        koreanContent: `환자 ${precheckData.name}님 (${precheckData.age}세, ${precheckData.nationality})의 증상: ${precheckData.description}. 설명하신 증상을 바탕으로 적절한 평가와 치료를 위해 의료진과의 상담을 권장합니다.`,
+        createdAt: new Date().toISOString().split('T')[0]
+    };
+
+    return mockResponse;
+};
