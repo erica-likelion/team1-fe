@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 
 import HistoryDiv from "@components/commons/HistoryDiv";
-import { getCallHistory, getPrecheckHistory, getPrescriptionHistory } from "@apis/historyApi";
+import { getCallHistory } from "@apis/callApi";
+import { getPrecheckHistory } from "@apis/precheckApi";
+import { getPrescriptionHistory } from "@apis/prescriptionApi";
 
 import Call from "@assets/images/call.svg";
 import Doctor from "@assets/images/doctor.svg";

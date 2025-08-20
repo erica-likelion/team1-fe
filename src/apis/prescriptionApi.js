@@ -88,3 +88,17 @@ export const getPrecheckById = async (precheckId) => {
         throw error;
     }
 };
+
+/**
+ * 처방 기록(prescription) 목록을 가져오는 함수
+ * @returns {Promise<Array>} 처방 기록 배열
+ */
+export const getPrescriptionHistory = async () => {
+    try {
+        const response = await api.get('/api/prescription');
+        return response.data;
+    } catch (error) {
+        console.error('처방 기록을 가져오는 중 오류 발생:', error);
+        throw error;
+    }
+};
