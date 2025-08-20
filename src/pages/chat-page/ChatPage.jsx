@@ -12,11 +12,12 @@ import Plus from "@assets/images/plus.svg";
 
 
 const ChatPage = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [chatRooms, setChatRooms] = useState([]);
     const { isSearchMode, searchQuery, setQuery } = useSearch();
-
+    const currentUserLang = i18n.language === 'ko' ? 'korean' : i18n.language === 'en' ? 'english' : 'chinese';
+    
     useEffect(() => {
         loadChatRooms();
     }, []);
@@ -47,10 +48,15 @@ const ChatPage = () => {
 
     const createNewChat = async () => {
         try {
-            const chatData = await createChatRoom();
-            navigate(`/chat/${chatData.roomId}/${chatData.roomCode}`);
+            const roomInfo = await createChatRoom({type: "newChat", langauge: {currentUserLang}});
+            navigate(`/chat/${roomInfo.id}/${roomInfo.roomCode}`, {
+                state: {
+                    type: "newChat"
+                }
+            });
         } catch (err) {
-            console.log(err);
+            console.log('채팅방 생성 실패:', err);
+            alert(t('common.tryAgain'));
         }
     };
 
