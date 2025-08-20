@@ -17,8 +17,8 @@ const TreantInfoResultPage = () => {
     const [isTranslated, setIsTranslated] = useState(false);
 
     const handleNavigation = (path) => {
-        console.log('작동 여부: O');
-        navigate(path);
+        console.log('번역 버튼 클릭됨, 현재 상태:', isTranslated);
+        setIsTranslated(!isTranslated);
     }
 
     const handleTranslate = () => {
@@ -28,6 +28,12 @@ const TreantInfoResultPage = () => {
     const getDisplayText = () => {
         if (error) return `오류: ${error}`;
         if (!result) return '로딩 중...';
+
+        console.log('현재 번역 상태:', isTranslated);
+        console.log('사용 가능한 콘텐츠:', {
+            content: result.content,
+            koreanContent: result.koreanContent
+        });
         
         // 현재 언어에 따라 표시할 텍스트 결정
         const currentLanguage = i18n.language;
@@ -49,6 +55,17 @@ const TreantInfoResultPage = () => {
         }
     };
 
+    const getTranslateButtonText = () => {
+        const currentLanguage = i18n.language;
+        
+        if (currentLanguage === 'ko') {
+            return isTranslated ? '한국어로' : '원문으로';
+        } else {
+            return isTranslated ? 'Original' : '한국어로';
+        }
+    };
+
+
     return (
         <div>
             <div className="flex flex-col justify-center items-center px-5 mt-15">
@@ -58,7 +75,7 @@ const TreantInfoResultPage = () => {
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
-                    value={error ? `오류: ${error}` : result ? result.koreanContent || result.content : '로딩 중...'}
+                    value={getDisplayText()}
                     readOnly={true}
                     placeholder="AI 생성 텍스트"
                     maxLength={1000000}
