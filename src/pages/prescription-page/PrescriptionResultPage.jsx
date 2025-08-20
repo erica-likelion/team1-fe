@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { useUser } from "@contexts/UserContext";
+import { createChatRoom } from "@apis/chatApi";
 
 import Right from "@assets/images/white_chevron_right.svg";
 
@@ -12,13 +13,33 @@ const PrescriptionResultPage = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { user } = useUser();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { analysisResult } = location.state || {};
+    const { id, analysisResult } = location.state || {};
 
     // 결과가 없으면 업로드 페이지로 리다이렉트
     if (!analysisResult) {
         navigate('/prescription/upload');
         return null;
+    }
+
+    const handleChatStart = async () => {
+        if (isLoading) return;
+
+        setIsLoading(true);
+        try {
+            const roomInfo = await createChatRoom({ type: "precheck", id});
+            navigate(`/chat/${roomInfo.id}/${roomInfo.roomCode}`, {
+                state: {
+                    type: 'prescription'
+                }
+            });
+        } catch(err) {
+            console.log('채팅방 생성 실패: ', err);
+            alert(t('common.tryAgain'));
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -37,7 +58,7 @@ const PrescriptionResultPage = () => {
                     {analysisResult}
                 </div>
             </div>
-            <TextButton text="통역 채팅 시작하기" icon={Right} />
+            <TextButton text="통역 채팅 시작하기" icon={Right} onClick={handleChatStart} />
             
         </div>
     );

@@ -128,7 +128,7 @@
         "noSearch": "No search results found.",
         "searchPlaceholder": "Search chat rooms...",
         "selectChatType": "Please click the chat room button.",
-        "enterMessage": "Please enter a message...",
+        "enterMessage": "Enter message",
         "type": {
             "newChat": "New Chat",
             "precheck": "Consultation",
@@ -149,6 +149,7 @@
 
     "common": {
         "loading": "Loading...",
+        "tryAgain": "Please try again",
         "time": {
             "am": "AM",
             "pm": "PM"

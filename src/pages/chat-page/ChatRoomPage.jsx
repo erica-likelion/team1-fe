@@ -19,7 +19,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
 import { getChatMessages } from '@apis/chatApi';
@@ -34,6 +34,7 @@ import { Stomp } from "@stomp/stompjs";
  
 const ChatRoomPage = () => {
     const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출
+    const location = useLocation();
     const { user: currentUser } = useUser();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -41,7 +42,7 @@ const ChatRoomPage = () => {
     
     // 채팅방 상태
     const [messages, setMessages] = useState([]);
-    const [chatRoomInfo, setChatRoomInfo] = useState(null);
+    const [roomInfo, setRoomInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
     const [activeHistoryModal, setActiveHistoryModal] = useState(null); // 'precheck', 'prescription', null
@@ -53,6 +54,8 @@ const ChatRoomPage = () => {
 
     // STOMP 클라이언트를 위한 ref, 웹소켓 연결을 유지하기 위해 사용
     const stompClient = useRef(null);
+
+    const { type } = location.state || {};
 
     // 컴포넌트 마운트 시 채팅방 데이터 로드
     useEffect(() => {
@@ -92,10 +95,10 @@ const ChatRoomPage = () => {
             setMessages(fetchedMessages);
             setHasUserSentMessage(fetchedMessages.length > 1);
             
-            // 가장 첫 번째 메시지의 createdAt을 chatRoomInfo에 저장
+            // 가장 첫 번째 메시지의 createdAt을 roomInfo에 저장
             const firstMessageDate = fetchedMessages.length > 0 ? new Date(fetchedMessages[0].createdAt) : new Date();
-            setChatRoomInfo({
-                type: "newChat", 
+            setRoomInfo({
+                type: type, 
                 date: firstMessageDate.toISOString().split('T')[0],
                 time: firstMessageDate.toISOString().split('T')[1].substring(0, 5)
             });
@@ -104,7 +107,7 @@ const ChatRoomPage = () => {
             setMessages([]);
             setHasUserSentMessage(false);
             const currentDate = new Date();
-            setChatRoomInfo({
+            setRoomInfo({
                 type: "newChat", 
                 date: currentDate.toISOString().split('T')[0],
                 time: currentDate.toISOString().split('T')[1].substring(0, 5)
@@ -184,17 +187,6 @@ const ChatRoomPage = () => {
         navigate(`/chat/${id}/${roomCode}/qr`);
     };
 
-    // Plus 버튼 클릭 핸들러
-    const handlePlusClick = () => {
-        console.log('파일/이미지 첨부 기능');
-        // 추후 파일 업로드 모달이나 기능 구현
-    };
-
-    // 마이크 버튼 클릭 핸들러
-    const handleMicClick = () => {
-        console.log('음성 입력 기능');
-        // 추후 음성 인식 기능 구현
-    };
 
     // 메시지 영역 자동 스크롤
     const scrollToBottom = () => {
@@ -297,14 +289,14 @@ const ChatRoomPage = () => {
                     />
                 ) : (
                     <p className="p-2.5 pt-4.5 font-semibold">
-                        {chatRoomInfo && `${t(`chat.type.${chatRoomInfo.type}`)} | ${chatRoomInfo.date}`}
+                        {roomInfo && `${t(`chat.type.${roomInfo.type}`)} | ${roomInfo.date}`}
                     </p>
                 )}
                 <div className="h-[1px] w-[335px] bg-[#E0E0E0]"/>
             </div>
 
             <div className="self-center mt-17 text-[12px] text-[#BDBDBD]">
-                {chatRoomInfo && timeFormatting(chatRoomInfo.time)}
+                {roomInfo && timeFormatting(roomInfo.time)}
             </div>
 
             {/* 메시지 영역 */}
@@ -312,14 +304,14 @@ const ChatRoomPage = () => {
                 ref={messagesContainerRef}
                 className="overflow-y-auto space-y-4 mt-4 mb-15"
             >
-                {messages.map((message, index) => (
+                {messages && messages.map((message, index) => (
                     <div key={`${message.id}-${index}`}>
                         <Message 
                             message={message}
                             ref={(el) => messageRefs.current[message.id] = el}
                         />
                         {/* 첫 번째 메시지 아래에 버튼들 렌더링 */}
-                        {index === 0 && chatRoomInfo && chatRoomInfo.type === "newChat" && !hasUserSentMessage && (
+                        {index === 0 && roomInfo && roomInfo.type === "newChat" && !hasUserSentMessage && (
                             <div className="pl-13.75 py-2 mb-4 flex flex-col items-start gap-2">
                                 {initBtnList.map((btn, btnIndex) => (
                                     <TextButton 
@@ -355,8 +347,6 @@ const ChatRoomPage = () => {
             <ChatBar 
                 onSendMessage={handleSendMessage}
                 onQrCodeClick={handleQrCodeClick}
-                onPlusClick={handlePlusClick}
-                onMicClick={handleMicClick}
                 disabled={isLoading} 
             />
         </div>

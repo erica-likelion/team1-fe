@@ -78,7 +78,7 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             };
         case 'chatroom':
             return {
-                onLeftClick: () => navigate(-1), 
+                onLeftClick: () => navigate('/chat'), 
                 onRightClick: () => {
                     if (toggleSearchMode) {
                         toggleSearchMode();
@@ -92,6 +92,7 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
                 onLeftClick: () => navigate(-1), // 채팅방으로 뒤로가기
                 onRightClick: null // 오른쪽 버튼 없음
             };
+        case 'prescription_result':
         case 'precheck':
             return {
                 onRightClick: () => navigate('/home')
@@ -99,7 +100,6 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
         case 'language':
         case 'prescription':
         case 'prescription_upload':
-        case 'prescription_description':
         case 'history':
         case 'default':
         default:
