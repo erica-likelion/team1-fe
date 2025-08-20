@@ -149,6 +149,7 @@
 
     "common": {
         "loading": "Loading...",
+        "tryAgain": "Please try again",
         "time": {
             "am": "AM",
             "pm": "PM"
