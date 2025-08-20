@@ -54,11 +54,39 @@ export const getChatRooms = async () => {
 
 /**
  * 새로운 채팅방 생성
+ * @param {object} params - 채팅방 생성 매개변수
+ * @param {"newChat"|"precheck"|"prescription"} params.type - 채팅방 타입
+ * @param {string} [language] - newChat 타입일 때 필요한 사용자 언어
+ * @param {number} [id] - precheck 타입일 때 필요한 ID
+ * @param {number} [id] - prescription 타입일 때 필요한 ID
  * @returns {Promise<object>} 생성된 채팅방 정보
+ * @example
+ * // 새로운 채팅방 생성
+ * const newChat = await createChatRoom({ type: "newChat" });
+ * 
+ * // precheck 기반 채팅방 생성
+ * const precheckChat = await createChatRoom({ type: "precheck", id: 1 });
+ * 
+ * // prescription 기반 채팅방 생성
+ * const prescriptionChat = await createChatRoom({ type: "prescription", id: 1 });
  */
-export const createChatRoom = async () => {
+export const createChatRoom = async ({ type, language, id }) => {
   try {
-    const response = await api.post('/api/chat/rooms');
+    const requestData = { type };
+    
+    if (type === "precheck" && id) {
+      requestData.precheckId = id;
+    }
+    
+    if (type === "prescription" && id) {
+      requestData.prescriptionId = id;
+    }
+
+    if (type === "newChat" && language) {
+      requestData.language = language;
+    }
+    
+    const response = await api.post('/api/chat/rooms', requestData);
     return response.data;
   } catch (error) {
     console.error('채팅방 생성 실패:', error);
