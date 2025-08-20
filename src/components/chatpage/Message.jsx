@@ -17,15 +17,24 @@ const Message = forwardRef(({ message }, ref) => {
 
     const unescapeString = (str) => {
         return str
-        .replace(/\\n/g, '\n');
+        .replace(/\\n/g, '\n')
+        .replace(/^"|"$/g, '');
     };
 
     const getDisplayText = () => {
-        const rawText = user.type === "medi" 
-            ? (translate ? message.koreanMessage : message.message)
-            : (translate ? message.message : message.koreanMessage);
-            
-        return unescapeString(rawText); 
+        // userText: 내가 보낸 메세지
+        // opponentText: 상대방이 보낸 메세지
+        // 사용자 입장
+        // userText: message
+        // opponentText: message
+        // 의료진 입장
+        // userText: koreanMessage
+        // opponentText: koreanMessage
+
+        const text = user.type === 'user'
+            ? (translate ? message.message : message.koreanMessage)
+            : (translate ? message.koreanMessage : message.message);
+        return unescapeString(text); 
     };
 
     const messageDivStyle = "max-w-[75%] text-[12px] rounded-sm font-medium p-4 shadow-[2px_2px_8px_0_rgba(23,23,27,0.15)] whitespace-pre-wrap break-words overflow-wrap-anywhere" 
