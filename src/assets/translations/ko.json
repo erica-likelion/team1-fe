@@ -189,6 +189,7 @@
 
     "common": {
         "loading": "로딩 중...",
+        "tryAgain": "다시 시도해주세요",
         "time": {
             "am": "오전",
             "pm": "오후"

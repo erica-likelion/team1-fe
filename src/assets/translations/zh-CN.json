@@ -172,6 +172,7 @@
 
     "common": {
         "loading": "加载中...",
+        "tryAgain": "请重试",
         "time": {
             "am": "上午",
             "pm": "下午"

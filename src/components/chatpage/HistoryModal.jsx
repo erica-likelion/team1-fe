@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import HistoryDiv from '@components/commons/HistoryDiv';
-import { getPrecheckHistory, getPrescriptionHistory } from '@apis/historyApi';
+import { getPrecheckHistory } from "@apis/precheckApi";
+import { getPrescriptionHistory } from "@apis/prescriptionApi";
 
 import Close from "@assets/images/close.svg"; 
 import Doctor from "@assets/images/doctor.svg";

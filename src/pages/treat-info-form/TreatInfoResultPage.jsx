@@ -8,6 +8,8 @@ import TextField from "@components/forms/TextField";
 
 import GreenChevronRight from "@assets/images/green_chevron_right.svg";
 
+import { createChatRoom } from "@apis/chatApi";
+
 const TreantInfoResultPage = () => {
 
     const {t, i18n} = useTranslation();
@@ -65,6 +67,19 @@ const TreantInfoResultPage = () => {
         }
     };
 
+    const handleChatStart = async () => {
+        try {
+            const roomInfo = await createChatRoom({ type: "precheck", id: result.id});
+            navigate(`/chat/${roomInfo.id}/${roomInfo.roomCode}`, {
+                state: {
+                    type: 'precheck'
+                }
+            });
+        } catch(err) {
+            console.log('채팅방 생성 실패: ', err);
+            alert(t('common.tryAgain'));
+        }
+    }
 
     return (
         <div>
@@ -96,14 +111,14 @@ const TreantInfoResultPage = () => {
 
             <div className="relative">
                 <TextButton
-                    text = "병원 전화 에약하기"
+                    text = "병원 전화 예약하기"
                     onClick={() => handleNavigation('/hospital-booking')}
                     icon={GreenChevronRight}
                     className = "mb-15 bg-[#9DEECF] !text-[#00A270]"
                 />
                 <TextButton
                     text = "통역 채팅 시작하기"
-                    onClick={() => handleNavigation('/chat')}
+                    onClick={handleChatStart}
                     icon={GreenChevronRight}
                     className = "bg-[#9DEECF] !text-[#00A270]"
                 />

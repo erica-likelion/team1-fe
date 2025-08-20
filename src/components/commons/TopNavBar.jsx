@@ -12,6 +12,7 @@ import Search from "@assets/images/search.svg";
     chat: 통역채팅 페이지
     mypage: 마이페이지
     precheck: 사전 문진 결과 페이지
+    prescription_result: 처방전 분석 결과 페이지
     default: 그 외
 */
 
@@ -46,6 +47,10 @@ const NavBar = ({
             qr: {
                 leftIcon: LeftArrow,
                 rightIcon: null
+            },
+            prescription_result: {
+                leftIcon: null,
+                rightIcon: Close
             },
             precheck: {
                 rightIcon:Close,
