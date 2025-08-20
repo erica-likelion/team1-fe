@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTreatInfo } from "@contexts/TreatInfoContext";
@@ -9,15 +10,44 @@ import GreenChevronRight from "@assets/images/green_chevron_right.svg";
 
 const TreantInfoResultPage = () => {
 
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const navigate = useNavigate();
     const { user } = useUser();
     const { result, error, isLoading } = useTreatInfo();
+    const [isTranslated, setIsTranslated] = useState(false);
 
     const handleNavigation = (path) => {
         console.log('작동 여부: O');
         navigate(path);
     }
+
+    const handleTranslate = () => {
+        setIsTranslated(!isTranslated);
+    }
+
+    const getDisplayText = () => {
+        if (error) return `오류: ${error}`;
+        if (!result) return '로딩 중...';
+        
+        // 현재 언어에 따라 표시할 텍스트 결정
+        const currentLanguage = i18n.language;
+        
+        if (isTranslated) {
+            // 번역된 텍스트 표시
+            if (currentLanguage === 'ko') {
+                return result.content || result.koreanContent; // 원문 (영어 또는 중국어)
+            } else {
+                return result.koreanContent || result.content; // 한글 번역본
+            }
+        } else {
+            // 기본 텍스트 표시
+            if (currentLanguage === 'ko') {
+                return result.koreanContent || result.content;
+            } else {
+                return result.content || result.koreanContent;
+            }
+        }
+    };
 
     return (
         <div>
@@ -37,7 +67,7 @@ const TreantInfoResultPage = () => {
                     className ="mt-8"
                     />
                 <button 
-                    onClick={() => handleNavigation('/translate')}
+                    onClick={handleTranslate} 
                     className="flex justify-center items-center 
                                 font-regular rounded-sm 
                                 bg-[#3DE0AB] text-white text-sm
