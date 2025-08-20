@@ -187,17 +187,6 @@ const ChatRoomPage = () => {
         navigate(`/chat/${id}/${roomCode}/qr`);
     };
 
-    // Plus 버튼 클릭 핸들러
-    const handlePlusClick = () => {
-        console.log('파일/이미지 첨부 기능');
-        // 추후 파일 업로드 모달이나 기능 구현
-    };
-
-    // 마이크 버튼 클릭 핸들러
-    const handleMicClick = () => {
-        console.log('음성 입력 기능');
-        // 추후 음성 인식 기능 구현
-    };
 
     // 메시지 영역 자동 스크롤
     const scrollToBottom = () => {
@@ -358,8 +347,6 @@ const ChatRoomPage = () => {
             <ChatBar 
                 onSendMessage={handleSendMessage}
                 onQrCodeClick={handleQrCodeClick}
-                onPlusClick={handlePlusClick}
-                onMicClick={handleMicClick}
                 disabled={isLoading} 
             />
         </div>

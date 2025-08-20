@@ -1,25 +1,63 @@
 /* ChatBar - 채팅 입력 바 컴포넌트 */
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import QrCode from "@assets/images/qrcode.svg";
-import Plus from "@assets/images/gray_plus.svg";
 import Mic from "@assets/images/mic.svg";
+import ActiveMic from "@assets/images/green_mic.svg";
 import Arrow from "@assets/images/top_arrow.svg";
 
 const ChatBar = ({ 
     onSendMessage, // 메세지 전송 처리 함수
     onQrCodeClick,
-    onPlusClick, // 파일 추가 버튼 클릭 함수
-    onMicClick, // 마이크 버튼 클릭 함수
     placeholder, 
     disabled = false,
     className = "" 
 }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [message, setMessage] = useState('');
+    const [language, setLanguage] = useState('ko');
     const textareaRef = useRef(null);
     const textareaMinHeight = '18px';
+    
+    // 음성 인식 상태
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
+    useEffect(() => {
+        setLanguage(i18n.language);
+    }, []);
+
+    // 음성 인식 결과를 message에 반영
+    useEffect(() => {
+        if (transcript) {
+            setMessage(transcript);
+        }
+    }, [transcript]);
+
+    // 마이크 버튼 클릭 핸들러
+    const handleMicClick = () => {
+        if (!browserSupportsSpeechRecognition) {
+            alert(t('common.tryAgain')); // 브라우저 지원 안 함
+            return;
+        }
+
+        if (listening) {
+            SpeechRecognition.stopListening();
+        } else {
+            resetTranscript();
+            SpeechRecognition.startListening({ 
+                continuous: true,
+                language: language === 'ko' ? 'ko-KR' : 
+                        language === 'zh-CN' ? 'zh-CN' : 'en-US'
+            });
+        }
+    };
 
     // 메시지 전송 처리
     const handleSendMessage = () => {
@@ -70,13 +108,6 @@ const ChatBar = ({
                 </button>
 
                 <div className="w-[239px] flex justify-between items-center gap-3 border border-[#BDBDBD] rounded-sm p-2 focus-within:ring-2 focus-within:ring-[#3DE0AB] focus-within:border-transparent">
-                    <button 
-                        onClick={onPlusClick}
-                        className="cursor-pointer"
-                    >
-                        <img src={Plus} className="w-6 h-6" />
-                    </button>
-
                     <textarea
                         ref={textareaRef}
                         value={message}
@@ -84,16 +115,16 @@ const ChatBar = ({
                         onKeyDown={handleKeyDown}
                         placeholder={placeholder || t('chat.enterMessage')}
                         disabled={disabled}
-                        className="resize-none no-scrollbar border-none outline-none disabled:cursor-not-allowed text-[12px] font-medium "
+                        className="flex-1 resize-none no-scrollbar border-none outline-none disabled:cursor-not-allowed text-[12px] font-medium "
                         rows="1"
                     />
 
                     <button 
-                        onClick={onMicClick}
+                        onClick={handleMicClick}
                         disabled={disabled}
-                        className="cursor-pointer"
+                        className={`cursor-pointer ${listening ? 'animate-pulse bg-[#C5F4E1] rounded-full p-1' : ''}`}
                     >
-                        <img src={Mic} className="w-6 h-6" />
+                        <img src={listening ? ActiveMic : Mic} className="w-6 h-6" />
                     </button>
                 </div>
 
