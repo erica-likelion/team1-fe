@@ -80,6 +80,7 @@
             "scan": "Scan",
             "camera": "Take Photo",
             "gallery": "Select from Gallery",
+            "sample": "Select Sample Prescription",
             "capture": "Capture",
             "cancel": "Cancel",
             "crop": "Crop"
@@ -94,7 +95,29 @@
             "no_file_selected": "Please upload a prescription image first.",
             "uploaded_image_alt": "Uploaded prescription",
             "file_uploaded": "File uploaded successfully",
-            "recrop": "Crop Again"
+            "recrop": "Crop Again",
+            "samples": {
+                "cold": {
+                    "title": "Cold Symptoms",
+                    "description": "Prescription for relieving cold symptoms such as headache, fever, and cough with phlegm."
+                },
+                "gastrointestinal": {
+                    "title": "Digestive Disorders",
+                    "description": "Prescription for treating gastrointestinal conditions like gastritis, indigestion, and heartburn."
+                },
+                "ophthalmologic": {
+                    "title": "Dry Eye Syndrome",
+                    "description": "Prescription for relieving dry eye syndrome and eye discomfort."
+                },
+                "musculoskeletal": {
+                    "title": "Musculoskeletal Pain",
+                    "description": "Prescription for relieving musculoskeletal pain including joint and muscle pain."
+                },
+                "nutritional": {
+                    "title": "Nutritional Supplement",
+                    "description": "Vitamin prescription for fatigue recovery and nutritional supplementation."
+                }
+            }
         },
         "crop": {
             "title": "Crop Image",
