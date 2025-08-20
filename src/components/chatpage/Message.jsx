@@ -16,6 +16,8 @@ const Message = forwardRef(({ message }, ref) => {
     const handleTranslateClick = () => { useTranslate(prev => !prev); }
 
     const unescapeString = (str) => {
+        if (!str) return '';
+        
         return str
         .replace(/\\n/g, '\n')
         .replace(/^"|"$/g, '');
