@@ -2,9 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { useUser } from "@contexts/UserContext";
-
-
-
+import { useTreatInfo } from "@contexts/TreatInfoContext";
 
 import Loading from "@assets/images/loading.svg";
 
@@ -13,8 +11,31 @@ const TreantInfoScanningPage = () => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const { user } = useUser();
+    const { formData, submitTreatInfo, isLoading, result, error } = useTreatInfo();
 
     const language = i18n.language;
+
+    // 페이지 로드시 API 호출
+    useEffect(() => {
+        const callAPI = async () => {
+            try {
+                console.log('사전문진 API 호출 시작:', formData);
+                await submitTreatInfo(language);
+                // 성공시 결과 페이지로 이동 (3초 후)
+                setTimeout(() => {
+                    navigate('/treat-info/result');
+                }, 3000);
+            } catch (err) {
+                console.error('사전문진 API 호출 실패:', err);
+                // 에러시에도 결과 페이지로 이동 (에러 표시용)
+                setTimeout(() => {
+                    navigate('/treat-info/result');
+                }, 2000);
+            }
+        };
+
+        callAPI();
+    }, []);
 
 
     return (

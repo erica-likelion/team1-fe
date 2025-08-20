@@ -1,8 +1,9 @@
 /* 사전 문진 정보 입력 페이지 (국적) */
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useTreatInfo } from "@contexts/TreatInfoContext";
 import TextButton from "../../components/commons/TextButton";
 import DropdownRadio from "../../components/forms/DropdownRadio";
 import TitleBlock from "../../components/commons/TitleBlock";
@@ -12,8 +13,16 @@ const CountryPage = () => {
     
     const { t } = useTranslation();
     const [country, setCountry] = useState('')
+    const { formData, updateField } = useTreatInfo();
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+
+    // Context에서 국적 로드
+    useEffect(() => {
+        if (formData.nationality) {
+            setCountry(formData.nationality);
+        }
+    }, [formData.nationality]); 
 
     const countries = [
         { key: 'kr', text: '대한민국' },
@@ -39,6 +48,7 @@ const CountryPage = () => {
     const canMoveNextStep = country !== '';
 
     const handleNext = () => {
+        updateField('nationality', country);
         console.log('country:', country);
         navigate('/treat-info-form/gender')
     };

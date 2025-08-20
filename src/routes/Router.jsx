@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SearchProvider } from '@contexts/SearchContext';
 import { UserProvider } from '@contexts/UserContext';
+import { TreatInfoProvider } from '@contexts/TreatInfoContext';
 
 import MainLayout from '@components/layouts/MainLayout';
 import SimpleLayout from '@components/layouts/SimpleLayout';
@@ -28,6 +29,7 @@ const Router = () => {
         <BrowserRouter>
             <SearchProvider>
                 <UserProvider>
+                    <TreatInfoProvider>
                     <Routes>
                         <Route path="/" element={<SplashPage />} />
                         
@@ -55,6 +57,7 @@ const Router = () => {
                         <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
                         <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
                     </Routes>
+                    </TreatInfoProvider>
                 </UserProvider>
             </SearchProvider>
         </BrowserRouter>

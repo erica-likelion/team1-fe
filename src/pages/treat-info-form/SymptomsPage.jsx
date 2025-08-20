@@ -1,24 +1,23 @@
 /* 사전 문진 정보 입력 페이지 (증상) */
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useTreatInfo } from "@contexts/TreatInfoContext";
 import TextButton from "../../components/commons/TextButton";
 import TextField from "../../components/forms/TextField";
 import TitleBlock from "../../components/commons/TitleBlock";
 import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 
 const SymptomsPage = () => {
-    const [symptoms, setSymptoms] = useState('')
     const { t } = useTranslation();
-
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const { formData, updateField, isStepValid } = useTreatInfo();
     
-    const canMoveNextStep = 0 < symptoms.length;
+    const canMoveNextStep = isStepValid('symptoms');
     
     const handleNext = () => {
-        console.log('symptoms:', symptoms);
-        navigate('/treat-info-form/name')
+        console.log('symptoms:', formData.symptoms);
+        navigate('/treat-info/scanning')
     };
 
     const maxLength = 150;
@@ -26,7 +25,7 @@ const SymptomsPage = () => {
     // 151까지 입력이 가능해지는 문제 해결 (150자 초과시 한글자도 입력이 안되게 수정)
     const handleSymptomsChange = (value) => {
         if (value.length <= maxLength) {
-            setSymptoms(value);
+            updateField('symptoms', value);
         }
     };
 
@@ -38,7 +37,7 @@ const SymptomsPage = () => {
             />
             <div className="mt-13 ">
                 <TextField
-                    value={symptoms}
+                    value={formData.symptoms}
                     onChange={handleSymptomsChange}
                     placeholder="내용을 입력하세요."
                     maxLength={150}
@@ -49,7 +48,7 @@ const SymptomsPage = () => {
 
             {/* 0 / 150 구현 */}
             <div className="text-right text-sm text-gray-400 mt-2">
-                {symptoms.length} / {maxLength}
+                {formData.symptoms.length} / {maxLength}
             </div>
     
             
