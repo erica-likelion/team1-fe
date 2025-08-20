@@ -189,12 +189,146 @@ export const createPrecheckFromForm = async (formData, currentLanguage = 'en') =
 };
 
 /**
+ * 사전문진 목록 조회
+ * @param {Object} params - 조회 옵션
+ * @param {number} [params.page] - 페이지 번호 (1부터 시작)
+ * @param {number} [params.limit] - 페이지당 항목 수
+ * @param {string} [params.sortBy] - 정렬 기준 ('createdAt', 'id')
+ * @param {string} [params.sortOrder] - 정렬 순서 ('asc', 'desc')
+ * @returns {Promise<Array>} 사전문진 목록
+ */
+export const getPrecheckHistory = async (params = {}) => {
+    try {
+        console.log('사전문진 목록 조회:', params);
+
+        // 쿼리 파라미터 구성
+        const queryParams = new URLSearchParams();
+        
+        if (params.page) {
+            queryParams.append('page', params.page.toString());
+        }
+        if (params.limit) {
+            queryParams.append('limit', params.limit.toString());
+        }
+        if (params.sortBy) {
+            queryParams.append('sortBy', params.sortBy);
+        }
+        if (params.sortOrder) {
+            queryParams.append('sortOrder', params.sortOrder);
+        }
+
+        const queryString = queryParams.toString();
+        const url = queryString ? `/api/precheck?${queryString}` : '/api/precheck';
+
+        const response = await api.get(url);
+
+        if (!response.data) {
+            throw new Error('API 응답 데이터가 없습니다.');
+        }
+
+        console.log('사전문진 목록 응답:', response.data);
+
+        // 응답이 배열인지 확인
+        if (!Array.isArray(response.data)) {
+            throw new Error('예상과 다른 응답 형식입니다.');
+        }
+
+        // 각 항목의 필수 필드 검증
+        response.data.forEach((item, index) => {
+            const requiredFields = ['id', 'title', 'createdAt'];
+            for (const field of requiredFields) {
+                if (item[field] === undefined) {
+                    console.warn(`항목 ${index}에서 필드가 누락되었습니다: ${field}`);
+                }
+            }
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.error('사전문진 목록 조회 중 오류 발생:', error);
+        
+        // HTTP 상태 코드별 에러 처리
+        if (error.response) {
+            const status = error.response.status;
+            const message = error.response.data?.message || error.message;
+            
+            switch (status) {
+                case 400:
+                    throw new Error(`잘못된 요청입니다: ${message}`);
+                case 401:
+                    throw new Error('인증이 필요합니다.');
+                case 403:
+                    throw new Error('접근 권한이 없습니다.');
+                case 404:
+                    throw new Error('문진 목록을 찾을 수 없습니다.');
+                case 500:
+                    throw new Error('서버 내부 오류가 발생했습니다.');
+                default:
+                    throw new Error(`API 오류 (${status}): ${message}`);
+            }
+        } else if (error.request) {
+            throw new Error('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
+        } else {
+            throw new Error(`문진 목록 조회 실패: ${error.message}`);
+        }
+    }
+};
+
+/**
+ * 특정 사전문진 상세 조회
+ * @param {number} id - 조회할 문진 ID
+ * @returns {Promise<Object>} 사전문진 상세 정보
+ */
+export const getPrecheckDetail = async (id) => {
+    try {
+        if (!id || typeof id !== 'number') {
+            throw new Error('올바른 문진 ID를 입력해주세요.');
+        }
+
+        console.log('사전문진 상세 조회:', id);
+
+        const response = await api.get(`/api/precheck/${id}`);
+
+        if (!response.data) {
+            throw new Error('문진 정보를 찾을 수 없습니다.');
+        }
+
+        console.log('사전문진 상세 응답:', response.data);
+
+        return response.data;
+
+    } catch (error) {
+        console.error('사전문진 상세 조회 중 오류 발생:', error);
+        
+        if (error.response?.status === 404) {
+            throw new Error('해당 문진을 찾을 수 없습니다.');
+        }
+        
+        throw new Error(`문진 상세 조회 실패: ${error.message}`);
+    }
+};
+
+/**
+ * 최근 사전문진 목록 조회 (편의 함수)
+ * @param {number} [limit=10] - 조회할 항목 수
+ * @returns {Promise<Array>} 최근 사전문진 목록
+ */
+export const getRecentPrechecks = async (limit = 10) => {
+    return await getPrecheckHistory({
+        limit,
+        sortBy: 'createdAt',
+        sortOrder: 'desc'
+    });
+};
+
+/**
  * 목업 데이터를 위한 개발용 함수 (개발 단계에서만 사용)
  * 실제 API 호출 전에 테스트용으로 사용
  */
 export const createPrecheckMock = async (precheckData) => {
     // 개발 환경에서만 작동
-    if (process.env.NODE_ENV !== 'development') {
+    if (!import.meta.env.DEV) {
         throw new Error('목업 함수는 개발 환경에서만 사용할 수 있습니다.');
     }
 
@@ -216,4 +350,33 @@ export const createPrecheckMock = async (precheckData) => {
     };
 
     return mockResponse;
+};
+
+/**
+ * 목업 문진 목록 (개발용)
+ */
+export const getPrecheckHistoryMock = async () => {
+    if (!import.meta.env.DEV) {
+        throw new Error('목업 함수는 개발 환경에서만 사용할 수 있습니다.');
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    return [
+        {
+            id: 1,
+            title: "두통 및 발열 증상 문진",
+            createdAt: "2024-08-21"
+        },
+        {
+            id: 2,
+            title: "복통 및 소화불량 문진", 
+            createdAt: "2024-08-20"
+        },
+        {
+            id: 3,
+            title: "기침 및 목아픔 문진",
+            createdAt: "2024-08-19"
+        }
+    ];
 };
