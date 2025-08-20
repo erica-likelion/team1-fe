@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { createPrecheckFromForm } from '@apis/precheckApi';
+import { createPrecheckFromForm, createPrecheckMock } from '@apis/precheckApi';
 
 const TreatInfoContext = createContext();
 
@@ -60,11 +60,57 @@ export const TreatInfoProvider = ({ children }) => {
         
         try {
             console.log('제출할 폼 데이터:', formData);
-            const apiResult = await createPrecheckFromForm(formData, currentLanguage);
+            
+            // 개발 환경에서는 목업 사용 여부를 결정
+            const USE_MOCK = import.meta.env.DEV && !import.meta.env.VITE_API_BASE_URL;
+            
+            let apiResult;
+            if (USE_MOCK) {
+                console.log('🧪 목업 데이터를 사용합니다 (서버 미배포 상태)');
+                
+                // 목업용 데이터 변환
+                const mockData = {
+                    language: currentLanguage === 'ko' ? 'korean' : currentLanguage === 'zh-CN' ? 'chinese' : 'english',
+                    name: formData.name,
+                    age: parseInt(formData.age),
+                    nationality: formData.nationality,
+                    gender: formData.gender,
+                    description: formData.symptoms
+                };
+                
+                apiResult = await createPrecheckMock(mockData);
+            } else {
+                console.log('🌐 실제 API 서버에 요청을 보냅니다');
+                apiResult = await createPrecheckFromForm(formData, currentLanguage);
+            }
+            
             setResult(apiResult);
             return apiResult;
         } catch (err) {
             console.error('사전문진 제출 오류:', err);
+            
+            // 실제 API 실패시 목업으로 fallback (선택적)
+            if (err.message.includes('ERR_CONNECTION_REFUSED') || err.message.includes('Network Error')) {
+                console.log('🔄 서버 연결 실패, 목업 데이터로 fallback');
+                try {
+                    const mockData = {
+                        language: currentLanguage === 'ko' ? 'korean' : currentLanguage === 'zh-CN' ? 'chinese' : 'english',
+                        name: formData.name,
+                        age: parseInt(formData.age),
+                        nationality: formData.nationality,
+                        gender: formData.gender,
+                        description: formData.symptoms
+                    };
+                    
+                    const mockResult = await createPrecheckMock(mockData);
+                    setResult(mockResult);
+                    return mockResult;
+                } catch (mockErr) {
+                    setError('목업 데이터도 실패했습니다: ' + mockErr.message);
+                    throw mockErr;
+                }
+            }
+            
             setError(err.message);
             throw err;
         } finally {
