@@ -20,7 +20,7 @@ const AgePage = () => {
 
     // Context에서 나이 로드 (생년월일 -> 나이 계산)
     useEffect(() => {
-        if (formData.age) {
+        if (formData.age && !birthDate) {
             const currentYear = new Date().getFullYear();
             const birthYear = currentYear - parseInt(formData.age);
             setBirthDate(`${birthYear}-01-01`);
