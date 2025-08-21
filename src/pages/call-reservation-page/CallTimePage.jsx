@@ -1,8 +1,9 @@
 /* 병원 예약 희망 시간 기재 */
 
-//import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useUser } from "@contexts/UserContext";
 import TextButton from "../../components/commons/TextButton";
 import TextField from "../../components/forms/TextField";
 import TitleBlock from "../../components/commons/TitleBlock";
@@ -12,7 +13,8 @@ import Clock from "@assets/images/clock.svg";
 
 
 const CallTimePage = () => {
-    
+    const { t } = useTranslation();
+    const { user } = useUser();
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -61,7 +63,14 @@ const CallTimePage = () => {
 
 
     const handleNext = () => {
-        navigate('/treat-info-form/country')
+        // 선택된 날짜와 시간을 CallLoadingPage로 전달
+        navigate('/call-loading', {
+            state: {
+                userName: user?.name,
+                selectedDate: selectedDate,
+                selectedTime: selectedTime
+            }
+        });
     };
 
     
