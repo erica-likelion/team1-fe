@@ -64,6 +64,7 @@ const CallTimePage = () => {
         navigate('/treat-info-form/country')
     };
 
+    
     const canProceed = selectedDate && selectedTime;
 
     const openCalendar = () => {
@@ -102,8 +103,12 @@ const CallTimePage = () => {
             {/* 시간 입력 */}
             <div className="mb-8">
                     <div 
-                        className="relative cursor-pointer"
-                        onClick={() => setShowTimePicker(true)}
+                        className={`relative ${selectedDate ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
+                        onClick={() => {
+                            if (selectedDate) {
+                            setShowTimePicker(!showTimePicker); // 토글 기능
+                            }
+                        }}
                     >
                         <div className="w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50 text-gray-400">
                             {selectedTime || '00:00'}
@@ -116,21 +121,19 @@ const CallTimePage = () => {
 
              {/* 시간 선택 모달 */}
              {showTimePicker && (
-                <div className="fixed inset-0 bg-transparent flex items-end z-100">
-                    <div className="w-full max-w-[375px] mx-auto shadow-[0_-2px_4px_0_rgba(0,0,0,0.10)] rounded-t-sm">
+                <div className="fixed inset-0 bg-transparent flex items-end z-100"
+                     onClick={() => setShowTimePicker(false)} // 배경 클릭 시 모달 닫기
+                >
+                    <div className="w-full max-w-[375px] mx-auto shadow-[0_-2px_4px_0_rgba(0,0,0,0.10)] rounded-t-sm"
+                         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 버블링 방지
+                    >
                         <div className="bg-[#FAFAFA] w-full pt-11.5 px-12 pb-11 animate-slide-up">
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="font-semibold text-[#64686A]">예약 시간 선택</h3>
                             </div>
 
-                            {/* 날짜를 먼저 선택하라는 메시지 */}
-                            {!selectedDate && (
-                                <div className="text-center pb-5 text-gray-500">
-                                    먼저 날짜를 선택해주세요
-                                </div>
-                            )}
                             
-                            {/* 선택 가능한 시간이 없는 경우 */}
+                            {/* 선택 가능한 시간이 없는 경우 -> 추후 설정 필요 */}
                             {selectedDate && availableTimeSlots.length === 0 && (
                                 <div className="text-center py-8 text-gray-500">
                                     오늘 예약 가능한 시간이 없습니다.<br/>
@@ -143,10 +146,12 @@ const CallTimePage = () => {
                                 {timeSlots.map((time) => (
                                     <div
                                         key={time}
+                                        disabled = {!selectedDate}
                                         onClick={() => {
                                             setSelectedTime(time);
                                             setShowTimePicker(false);
                                         }}
+                                        
                                         className={`flex items-center justify-between pl-4 pb-3 cursor-pointer transition-colors ${
                                             selectedTime === time
                                                 ? 'text-[#3DE0AB] border-transparent'
