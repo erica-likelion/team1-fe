@@ -95,9 +95,8 @@ const ChatPage = () => {
                         <div key={room.id} className="m-0">
                             <ServiceCard 
                                 icon={Logo}
-                                title={room.roomCode}
+                                title={room.createdAt}
                                 description={room.lastChat}
-                                description2={room.createdAt}
                                 onClick={() => handleChatRoomClick(room.id, room.roomCode)}
                                 className="shadow-none"
                             />
