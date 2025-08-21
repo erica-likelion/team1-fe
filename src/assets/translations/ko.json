@@ -158,11 +158,22 @@
         "wait": "잠시만 기다려주세요..."
         },
         "result": {
-            "message": "{메디메이트가 {name}님의\n사전 문진 작성을 완료했어요!",
+            "message": "메디메이트가 {name}님의\n사전 문진 작성을 완료했어요!",
             "messageParts": {
                 "part1": "메디메이트가 ",
                 "part2": " 님의\n사전 문진 작성을 완료했어요!"
         }
+        }
+    },
+
+    "call" :{
+        "loading": {
+            "message": "메디 메이트가\n {name}님의 사전 문진을 바탕으로\n 병원 진료를 예약중이에요.",
+            "messageParts" : {
+                "part1" :"메디 메이트가 \n",
+                "part2" :" 님의 사전 문진을 바탕으로\n병원 진료를 예약중이에요."
+                
+            }
         }
     },
 
@@ -183,9 +194,5 @@
             "diagnosisHistory": "진료 기록",
             "prescriptionHistory": "처방 기록"
         } 
-    },
-
-    "call" : {
-        
     }
 }
