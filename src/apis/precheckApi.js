@@ -23,7 +23,7 @@ export const createPrecheck = async (precheckData) => {
         // API 명세서에 맞는 요청 데이터 검증
         const requiredFields = ['language', 'name', 'age', 'nationality', 'gender', 'description'];
         for (const field of requiredFields) {
-            if (!precheckData[field]) {
+            if (precheckData[field] === undefined || precheckData[field] === null) {
                 throw new Error(`필수 필드가 누락되었습니다: ${field}`);
             }
         }
@@ -34,7 +34,7 @@ export const createPrecheck = async (precheckData) => {
         }
 
         // 언어 값 검증
-        if (!['korean', 'english', 'chinese'].includes(precheckData.language)) {
+        if (!['english', 'chinese'].includes(precheckData.language)) {
             throw new Error('언어는 english 또는 chinese 값이어야 합니다.');
         }
 
@@ -114,8 +114,8 @@ export const convertLanguageForAPI = (i18nLanguage) => {
         'zh': 'chinese',
         'zh-CN': 'chinese',
         'zh-TW': 'chinese',
-        'ko': 'korean', // 한국어는 기본적으로 영어로 처리
-        'ko-KR': 'korean'
+        'ko': 'english', // 한국어는 기본적으로 영어로 처리
+        'ko-KR': 'english'
     };
 
     return languageMap[i18nLanguage] || 'english';
