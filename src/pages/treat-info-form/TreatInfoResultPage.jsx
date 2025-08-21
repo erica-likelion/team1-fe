@@ -57,16 +57,6 @@ const TreantInfoResultPage = () => {
         }
     };
 
-    const getTranslateButtonText = () => {
-        const currentLanguage = i18n.language;
-        
-        if (currentLanguage === 'ko') {
-            return isTranslated ? '한국어로' : '원문으로';
-        } else {
-            return isTranslated ? 'Original' : '한국어로';
-        }
-    };
-
     const handleChatStart = async () => {
         try {
             const roomInfo = await createChatRoom({ type: "precheck", id: result.id});
