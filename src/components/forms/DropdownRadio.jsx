@@ -115,7 +115,7 @@ const DropdownRadio = ({
           
 
         {/* 옵션 리스트 */}
-        <div className={`p-5 ${maxHeight} overflow-y-auto`}>
+        <div className={`p-5 ${maxHeight} overflow-y-auto no-scrollbar`}>
             {filteredItems.length > 0 ? (
               filteredItems.map(({ key, text }) => (
                 <div
