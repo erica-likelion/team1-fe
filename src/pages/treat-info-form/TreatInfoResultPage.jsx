@@ -27,8 +27,8 @@ const TreantInfoResultPage = () => {
     }
 
     const getDisplayText = () => {
-        if (error) return `오류: ${error}`;
-        if (!result) return '로딩 중...';
+        if (error) return `${t('precheck.result.err')} ${error}`;
+        if (!result) return `${t('common.loading')}`;
 
         console.log('현재 번역 상태:', isTranslated);
         console.log('사용 가능한 콘텐츠:', {
@@ -81,7 +81,7 @@ const TreantInfoResultPage = () => {
                 <TextField
                     value={getDisplayText()}
                     readOnly={true}
-                    placeholder="AI 생성 텍스트"
+                    placeholder={t('precheck.result.placeholder')}
                     maxLength={1000000}
                     height="h-[303px]"
                     multiline={true}
@@ -90,23 +90,23 @@ const TreantInfoResultPage = () => {
                 <button 
                     onClick={handleTranslate} 
                     className="flex justify-center items-center 
-                                font-regular rounded-sm 
+                                font-medium rounded-sm
                                 bg-[#3DE0AB] text-white text-sm
-                                w-full h-[32px] mt-6"
+                                w-full h-[32px] mt-6 cursor-pointer"
                 >
-                    번역하기
+                    {t('precheck.buttons.translate')}
                 </button>
             </div>
 
             <div className="relative">
                 <TextButton
-                    text = "병원 전화 예약하기"
+                    text = {t('precheck.buttons.call')}
                     onClick={handleCallClick}
                     icon={GreenChevronRight}
                     className = "mb-15 bg-[#9DEECF] !text-[#00A270]"
                 />
                 <TextButton
-                    text = "통역 채팅 시작하기"
+                    text = {t('precheck.buttons.chat')}
                     onClick={handleChatStart}
                     icon={GreenChevronRight}
                     className = "bg-[#9DEECF] !text-[#00A270]"

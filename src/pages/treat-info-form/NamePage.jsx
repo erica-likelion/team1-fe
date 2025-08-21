@@ -1,7 +1,7 @@
 /* 사전 문진 정보 입력 페이지 (이름) */
 
 import { useState, useEffect } from "react";
-//import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useTreatInfo } from "@contexts/TreatInfoContext";
 import TitleBlock from "../../components/commons/TitleBlock";
@@ -10,7 +10,7 @@ import TextButton from "../../components/commons/TextButton";
 import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 
 const NamePage = () => {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const { formData, updateField, isStepValid } = useTreatInfo();
@@ -44,27 +44,28 @@ const NamePage = () => {
         <div className="p-5">
             
             <TitleBlock
-                title = "당신의 이름은 무엇인가요?"
-                subtitle = "이름을 입력해주세요."
+                title = {t('precheck.name.title')}
+                subtitle = {t('precheck.name.description')}
             />
             <div className="mt-13 ">
                 <TextField
                     value={lastName}
                     onChange={setLastName}
-                    placeholder="성"
+                    placeholder={t('precheck.name.lastName')}
                     maxLength={20}
                 />
                 <TextField
                     className = "mt-2"
                     value={firstName}
                     onChange={setFirstName}
-                    placeholder="이름"
+                    placeholder={t('precheck.name.firstName')}
                     maxLength={100}
                 />
             </div>
            
             <TextButton
-                text="입력하기"
+                text={t('precheck.buttons.submit')}
+                progress="1/5"
                 onClick={handleNext}
                 disabled={!canMoveNextStep}
                 icon={WhiteChevronRight}

@@ -69,12 +69,13 @@ const CountryPage = () => {
     return (
         <div className="p-5">
             <TitleBlock
-                title = "당신은 어느 나라 사람인가요?"
-                subtitle = "태어난 국가를 입력해주세요."
+                title = {t('precheck.country.title')}
+                subtitle = {t('precheck.country.description')}
             />
         
             <TextButton
-                        text="입력하기"
+                        text={t('precheck.buttons.submit')}
+                        progress="3/5"
                         onClick={handleNext}
                         disabled={!canMoveNextStep}
                         icon={WhiteChevronRight}
@@ -85,10 +86,10 @@ const CountryPage = () => {
                     value={countryCode}
                     onChange={handleCountryChange}
                     items={countryList}               
-                    placeholder = '국가 선택'
+                    placeholder = {t('precheck.country.placeholder')}
                     className = 'h-14'
                     searchable = {true}
-                    searchPlaceholder = '검색' />      
+                    searchPlaceholder = {t('precheck.country.searchPlaceholder')} />      
             </div>
                
         </div>

@@ -15,27 +15,27 @@ const TreantInfoScanningPage = () => {
 
     const language = i18n.language;
 
-    // 페이지 로드시 API 호출
-    // useEffect(() => {
-    //     const callAPI = async () => {
-    //         try {
-    //             console.log('사전문진 API 호출 시작:', formData);
-    //             await submitTreatInfo(language);
-    //             // 성공시 결과 페이지로 이동 (3초 후)
-    //             setTimeout(() => {
-    //                 navigate('/treat-info/result');
-    //             }, 3000);
-    //         } catch (err) {
-    //             console.error('사전문진 API 호출 실패:', err);
-    //             // 에러시에도 결과 페이지로 이동 (에러 표시용)
-    //             setTimeout(() => {
-    //                 navigate('/treat-info/result');
-    //             }, 2000);
-    //         }
-    //     };
+    //페이지 로드시 API 호출
+    useEffect(() => {
+        const callAPI = async () => {
+            try {
+                console.log('사전문진 API 호출 시작:', formData);
+                await submitTreatInfo(language);
+                // 성공시 결과 페이지로 이동 (3초 후)
+                setTimeout(() => {
+                    navigate('/treat-info/result');
+                }, 3000);
+            } catch (err) {
+                console.error('사전문진 API 호출 실패:', err);
+                // 에러시에도 결과 페이지로 이동 (에러 표시용)
+                setTimeout(() => {
+                    navigate('/treat-info/result');
+                }, 2000);
+            }
+        };
 
-    //     callAPI();
-    // }, []);
+        callAPI();
+    }, []);
 
 
     return (
