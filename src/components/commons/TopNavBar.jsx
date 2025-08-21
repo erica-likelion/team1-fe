@@ -59,6 +59,9 @@ const NavBar = ({
                 leftIcon: LeftArrow,
                 rightIcon: Close,
             },
+            reservation_result: {
+                rightIcon: Close,
+            },
             default: {
                 leftIcon: LeftArrow,
                 rightIcon: Close,

@@ -12,7 +12,8 @@ const getNavBarType = (pathname) => {
     if (pathname === ('/treat-info/result')) return 'precheck';
     if (pathname === '/mypage/history') return 'history';
     if (pathname ===  '/call-reservation/number') return 'call';
-    if (pathname === '/call-reservation/time') return'reservation_time'
+    if (pathname === '/call-reservation/time') return'reservation_time';
+    if (pathname.startsWith ('/call-reservation/result')) return 'reservation_result';
     if (pathname.endsWith('/qr')) return 'qr';
     if (pathname.startsWith('/chat/')) return 'chatroom';
     if (pathname.startsWith('/treat-info-form')) return 'treat-info-form'; 
@@ -46,6 +47,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.call');
         case 'reservation_time':
             return t('navigation.reservation_time');
+        case 'reservation_result':
+            return t('navigation.reservation_result');
         case 'home':
         case 'chat':
         case 'chatroom':
@@ -99,6 +102,10 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             };
         case 'prescription_result':
         case 'precheck':
+            return {
+                onRightClick: () => navigate('/home')
+            };
+        case 'reservation_result' :
             return {
                 onRightClick: () => navigate('/home')
             };

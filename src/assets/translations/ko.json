@@ -17,7 +17,8 @@
         },
         "qrCode": "채팅방 QR",
         "call" : "병원 전화 예약",
-        "reservation_time": "예약 날짜 및 시간 선택"
+        "reservation_time": "예약 날짜 및 시간 선택",
+        "reservation_result": "병원 예약 확인"
     },
 
     "homepage": {
@@ -195,4 +196,6 @@
             "prescriptionHistory": "처방 기록"
         } 
     }
+
+    
 }
