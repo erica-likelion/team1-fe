@@ -21,7 +21,45 @@ const CallTimePage = () => {
 
     const timeSlots = ['9:00','9:30','10:00','10:30','13:30', '14:00', '14:30'];
 
+    // 오늘 날짜 구하기 (YYYY-MM-DD 형식)
+    const today = new Date().toISOString().split('T')[0];
     
+    // 현재 시간 구하기 (HH:MM 형식)
+    const now = new Date();
+    const currentTime = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+    // 선택된 날짜가 오늘인지 확인
+    const isToday = selectedDate === today;
+
+    // 현재 시간 이후의 시간만 필터링
+    const getAvailableTimeSlots = () => {
+        if (!isToday) {
+            return timeSlots; // 오늘이 아니면 모든 시간 가능
+        }
+    
+        // 오늘인 경우 현재 시간 이후만 가능
+        return timeSlots.filter(timeSlot => {
+            const [hour, minute] = timeSlot.split(':').map(Number);
+            const slotTime = hour * 60 + minute; // 분으로 변환
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            
+            return slotTime > currentMinutes;
+        });
+    };
+    
+    const availableTimeSlots = getAvailableTimeSlots();
+
+    // 날짜가 변경될 때 시간 검증
+    useEffect(() => {
+        if (selectedTime && isToday) {
+            const isTimeStillValid = availableTimeSlots.includes(selectedTime);
+            if (!isTimeStillValid) {
+                setSelectedTime(''); // 현재 시간보다 이전 시간이면 초기화
+            }
+        }
+    }, [selectedDate, selectedTime, isToday, availableTimeSlots]);
+
+
     const handleNext = () => {
         navigate('/treat-info-form/country')
     };
@@ -50,6 +88,7 @@ const CallTimePage = () => {
                     onChange={setSelectedDate}
                     placeholder="YYYY.MM.DD"
                     className="text-gray-400"
+                    min={today} // 오늘 이전 날짜 선택 불가
                 />
                 <button
                     type="button"
@@ -82,6 +121,21 @@ const CallTimePage = () => {
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="mt-2 ml-4 text-md font-medium">예약 시간 선택</h3>
                         </div>
+
+                        {/* 날짜를 먼저 선택하라는 메시지 */}
+                        {!selectedDate && (
+                            <div className="text-center pb-5 text-gray-500">
+                                먼저 날짜를 선택해주세요
+                            </div>
+                        )}
+                        
+                        {/* 선택 가능한 시간이 없는 경우 */}
+                        {selectedDate && availableTimeSlots.length === 0 && (
+                            <div className="text-center py-8 text-gray-500">
+                                오늘 예약 가능한 시간이 없습니다.<br/>
+                                다른 날짜를 선택해주세요.
+                            </div>
+                        )}
                         
                         {/* 시간 선택 모달 내용 */}
                         <div className="space-y-3 mb-6 h-60 overflow-y-auto pr-2">
