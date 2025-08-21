@@ -34,7 +34,7 @@ export const createPrecheck = async (precheckData) => {
         }
 
         // 언어 값 검증
-        if (!['english', 'chinese'].includes(precheckData.language)) {
+        if (!['korean', 'english', 'chinese'].includes(precheckData.language)) {
             throw new Error('언어는 english 또는 chinese 값이어야 합니다.');
         }
 
@@ -114,8 +114,8 @@ export const convertLanguageForAPI = (i18nLanguage) => {
         'zh': 'chinese',
         'zh-CN': 'chinese',
         'zh-TW': 'chinese',
-        'ko': 'english', // 한국어는 기본적으로 영어로 처리
-        'ko-KR': 'english'
+        'ko': 'korean', 
+        'ko-KR': 'korean'
     };
 
     return languageMap[i18nLanguage] || 'english';
