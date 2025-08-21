@@ -8,7 +8,8 @@ const TextField = ({
     height = "h-14",
     multiline = false,  // textarea 사용 여부
     className = "",
-    prefix = ""  // 앞에 붙을 접두사 (예: +82)
+    prefix = "",  // 앞에 붙을 접두사 (예: +82)
+    min = ""    // 최소값 (date, time, number 등에 사용)
 }) => {
     if (multiline) {
         return (
@@ -26,6 +27,7 @@ const TextField = ({
                     maxLength={maxLength}
                     onChange={e => onChange?.(e.target.value)}
                     placeholder={placeholder}
+                    min={min}
                 />
             </label>
         );
@@ -53,6 +55,7 @@ const TextField = ({
                         placeholder={placeholder}
                         ref={ref}
                         lang="en-US"
+                        min={min}
                     />
                 </div>
             </label>
@@ -80,6 +83,7 @@ const TextField = ({
                 placeholder={placeholder}
                 ref={ref}
                 lang="en-US"
+                min={min}
             />
         </label>
     );
