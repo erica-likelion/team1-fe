@@ -46,9 +46,9 @@ const getNavBarTitle = (type, t) => {
         case 'call':
             return t('navigation.call');
         case 'reservation_time':
-            return t('navigation.reservation_time');
+            return t('navigation.reservationTime');
         case 'reservation_result':
-            return t('navigation.reservation_result');
+            return t('navigation.reservationResult');
         case 'home':
         case 'chat':
         case 'chatroom':
