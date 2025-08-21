@@ -18,7 +18,7 @@ const TextField = ({
                     className={`
                         flex flex-row items-start
                         p-4 gap-2.5 w-[335px] border border-gray-200 rounded-md 
-                        placeholder:text-gray-400 outline-none
+                        placeholder:text-gray-400 outline-none no-scrollbar
                         resize-none
                         ${height}
                         ${className}
@@ -44,7 +44,7 @@ const TextField = ({
                     <input
                         className={`
                             flex-1 py-4 pr-4 bg-transparent border-transparent
-                            placeholder:text-gray-400 outline-none 
+                            placeholder:text-gray-400 outline-none no-scrollbar
                             ${height}
                             ${className}
                         `}
