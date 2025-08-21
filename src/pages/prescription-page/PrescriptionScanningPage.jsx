@@ -74,7 +74,7 @@ const PrescriptionScanningPage = () => {
 
 
     return (
-        <div className="flex flex-col items-center px-5 mt-25">
+        <div className="flex flex-col items-center px-5 mt-25 max-w-[375px] mx-auto">
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.scanning.messageParts.part1')}
@@ -83,7 +83,7 @@ const PrescriptionScanningPage = () => {
                 </p>
                 
                 <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-                <p className="text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
                     {t('prescription.scanning.wait')}
                 </p>
             </div>
