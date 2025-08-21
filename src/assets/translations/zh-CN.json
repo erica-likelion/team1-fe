@@ -15,7 +15,9 @@
             "upload": "添加要扫描的处方单",
             "description": "处方单说明"
         },
-        "qrCode": "聊天室 QR"
+        "qrCode": "聊天室 QR",
+        "reservationTime": "选择预约日期和时间",
+        "reservationResult": "医院预约确认"
     },
 
     "homepage": {
@@ -225,6 +227,33 @@
         }
     },
 
+    "call" :{
+        "select": {
+            "title": "您想预约哪家医院？",
+            "description": "请选择您要预约的医院。",
+            "placeholder": "选择医院",
+            "searchPlaceholder": "搜索"
+        },
+        "date": {
+            "title": "您希望什么时候就诊？",
+            "description": "请选择您希望预约的日期和时间。",
+            "timeGuide": "选择预约时间",
+            "noTime": "今天没有可预约的时间。\n请选择其他日期。"
+        },
+        "loading": {
+            "message": "医疗助手正在根据{{name}}的\n预诊信息\n为您预约医院。",
+            "messageParts": {
+            "part1": "医疗助手正在根据",
+            "part2": "的\n预诊信息\n为您预约医院。"
+            },
+            "wait": "请稍等..."
+        },
+        "buttons": {
+            "submit": "提交",
+            "reservation": "预约"
+        }
+    },
+
     "common": {
         "loading": "加载中...",
         "tryAgain": "请重试",
@@ -241,6 +270,29 @@
             "callHistory": "通话记录",
             "diagnosisHistory": "诊疗记录",
             "prescriptionHistory": "处方记录"
+        }
+    },
+
+    "hospital": {
+        "1": {
+            "title": "Global Medical Center",
+            "description": "专业内科、外科、儿科、妇产科、骨科"
+        },
+        "2": {
+            "title": "International Care Hospital",
+            "description": "专业心内科、神经外科、肿瘤科、影像科"
+        },
+        "3": {
+            "title": "MediPlus General Hospital",
+            "description": "专业皮肤科、眼科、耳鼻喉科、口腔科、整形外科"
+        },
+        "4": {
+            "title": "Hanaro Medical Center",
+            "description": "专业家庭医学科、内分泌科、风湿科、康复医学科"
+        },
+        "5": {
+            "title": "Smart Health Clinic",
+            "description": "专业精神健康科、泌尿科、急诊科、预防医学科"
         }
     }
 }

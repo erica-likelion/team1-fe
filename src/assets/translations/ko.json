@@ -17,8 +17,8 @@
         },
         "qrCode": "채팅방 QR",
         "call" : "병원 전화 예약",
-        "reservation_time": "예약 날짜 및 시간 선택",
-        "reservation_result": "병원 예약 확인"
+        "reservationTime": "예약 날짜 및 시간 선택",
+        "reservationResult": "병원 예약 확인"
     },
 
     "homepage": {
@@ -228,13 +228,29 @@
     },
 
     "call" :{
+        "select": {
+            "title": "어느 병원에 예약할까요?",
+            "description": "예약하고 싶은 병원을 선택해 주세요.",
+            "placeholder": "병원 선택",
+            "searchPlaceholder": "검색"
+        },
+        "date": {
+            "title": "언제 진료 받고 싶으세요?",
+            "description": "예약을 원하는 날짜와 시간을 입력해 주세요.",
+            "timeGuide": "예약 시간 선택",
+            "noTime": "오늘 예약 가능한 시간이 없습니다.\n다른 날짜를 선택해주세요."
+        },
         "loading": {
-            "message": "메디 메이트가\n {name}님의 사전 문진을 바탕으로\n 병원 진료를 예약중이에요.",
+            "message": "메디 메이트가\n {{name}}님의 사전 문진을 바탕으로\n 병원 진료를 예약중이에요.",
             "messageParts" : {
                 "part1" :"메디 메이트가 \n",
                 "part2" :" 님의 사전 문진을 바탕으로\n병원 진료를 예약중이에요."
-                
-            }
+            },
+            "wait": "잠시만 기다려주세요..."
+        },
+        "buttons": {
+            "submit": "입력하기",
+            "reservation": "예약하기"
         }
     },
 
@@ -255,7 +271,28 @@
             "diagnosisHistory": "진료 기록",
             "prescriptionHistory": "처방 기록"
         } 
-    }
+    },
 
-    
+    "hospitals": {
+        "1": {
+            "title": "글로벌메디센터",
+            "description": "내과, 외과, 소아과, 산부인과, 정형외과 전문"
+        },
+        "2": {
+            "title": "인터내셔널케어병원",
+            "description": "심장내과, 신경외과, 종양학과, 영상의학과 전문"
+        },
+        "3": {
+            "title": "메디플러스종합병원",
+            "description": "피부과, 안과, 이비인후과, 치과, 성형외과 전문"
+        },
+        "4": {
+            "title": "하나로의료원",
+            "description": "가정의학과, 내분비내과, 류마티스내과, 재활의학과 전문"
+        },
+        "5": {
+            "title": "스마트헬스클리닉",
+            "description": "정신건강의학과, 비뇨의학과, 응급의학과, 예방의학과 전문"
+        }
+    } 
 }

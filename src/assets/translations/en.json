@@ -15,7 +15,9 @@
             "upload": "Add Prescription",
             "description": "Prescription Info"
         },
-        "qrCode": "Chat Room QR"
+        "qrCode": "Chat Room QR",
+        "reservationTime": "Select Date & Time",
+        "reservationResult": "Booking Confirmation"
     },
 
     "homepage": {
@@ -225,6 +227,33 @@
         }
     },
 
+    "call" :{
+        "select": {
+            "title": "Which hospital would you like to book?",
+            "description": "Please select the hospital you'd like to make an appointment with.",
+            "placeholder": "Select Hospital",
+            "searchPlaceholder": "Search"
+        },
+        "date": {
+            "title": "When would you like to receive treatment?",
+            "description": "Please select your preferred date and time for the appointment.",
+            "timeGuide": "Select appointment time",
+            "noTime": "No available appointment times today.\nPlease select another date."
+        },
+        "loading": {
+            "message": "Medi Mate is booking\n{{name}}'s appointment\nbased on pre-consultation.",
+            "messageParts": {
+                "part1": "Medi Mate is booking\n",
+                "part2": "'s appointment\nbased on pre-consultation."
+            },
+            "wait": "Please wait a moment..."
+        },
+        "buttons": {
+            "submit": "Submit",
+            "reservation": "Book Appointment"
+        }
+    },
+
     "common": {
         "loading": "Loading...",
         "tryAgain": "Please try again",
@@ -242,5 +271,28 @@
             "diagnosisHistory": "Diagnosis History",
             "prescriptionHistory": "Prescription History"
         } 
+    },
+
+    "hospital": {
+        "1": {
+            "title": "Global Medical Center",
+            "description": "Specializing in Internal Medicine, Surgery, Pediatrics, Obstetrics & Gynecology, Orthopedics"
+        },
+        "2": {
+            "title": "International Care Hospital",
+            "description": "Specializing in Cardiology, Neurosurgery, Oncology, Radiology"
+        },
+        "3": {
+            "title": "MediPlus General Hospital",
+            "description": "Specializing in Dermatology, Ophthalmology, ENT, Dentistry, Plastic Surgery"
+        },
+        "4": {
+            "title": "Hanaro Medical Center",
+            "description": "Specializing in Family Medicine, Endocrinology, Rheumatology, Rehabilitation Medicine"
+        },
+        "5": {
+            "title": "Smart Health Clinic",
+            "description": "Specializing in Psychiatry, Urology, Emergency Medicine, Preventive Medicine"
+        }
     }
 }
