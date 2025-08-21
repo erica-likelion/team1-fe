@@ -18,9 +18,8 @@ const TreantInfoResultPage = () => {
     const { result, error, isLoading } = useTreatInfo();
     const [isTranslated, setIsTranslated] = useState(false);
 
-    const handleNavigation = (path) => {
-        console.log('번역 버튼 클릭됨, 현재 상태:', isTranslated);
-        setIsTranslated(!isTranslated);
+    const handleCallClick = () => {
+        navigate('/call-reservation/number');
     }
 
     const handleTranslate = () => {
@@ -102,7 +101,7 @@ const TreantInfoResultPage = () => {
             <div className="relative">
                 <TextButton
                     text = "병원 전화 예약하기"
-                    onClick={() => handleNavigation('/hospital-booking')}
+                    onClick={handleCallClick}
                     icon={GreenChevronRight}
                     className = "mb-15 bg-[#9DEECF] !text-[#00A270]"
                 />
