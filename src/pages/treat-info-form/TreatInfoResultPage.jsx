@@ -93,7 +93,7 @@ const TreantInfoResultPage = () => {
                     className="flex justify-center items-center 
                                 font-regular rounded-sm 
                                 bg-[#3DE0AB] text-white text-sm
-                                w-[95px] h-[32px] mt-6 ml-60"
+                                w-full h-[32px] mt-6"
                 >
                     번역하기
                 </button>
