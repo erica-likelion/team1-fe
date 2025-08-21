@@ -39,7 +39,7 @@ export const createPrecheck = async (precheckData) => {
         }
 
         // 나이가 숫자인지 확인
-        if (typeof precheckData.age !== 'number' || precheckData.age <= 0) {
+        if (typeof precheckData.age !== 'number' || precheckData.age < 0) {
             throw new Error('나이는 양수여야 합니다.');
         }
 
