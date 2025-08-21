@@ -105,7 +105,7 @@ const CallTimePage = () => {
                         className="relative cursor-pointer"
                         onClick={() => setShowTimePicker(true)}
                     >
-                        <div className="w-full p-4 border border-gray-200 rounded-lg bg-gray-50 text-gray-400">
+                        <div className="w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50 text-gray-400">
                             {selectedTime || '00:00'}
                         </div>
                         <div className="absolute right-5 top-1/2 transform -translate-y-1/2 pointer-events-none">
@@ -114,54 +114,56 @@ const CallTimePage = () => {
                     </div>
                 </div>
 
-            {/* 시간 선택 모달 */}
-            {showTimePicker && (
+             {/* 시간 선택 모달 */}
+             {showTimePicker && (
                 <div className="fixed inset-0 bg-transparent flex items-end z-100">
-                    <div className="bg-[#FAFAFA] w-full rounded-2xl p-6 animate-slide-up">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="mt-2 ml-4 text-md font-medium">예약 시간 선택</h3>
-                        </div>
+                    <div className="w-full max-w-[375px] mx-auto shadow-[0_-2px_4px_0_rgba(0,0,0,0.10)] rounded-t-sm">
+                        <div className="bg-[#FAFAFA] w-full pt-11.5 px-12 pb-11 animate-slide-up">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="font-semibold text-[#64686A]">예약 시간 선택</h3>
+                            </div>
 
-                        {/* 날짜를 먼저 선택하라는 메시지 */}
-                        {!selectedDate && (
-                            <div className="text-center pb-5 text-gray-500">
-                                먼저 날짜를 선택해주세요
-                            </div>
-                        )}
-                        
-                        {/* 선택 가능한 시간이 없는 경우 */}
-                        {selectedDate && availableTimeSlots.length === 0 && (
-                            <div className="text-center py-8 text-gray-500">
-                                오늘 예약 가능한 시간이 없습니다.<br/>
-                                다른 날짜를 선택해주세요.
-                            </div>
-                        )}
-                        
-                        {/* 시간 선택 모달 내용 */}
-                        <div className="space-y-3 mb-6 h-60 overflow-y-auto pr-2">
-                            {timeSlots.map((time) => (
-                                <div
-                                    key={time}
-                                    onClick={() => {
-                                        setSelectedTime(time);
-                                        setShowTimePicker(false);
-                                    }}
-                                    className={`flex items-center justify-between pl-4 pb-3 cursor-pointer transition-colors ${
-                                        selectedTime === time
-                                            ? 'text-[#3DE0AB] border-transparent'
-                                            : 'bg-transparent border-transparent text-gray-400 hover:bg-gray-50'
-                                    }`}
-                                >
-                                    <span className="font-medium">{time}</span>
-                                    {selectedTime === time && (
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                            <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    )}
+                            {/* 날짜를 먼저 선택하라는 메시지 */}
+                            {!selectedDate && (
+                                <div className="text-center pb-5 text-gray-500">
+                                    먼저 날짜를 선택해주세요
                                 </div>
-                            ))}
+                            )}
+                            
+                            {/* 선택 가능한 시간이 없는 경우 */}
+                            {selectedDate && availableTimeSlots.length === 0 && (
+                                <div className="text-center py-8 text-gray-500">
+                                    오늘 예약 가능한 시간이 없습니다.<br/>
+                                    다른 날짜를 선택해주세요.
+                                </div>
+                            )}
+                            
+                            {/* 시간 선택 모달 내용 */}
+                            <div className="space-y-3 h-60 overflow-y-auto pr-2 no-scrollbar">
+                                {timeSlots.map((time) => (
+                                    <div
+                                        key={time}
+                                        onClick={() => {
+                                            setSelectedTime(time);
+                                            setShowTimePicker(false);
+                                        }}
+                                        className={`flex items-center justify-between pl-4 pb-3 cursor-pointer transition-colors ${
+                                            selectedTime === time
+                                                ? 'text-[#3DE0AB] border-transparent'
+                                                : 'bg-transparent border-transparent text-gray-400 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        <span className="font-medium">{time}</span>
+                                        {selectedTime === time && (
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            </svg>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        
                         </div>
-                    
                     </div>
                 </div>
             )}
