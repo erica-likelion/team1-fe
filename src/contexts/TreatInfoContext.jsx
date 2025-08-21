@@ -124,7 +124,7 @@ export const TreatInfoProvider = ({ children }) => {
             formData.symptoms.trim().length >= 10 &&
             formData.name.trim().length >= 1 &&
             formData.age && 
-            parseInt(formData.age) > 0 && 
+            parseInt(formData.age) >= 0 && 
             parseInt(formData.age) <= 150 &&
             formData.gender &&
             formData.nationality.trim().length >= 2
@@ -140,7 +140,7 @@ export const TreatInfoProvider = ({ children }) => {
                 return formData.name.trim().length >= 1;
             case 'age':
                 const age = parseInt(formData.age);
-                return age > 0 && age <= 150;
+                return age >= 0 && age <= 150;
             case 'gender':
                 return !!formData.gender;
             case 'nationality':

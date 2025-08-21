@@ -43,7 +43,7 @@ const AgePage = () => {
         if (!birthDate) return false;
         const birth = new Date(birthDate);
         const today = new Date();
-        return birth <= today; // 오늘 이전 날짜만 유효
+        return birth <= today && calculateAge(birthDate) <= 150; // 오늘 이전 날짜만 유효
     };
 
     const canMoveNextStep = birthDate !== '' && isValidBirthDate(birthDate);
@@ -53,6 +53,15 @@ const AgePage = () => {
         updateField('age', age.toString());
         console.log('birthDate:', birthDate, 'calculated age:', age);
         navigate('/treat-info-form/country')
+    };
+
+    // 생년월일 변경 시 실시간으로 나이 업데이트
+    const handleBirthDateChange = (value) => {
+        setBirthDate(value);
+        if (value && isValidBirthDate(value)) {
+            const age = calculateAge(value);
+            updateField('age', age.toString());
+        }
     };
 
     const openCalendar = () => {
@@ -74,7 +83,7 @@ const AgePage = () => {
                     ref = {inputRef}
                     type="date"
                     value={birthDate}
-                    onChange={setBirthDate}
+                    onChange={handleBirthDateChange}
                     placeholder="YYYY.MM.DD"
                     className="text-gray-400"
                 />
@@ -89,6 +98,12 @@ const AgePage = () => {
 
             </div>
             
+            {/* 실시간 검증 에러 메시지 */}
+            {birthDate && !isValidBirthDate(birthDate) && (
+                <div className="text-red-500 text-sm mt-2">
+                    올바른 생년월일을 입력해주세요
+                </div>
+            )}
 
             <TextButton
                 text="입력하기"
