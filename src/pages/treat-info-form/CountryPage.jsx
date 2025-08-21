@@ -61,7 +61,6 @@ const CountryPage = () => {
 
     // 실시간으로 국적 업데이트
     const handleCountryChange = (selectedCode) => {
-        console.log('handleCountryChange 호출됨:', selectedCode);
         setCountryCode(selectedCode);
         const englishName = countries.getName(selectedCode, 'en');
         updateField('nationality', englishName);
