@@ -27,6 +27,7 @@ const AgePage = () => {
         }
     }, [formData.age]);
 
+
     const calculateAge = (birthDate) => {
         const birth = new Date(birthDate);
         const today = new Date();
@@ -37,7 +38,7 @@ const AgePage = () => {
         }
         return age;
     };
-
+    
     const isValidBirthDate = (birthDate) => {
         if (!birthDate) return false;
         const birth = new Date(birthDate);
@@ -46,7 +47,7 @@ const AgePage = () => {
     };
 
     const canMoveNextStep = birthDate !== '' && isValidBirthDate(birthDate);
-
+   
     const handleNext = () => {
         const age = calculateAge(birthDate);
         updateField('age', age.toString());
@@ -75,13 +76,14 @@ const AgePage = () => {
                     value={birthDate}
                     onChange={setBirthDate}
                     placeholder="YYYY.MM.DD"
+                    className="text-gray-400"
                 />
                 <button
                     type="button"
                     onClick={openCalendar}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-3"
+                    className="absolute right-4 top-2.5 p-2"
                 >
-                <img src={Calendar} alt="달력" className="w-6 h-6 pointer-events-none" />
+                <img src={Calendar} alt="달력" className="w-5 h-5 pointer-events-none" />
                 </button>
     
 
