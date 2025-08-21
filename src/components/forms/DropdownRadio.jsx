@@ -26,9 +26,10 @@ const DropdownRadio = ({
  
   useEffect(() => {
     const onClick = (e) => { 
-      if (ref.current && !ref.current.contains(e.target)) 
-      setOpen(false); 
-      setSearchTerm('')
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false); 
+        setSearchTerm('');
+      }
     };
     document.addEventListener('mousedown', onClick);
     
@@ -120,7 +121,9 @@ const DropdownRadio = ({
                 <div
                   key={key}
                   className="flex items-center justify-between px-2 py-5 hover:bg-gray-50 cursor-pointer border-b border-gray-400 last:border-b-0"
-                  onClick={() => {
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     onChange?.(key);
                     setOpen(false);
                     setSearchTerm('');

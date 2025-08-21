@@ -1,56 +1,70 @@
 /* 사전 문진 정보 입력 페이지 (국적) */
 
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { useTreatInfo } from "@contexts/TreatInfoContext";
+import countries from "i18n-iso-countries";
+import koLocale from "i18n-iso-countries/langs/ko.json";
+import enLocale from "i18n-iso-countries/langs/en.json";
+import zhLocale from "i18n-iso-countries/langs/zh.json";
 import TextButton from "../../components/commons/TextButton";
 import DropdownRadio from "../../components/forms/DropdownRadio";
 import TitleBlock from "../../components/commons/TitleBlock";
 import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 
+// 언어 데이터 등록
+countries.registerLocale(koLocale);
+countries.registerLocale(enLocale);
+countries.registerLocale(zhLocale);
+
 const CountryPage = () => {
     
-    const { t } = useTranslation();
-    const [country, setCountry] = useState('')
-    const { formData, updateField } = useTreatInfo();
+    const { t, i18n } = useTranslation();
+    const [countryCode, setCountryCode] = useState('');
+    const { formData, updateField, isStepValid } = useTreatInfo();
 
     const navigate = useNavigate();
 
-    // Context에서 국적 로드
+    // i18n-iso-countries를 사용해서 모든 국가 목록 생성
+    const countryList = useMemo(() => {
+        const currentLang = i18n.language === 'ko' ? 'ko' : 
+                           i18n.language === 'zh-CN' ? 'zh' : 'en';
+        
+        // 모든 국가 코드 가져오기
+        const allCountries = countries.getNames(currentLang);
+        
+        return Object.keys(allCountries).map(code => ({
+            key: code,
+            text: allCountries[code]
+        })).sort((a, b) => a.text.localeCompare(b.text));
+    }, [i18n.language]);
+
+    // Context에서 국적 로드 (영어 국가명 -> 국가 코드로 역변환)
     useEffect(() => {
         if (formData.nationality) {
-            setCountry(formData.nationality);
+            // 영어 국가명에서 국가 코드 찾기
+            const foundCountry = Object.keys(countries.getNames('en')).find(code => 
+                countries.getName(code, 'en') === formData.nationality
+            );
+            if (foundCountry) {
+                setCountryCode(foundCountry);
+            }
         }
-    }, [formData.nationality]); 
+    }, [formData.nationality]);
 
-    const countries = [
-        { key: 'kr', text: '대한민국' },
-        { key: 'us', text: '미국' },
-        { key: 'jp', text: '일본' },
-        { key: 'cn', text: '중국' },
-        { key: 'gb', text: '영국' },
-        { key: 'fr', text: '프랑스' },
-        { key: 'de', text: '독일' },
-        { key: 'ca', text: '캐나다' },
-        { key: 'au', text: '호주' },
-        { key: 'br', text: '브라질' },
-        { key: 'in', text: '인도' },
-        { key: 'mx', text: '멕시코' },
-        { key: 'es', text: '스페인' },
-        { key: 'it', text: '이탈리아' },
-        { key: 'ru', text: '러시아' },
-        { key: 'vn', text: '베트남' },
-        { key: 'th', text: '태국' },
-        { key: 'sg', text: '싱가포르' }
-    ];
-
-    const canMoveNextStep = country !== '';
+    const canMoveNextStep = countryCode !== '';
 
     const handleNext = () => {
-        updateField('nationality', country);
-        console.log('country:', country);
-        navigate('/treat-info-form/gender')
+        navigate('/treat-info-form/gender');
+    };
+
+    // 실시간으로 국적 업데이트
+    const handleCountryChange = (selectedCode) => {
+        console.log('handleCountryChange 호출됨:', selectedCode);
+        setCountryCode(selectedCode);
+        const englishName = countries.getName(selectedCode, 'en');
+        updateField('nationality', englishName);
     };
 
     return (
@@ -69,9 +83,9 @@ const CountryPage = () => {
 
             <div className="mt-13">
                 <DropdownRadio
-                    value={country}
-                    onChange={setCountry}
-                    items={countries}               
+                    value={countryCode}
+                    onChange={handleCountryChange}
+                    items={countryList}               
                     placeholder = '국가 선택'
                     className = 'h-14'
                     searchable = {true}
