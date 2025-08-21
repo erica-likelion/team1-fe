@@ -11,6 +11,10 @@ const CallLoadingPage = () => {
     const { t, i18n } = useTranslation();
     const { user } = useUser();
     const language = i18n.language;
+    
+    // 전달받은 예약 정보
+    const reservationInfo = location.state || {};
+    const { userName, selectedDate, selectedTime } = reservationInfo;
 
 
 
