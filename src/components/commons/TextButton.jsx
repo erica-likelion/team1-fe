@@ -14,11 +14,11 @@ const TextButton = ({ text, progress = "", icon, onClick, disabled = false, clas
                      fixed bottom-5 left-1/2 transform -translate-x-1/2 max-w-[335px] w-full z-50 ${className}`}
                 >
                 {text}
-                <div className="flex gap-0.5 font-medium">
+                {progress && <div className="flex gap-0.5 font-medium">
                     <p>{current}</p>
                     <p>{'/'}</p>
                     <p>{total}</p>
-                </div>
+                </div>}
                 {icon && 
                 <img src={icon} className="inline" />}
         </button>
