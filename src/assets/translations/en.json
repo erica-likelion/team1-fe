@@ -153,6 +153,7 @@
         "selectChatType": "Please click the chat room button.",
         "enterMessage": "Enter message",
         "type": {
+            "chat": "Chat",
             "newChat": "New Chat",
             "precheck": "Consultation",
             "prescription": "Prescription"

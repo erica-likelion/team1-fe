@@ -289,7 +289,7 @@ const ChatRoomPage = () => {
                     />
                 ) : (
                     <p className="p-2.5 pt-4.5 font-semibold">
-                        {roomInfo && `${t(`chat.type.${roomInfo.type}`)} | ${roomInfo.date}`}
+                        {roomInfo && `${t("chat.type.chat")} | ${roomInfo.date}`}
                     </p>
                 )}
                 <div className="h-[1px] w-[335px] bg-[#E0E0E0]"/>
@@ -311,7 +311,7 @@ const ChatRoomPage = () => {
                             ref={(el) => messageRefs.current[message.id] = el}
                         />
                         {/* 첫 번째 메시지 아래에 버튼들 렌더링 */}
-                        {index === 0 && roomInfo && roomInfo.type === "newChat" && !hasUserSentMessage && (
+                        {index === 0 && message.sender == "medi" && !hasUserSentMessage && (
                             <div className="pl-13.75 py-2 mb-4 flex flex-col items-start gap-2">
                                 {initBtnList.map((btn, btnIndex) => (
                                     <TextButton 
