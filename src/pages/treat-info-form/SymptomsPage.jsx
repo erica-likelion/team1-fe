@@ -16,7 +16,7 @@ const SymptomsPage = () => {
     const canMoveNextStep = isStepValid('symptoms');
     
     const handleNext = () => {
-        console.log('symptoms:', formData.symptoms);
+        //console.log('symptoms:', formData.symptoms);
         navigate('/treat-info/scanning')
     };
 

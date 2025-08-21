@@ -53,7 +53,7 @@ const AgePage = () => {
     const canMoveNextStep = birthDate !== '';
    
     const handleNext = () => {
-        console.log(formData.age);
+        //console.log(formData.age);
         navigate('/treat-info-form/country')
     };
 

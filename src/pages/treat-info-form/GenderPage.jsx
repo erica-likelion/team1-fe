@@ -33,7 +33,7 @@ const GenderPage = () => {
     const handleNext = () => {
         const genderForAPI = gender === 'm' ? 'M' : 'F';
         updateField('gender', genderForAPI);
-        console.log('gender:', gender, 'for API:', genderForAPI);
+        //console.log('gender:', gender, 'for API:', genderForAPI);
         navigate('/treat-info-form/symptoms')
     };
     return (

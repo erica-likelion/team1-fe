@@ -36,7 +36,7 @@ const NamePage = () => {
     const handleNext = () => {
         const fullName = `${lastName.trim()} ${firstName.trim()}`;
         updateField('name', fullName);
-        console.log('전체 이름:', fullName);
+        //console.log('전체 이름:', fullName);
         navigate('/treat-info-form/age')
     };
 

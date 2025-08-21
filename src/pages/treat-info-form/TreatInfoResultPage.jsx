@@ -30,11 +30,11 @@ const TreantInfoResultPage = () => {
         if (error) return `${t('precheck.result.err')} ${error}`;
         if (!result) return `${t('common.loading')}`;
 
-        console.log('현재 번역 상태:', isTranslated);
-        console.log('사용 가능한 콘텐츠:', {
-            content: result.content,
-            koreanContent: result.koreanContent
-        });
+        //console.log('현재 번역 상태:', isTranslated);
+        // console.log('사용 가능한 콘텐츠:', {
+        //     content: result.content,
+        //     koreanContent: result.koreanContent
+        // });
         
         // 현재 언어에 따라 표시할 텍스트 결정
         const currentLanguage = i18n.language;
@@ -65,7 +65,7 @@ const TreantInfoResultPage = () => {
                 }
             });
         } catch(err) {
-            console.log('채팅방 생성 실패: ', err);
+            //console.log('채팅방 생성 실패: ', err);
             alert(t('common.tryAgain'));
         }
     }
