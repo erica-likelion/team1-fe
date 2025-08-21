@@ -170,6 +170,60 @@
             "loadPrescription": "Load prescription"
         }
     },
+    
+    "precheck": {
+        "name": {
+            "title": "What is your name?",
+            "description": "Please enter your name.",
+            "firstName": "First Name",
+            "lastName": "Last Name"
+        },
+        "age": {
+            "title": "When were you born?",
+            "description": "Please enter your date of birth in 8 digits."
+        },
+        "country": {
+            "title": "Where are you from?",
+            "description": "Please enter your country of birth.",
+            "placeholder": "Select Country",
+            "searchPlaceholder": "Search"
+        },
+        "gender": {
+            "title": "What is your gender?",
+            "description": "Please select your gender.",
+            "placeholder": "Select Gender",
+            "male": "Male",
+            "female": "Female"
+        },
+        "symptoms": {
+            "title": "What symptoms are you experiencing?",
+            "description": "Please describe all the symptoms you're having.",
+            "placeholder": "Please describe your symptoms..."
+        },
+        "scanning": {
+            "message": "{{name}}, Medi Mate is preparing your pre-check based on your information.",
+            "messageParts": {
+                "part1": "",
+                "part2": ", Medi Mate is preparing\n your pre-check based on your information."
+            },
+            "wait": "Please wait a moment..."
+        },
+        "result": {
+            "message": "Medi Mate has completed\n{name}'s pre-check form!",
+            "messageParts": {
+                "part1": "Medi Mate has completed ",
+                "part2": "'s\npre-check form!"
+            },
+            "placeholder": "AI-generated text",
+            "err": "Error"
+        },
+        "buttons": {
+            "submit": "Submit",
+            "translate": "Translate",
+            "call": "Book Hospital Appointment",
+            "chat": "Start Translation Chat"
+        }
+    },
 
     "common": {
         "loading": "Loading...",

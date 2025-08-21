@@ -171,6 +171,60 @@
         }
     },
 
+    "precheck": {
+        "name": {
+            "title": "您的姓名是什么？",
+            "description": "请输入您的姓名。",
+            "firstName": "名",
+            "lastName": "姓"
+        },
+        "age": {
+            "title": "您什么时候出生？",
+            "description": "请输入8位数字的出生日期。"
+        },
+        "country": {
+            "title": "您来自哪个国家？",
+            "description": "请输入您的出生国家。",
+            "placeholder": "选择国家",
+            "searchPlaceholder": "搜索"
+        },
+        "gender": {
+            "title": "您的性别是什么？",
+            "description": "请选择您的性别。",
+            "placeholder": "选择性别",
+            "male": "男性",
+            "female": "女性"
+        },
+        "symptoms": {
+            "title": "您有什么症状？",
+            "description": "请描述您出现的所有症状。",
+            "placeholder": "请描述您的症状..."
+        },
+        "scanning": {
+            "message": "医疗助手正在根据{{name}}的信息制作预诊表。",
+            "messageParts": {
+                "part1": "医疗助手正在根据",
+                "part2": "的信息\n制作预诊表。"
+            },
+            "wait": "请稍等..."
+        },
+        "result": {
+            "message": "医疗助手已完成{name}的\n预诊表制作！",
+            "messageParts": {
+                "part1": "医疗助手已完成",
+                "part2": "的\n预诊表制作！"
+            },
+            "placeholder": "AI生成文本",
+            "err": "错误"
+        },
+        "buttons": {
+            "submit": "提交",
+            "translate": "翻译",
+            "call": "预约医院电话",
+            "chat": "开始翻译聊天"
+        }
+    },
+
     "common": {
         "loading": "加载中...",
         "tryAgain": "请重试",
