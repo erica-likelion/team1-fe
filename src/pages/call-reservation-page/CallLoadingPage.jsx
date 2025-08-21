@@ -16,10 +16,30 @@ const CallLoadingPage = () => {
     const reservationInfo = location.state || {};
     const { userName, selectedDate, selectedTime } = reservationInfo;
 
+    
+    useEffect(() => {
+        if (!reservationInfo) {
+            navigate('/call-reservation/number');
+            return;
+        }
+
+        // 2초 후 다음 페이지로 이동
+        const timer = setTimeout(() => {
+            navigate('/call-reservation/result/approved', {
+                state: {
+                    userName,
+                    selectedDate,
+                    selectedTime
+                }
+            });
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [navigate, userName, selectedDate, selectedTime, reservationInfo]);
 
 
     return (
-        <div className="flex flex-col items-center px-5 mt-25">
+        <div className="flex flex-col items-center px-5 mt-25 max-w-[375px] mx-auto">
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('call.loading.messageParts.part1')}
