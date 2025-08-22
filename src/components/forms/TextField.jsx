@@ -3,6 +3,7 @@ const TextField = ({
     onChange,
     placeholder,
     ref,
+    readOnly = false,
     maxLength = 150,
     type = "text",
     height = "h-14",
@@ -28,6 +29,7 @@ const TextField = ({
                     onChange={e => onChange?.(e.target.value)}
                     placeholder={placeholder}
                     min={min}
+                    readOnly={readOnly}
                 />
             </label>
         );
