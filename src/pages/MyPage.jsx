@@ -53,8 +53,6 @@ const MyPage = () => {
     }, []);
 
     const UserName = () => {
-        if (!user) return null;
-        
         return (
             <>
                 {language === "en" ? 
@@ -62,10 +60,10 @@ const MyPage = () => {
                     <p>
                         {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>
-                    <span className="font-bold">{user.name}</span>
+                    <span className="font-bold">{user ? user.name : t('user.defaultName')}</span>
                 </>: 
                 <>
-                    <span className="font-bold">{user.name}</span>
+                    <span className="font-bold">{user ? user.name : t('user.defaultName')}</span>
                     <p>
                         {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>

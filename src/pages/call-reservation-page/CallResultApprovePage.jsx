@@ -31,7 +31,7 @@ const CallResultApprovePage = () => {
             {user &&
             <div className="text-center text-[20px] font-semibold whitespace-pre-line">
                 {t('call.result.messageParts.part1')}
-                {user.name}
+                {user ? user.name : t('user.defaultName')}
                 {t('call.result.messageParts.part2')}
                 <span className="text-[#3DE0AB] pl-1">
                     {t('call.result.approve')}

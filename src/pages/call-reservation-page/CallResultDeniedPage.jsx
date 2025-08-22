@@ -21,7 +21,7 @@ const CallResultDeniedPage = () => {
             {user &&
             <div className="flex items-center justify-center text-[20px] font-semibold ">
                 {t('call.result.messageParts.part1')}
-                {user.name}
+                {user ? user.name : t('user.defaultName')}
                 {t('call.result.messageParts.part2')}
                 <span className="text-[#3DE0AB] pl-1">
                     {t('call.result.denied')}

@@ -75,7 +75,7 @@ const TreantInfoResultPage = () => {
             <div className="flex flex-col justify-center items-center px-5 mt-15">
                 <p className=" text-center text-xl font-semibold whitespace-pre-line">
                     {t('precheck.result.messageParts.part1')}
-                    {user && <span className="text-[#3DE0AB] font-semibold">{user.name}</span>}
+                    <span className="text-[#3DE0AB] font-semibold">{user ? user.name : t('user.defaultName')}</span>
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
