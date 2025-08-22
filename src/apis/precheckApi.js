@@ -18,7 +18,7 @@ import api from "@utils/apiClient";
  */
 export const createPrecheck = async (precheckData) => {
     try {
-        console.log('사전문진 API 요청:', precheckData);
+        //console.log('사전문진 API 요청:', precheckData);
 
         // API 명세서에 맞는 요청 데이터 검증
         const requiredFields = ['language', 'name', 'age', 'nationality', 'gender', 'description'];
@@ -56,7 +56,7 @@ export const createPrecheck = async (precheckData) => {
             throw new Error('API 응답 데이터가 없습니다.');
         }
 
-        console.log('사전문진 API 응답:', response.data);
+        //console.log('사전문진 API 응답:', response.data);
 
         // 응답 데이터 구조 검증
         const requiredResponseFields = ['id', 'title', 'content', 'koreanContent', 'createdAt'];
@@ -199,7 +199,7 @@ export const createPrecheckFromForm = async (formData, currentLanguage = 'en') =
  */
 export const getPrecheckHistory = async (params = {}) => {
     try {
-        console.log('사전문진 목록 조회:', params);
+        //console.log('사전문진 목록 조회:', params);
 
         // 쿼리 파라미터 구성
         const queryParams = new URLSearchParams();
@@ -226,7 +226,7 @@ export const getPrecheckHistory = async (params = {}) => {
             throw new Error('API 응답 데이터가 없습니다.');
         }
 
-        console.log('사전문진 목록 응답:', response.data);
+        //console.log('사전문진 목록 응답:', response.data);
 
         // 응답이 배열인지 확인
         if (!Array.isArray(response.data)) {
@@ -286,7 +286,7 @@ export const getPrecheckDetail = async (id) => {
             throw new Error('올바른 문진 ID를 입력해주세요.');
         }
 
-        console.log('사전문진 상세 조회:', id);
+        //console.log('사전문진 상세 조회:', id);
 
         const response = await api.get(`/api/precheck/${id}`);
 
@@ -294,7 +294,7 @@ export const getPrecheckDetail = async (id) => {
             throw new Error('문진 정보를 찾을 수 없습니다.');
         }
 
-        console.log('사전문진 상세 응답:', response.data);
+        //console.log('사전문진 상세 응답:', response.data);
 
         return response.data;
 
