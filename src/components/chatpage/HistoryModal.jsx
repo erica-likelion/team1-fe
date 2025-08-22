@@ -6,7 +6,7 @@ import { getPrescriptionHistory } from "@apis/prescriptionApi";
 
 import Close from "@assets/images/close.svg"; 
 import Doctor from "@assets/images/doctor.svg";
-import Medicine from "@assets/images/Medicine.svg";
+import Medicine from "@assets/images/medicine.svg";
 
 import Loading from "@assets/images/loading.svg";
 

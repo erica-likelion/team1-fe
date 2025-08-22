@@ -28,7 +28,7 @@ import ChatBar from '@components/chatpage/ChatBar';
 import Message from '@components/chatpage/Message';
 import TextButton from '@components/commons/TextButton';
 import HistoryModal from '@components/chatpage/HistoryModal';
-import { useUser } from '@contexts/userContext';
+import { useUser } from '@contexts/UserContext';
 
 import { Stomp } from "@stomp/stompjs";
  
