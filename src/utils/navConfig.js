@@ -95,6 +95,7 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
                     }
                 }
             };
+        case 'language':
         case 'qr':
             return {
                 onLeftClick: () => navigate(-1), // 채팅방으로 뒤로가기
@@ -109,7 +110,6 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             return {
                 onRightClick: () => navigate('/home')
             };
-        case 'language':
         case 'prescription':
         case 'prescription_upload':
         case 'history':
