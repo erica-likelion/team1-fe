@@ -16,6 +16,7 @@
             "description": "处方单说明"
         },
         "qrCode": "聊天室 QR",
+        "call": "电话预约",
         "reservationTime": "选择预约日期和时间",
         "reservationResult": "医院预约确认"
     },
@@ -248,9 +249,29 @@
             },
             "wait": "请稍等..."
         },
+        "result": {
+        "message": "{{name}}的医院预约已{{approve}}",
+        "messageParts": {
+            "   part1": "",
+                "part2": "的医院预约已",
+                "part3": ""
+            },
+            "approve": "批准",
+            "denied": "拒绝",
+            "date": "预约日期",
+            "time": "预约时间",
+                "0": "日",
+                "1": "一",
+                "2": "二",
+                "3": "三", 
+                "4": "四",
+                "5": "五",
+                "6": "六"
+        },
         "buttons": {
             "submit": "提交",
-            "reservation": "预约"
+            "reservation": "预约",
+            "home": "返回首页"
         }
     },
 
@@ -273,7 +294,7 @@
         }
     },
 
-    "hospital": {
+    "hospitals": {
         "1": {
             "title": "Global Medical Center",
             "description": "专业内科、外科、儿科、妇产科、骨科"

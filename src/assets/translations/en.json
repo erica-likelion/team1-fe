@@ -16,6 +16,7 @@
             "description": "Prescription Info"
         },
         "qrCode": "Chat Room QR",
+        "call": "Phone Booking",
         "reservationTime": "Select Date & Time",
         "reservationResult": "Booking Confirmation"
     },
@@ -248,9 +249,31 @@
             },
             "wait": "Please wait a moment..."
         },
+        "result": {
+            "message": "{{name}}'s hospital appointment has been {{approve}}",
+                "messageParts": {
+                "part1": "",
+                "part2": "'s hospital appointment has been ",
+                "part3": ""
+            },
+            "approve": "approved",
+            "denied": "denied",
+            "date": "Appointment Date",
+            "time": "Appointment Time",
+            "day": {
+                "0": "Sun",
+                "1": "Mon",
+                "2": "Tue", 
+                "3": "Wed",
+                "4": "Thu",
+                "5": "Fri",
+                "6": "Sat"
+            }
+        },
         "buttons": {
             "submit": "Submit",
-            "reservation": "Book Appointment"
+            "reservation": "Book Appointment",
+            "home": "Go Home"
         }
     },
 
@@ -273,7 +296,7 @@
         } 
     },
 
-    "hospital": {
+    "hospitals": {
         "1": {
             "title": "Global Medical Center",
             "description": "Specializing in Internal Medicine, Surgery, Pediatrics, Obstetrics & Gynecology, Orthopedics"
