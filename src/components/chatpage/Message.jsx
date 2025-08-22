@@ -1,7 +1,7 @@
 import Highlighter from 'react-highlight-words';
 import { useState, forwardRef } from 'react';
 import { useSearch } from '@contexts/SearchContext';
-import { useUser } from '@contexts/userContext';
+import { useUser } from '@contexts/UserContext';
 
 import Logo from "@assets/images/logo.svg";
 import Exchange from "@assets/images/exchange.svg";
