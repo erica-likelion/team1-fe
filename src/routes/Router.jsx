@@ -21,8 +21,8 @@ import PrescriptionPage from '@pages/prescription-page/PrescriptionPage';
 import PrescriptionUploadPage from '@pages/prescription-page/PrescriptionUploadPage';
 import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScanningPage';
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
-import TreantInfoScanningPage from '@/pages/treat-info-form/TreantInfoScanningPage';
-import TreantInfoResultPage from '@/pages/treat-info-form/TreatInfoResultPage';
+import TreatInfoScanningPage from '@/pages/treat-info-form/TreatInfoScanningPage';
+import TreatInfoResultPage from '@/pages/treat-info-form/TreatInfoResultPage';
 import CallNumberPage from '@/pages/call-reservation-page/CallNumberPage';
 import CallTimePage from '@/pages/call-reservation-page/CallTimePage';
 import CallLoadingPage from '@/pages/call-reservation-page/CallLoadingPage';
@@ -53,7 +53,7 @@ const Router = () => {
                             <Route path='treat-info-form/country' element={<CountryPage />}/>
                             <Route path='treat-info-form/gender' element={<GenderPage />}/>
                             <Route path='treat-info-form/symptoms' element={<SymptomsPage />}/>
-                            <Route path='treat-info/result' element ={<TreantInfoResultPage/>}/>
+                            <Route path='treat-info/result' element ={<TreatInfoResultPage/>}/>
                             <Route path="prescription" element={<PrescriptionPage />} />
                             <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
                             <Route path="prescription/result" element={<PrescriptionResultPage />} />
@@ -64,7 +64,7 @@ const Router = () => {
                         </Route>
                         
                         <Route path="prescription/scanning" element={<PrescriptionScanningPage />} />
-                        <Route path="treat-info/scanning" element={<TreantInfoScanningPage />} />
+                        <Route path="treat-info/scanning" element={<TreatInfoScanningPage />} />
                         <Route path="call-reservation/loading" element={<CallLoadingPage/>} />
                     </Routes>
                     </TreatInfoProvider>
