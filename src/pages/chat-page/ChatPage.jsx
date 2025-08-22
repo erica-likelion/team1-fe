@@ -36,8 +36,8 @@ const ChatPage = () => {
         if (!searchQuery.trim()) return chatRooms;
         
         return chatRooms.filter(room => 
-            room.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            room.description.toLowerCase().includes(searchQuery.toLowerCase())
+            room.createdAt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            room.lastChat.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }, [chatRooms, searchQuery]);
 
