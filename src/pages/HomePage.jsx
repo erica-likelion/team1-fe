@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import Call from "@assets/images/call.svg";
-import Doctor from "@assets/images/Doctor.svg";
-import Medicine from "@assets/images/Medicine.svg";
+import Doctor from "@assets/images/doctor.svg";
+import Medicine from "@assets/images/medicine.svg";
 
 const HomePage = () => {
     const { t } = useTranslation();
