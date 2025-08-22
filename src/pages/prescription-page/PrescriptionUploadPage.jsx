@@ -506,12 +506,12 @@ const PrescriptionUploadPage = () => {
     // 크롭 모드일 때 렌더링할 JSX
     if (isCropping) {
         return (
-            <div className="flex flex-col px-5 justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
                 <div className="text-center mb-6 mt-2">
-                    <p className="text-2xl font-bold text-[#00A270] mb-2">
+                    <p className="text-[22px] font-bold mb-2">
                         {t('prescription.crop.title')}
                     </p>
-                    <p className="text-sm text-gray-600 bg-[#3DE0AB]/10 px-4 py-2 rounded-lg border border-[#3DE0AB]/30">
+                    <p className="text-sm bg-[#3DE0AB]/10 px-4 py-2 rounded-lg border border-[#3DE0AB]/30">
                         {t('prescription.crop.description')}
                     </p>
                 </div>
@@ -534,12 +534,12 @@ const PrescriptionUploadPage = () => {
                 <div className="mt-8 space-y-3 w-[80%]">
                     <TextButton 
                         text={t('prescription.crop.confirm')} 
-                        className="relative bg-[#3DE0AB] !text-[#00A270]"
+                        className="relative bg-[#9DEECF] !text-[#00A270]"
                         onClick={handleCropComplete}
                     />
                     <TextButton 
                         text={t('prescription.crop.cancel')}
-                        className="relative bg-gray-300 !text-[#909394]"
+                        className="relative bg-gray-300 !text-[#909394] hover:!bg-gray-400"
                         onClick={handleCropCancel}
                     />
                 </div>
