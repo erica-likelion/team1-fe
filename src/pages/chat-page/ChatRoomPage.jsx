@@ -19,7 +19,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
 import { getChatMessages } from '@apis/chatApi';
@@ -33,15 +33,17 @@ import { useUser } from '@contexts/userContext';
 import { Stomp } from "@stomp/stompjs";
  
 import Loading from "@assets/images/loading.svg";
+import { changeLanguage } from 'i18next';
 
 const ChatRoomPage = () => {
     const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출
     const location = useLocation();
+    const [searchParams] = useSearchParams();
     const { user: currentUser } = useUser();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { isSearchMode, searchQuery, setQuery, highlightedIndex, setHighlightIndex } = useSearch();
-    
+    const userType = searchParams.get('userType');
     // 채팅방 상태
     const [messages, setMessages] = useState([]);
     const [roomInfo, setRoomInfo] = useState(null);
@@ -63,9 +65,14 @@ const ChatRoomPage = () => {
     useEffect(() => {
         connect();
         fetchMessages();
-
+        changeKoreanForMedi();
+        
         return () => disconnect();
     }, [id]);
+
+    const changeKoreanForMedi = () => {
+        if (userType === "medi") i18n.changeLanguage("ko");
+    }
 
     const connect = () => {
         const socket = new WebSocket(`ws://${import.meta.env.VITE_WS_BASE_URL}/ws`);
@@ -316,7 +323,7 @@ const ChatRoomPage = () => {
                             ref={(el) => messageRefs.current[message.id] = el}
                         />
                         {/* 첫 번째 메시지 아래에 버튼들 렌더링 */}
-                        {index === 0 && message.sender == "user" && !hasUserSentMessage && (
+                        {index === 0 && message.sender == "medi" && !hasUserSentMessage && (
                             <div className="pl-13.75 py-2 mb-4 flex flex-col items-start gap-2">
                                 {initBtnList.map((btn, btnIndex) => (
                                     <TextButton 
