@@ -1,6 +1,9 @@
 {
     "brand" : "메디 메이트", 
-    "user": "멋사",
+    "user": {
+        "name": "멋사",
+        "defaultName": "사용자"
+    },
     "navigation" : {
         "chat": "통역 채팅",
         "chatroom": "채팅",
@@ -86,7 +89,8 @@
             "sample": "샘플 처방전 선택",
             "capture": "촬영하기",
             "cancel": "취소",
-            "crop": "크롭하기"
+            "crop": "크롭하기",
+            "chat": "통역 채팅 시작하기"
         },
         "upload": {
             "description": "이 곳을 클릭하여 파일을 추가하세요.",
@@ -141,7 +145,8 @@
             "titleParts": {
                 "part1": "메디 메이트가 ",
                 "part2": "님의\n처방전 분석을 완료했어요!"
-            }
+            },
+            "placeholder": "AI 생성 텍스트"
         }
     },
 

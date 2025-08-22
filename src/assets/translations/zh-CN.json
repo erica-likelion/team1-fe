@@ -1,6 +1,9 @@
 {
     "brand" : "Medi Mate",
-    "user": "狮子",
+    "user": {
+        "name": "狮子",
+        "defaultName": "用户"
+    },
     "navigation" : {
         "chat": "翻译聊天",
         "home": "首页",
@@ -86,7 +89,8 @@
             "sample": "选择样本处方",
             "capture": "拍照",
             "cancel": "取消",
-            "crop": "裁剪"
+            "crop": "裁剪",
+            "chat": "开始翻译聊天"
         },
         "upload": {
             "description": "请在此添加您的处方单图像。",
@@ -141,9 +145,9 @@
             "titleParts": {
                 "part1": "美迪伙伴已经分析并说明了\n",
                 "part2": "的处方！"
-            }
-        },
-        "qrCode": "聊天室 QR"
+            },
+            "placeholder": "AI生成文本"
+        }
     },
 
     "chat": {

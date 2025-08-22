@@ -27,7 +27,7 @@ export const UserProvider= ({children}) =>{
             setUser({
                 id: 181,
                 type: "user",
-                name: t('user'),
+                name: t('user.name'),
                 gender: "M",
                 opponentLanguage: "korean",
             });

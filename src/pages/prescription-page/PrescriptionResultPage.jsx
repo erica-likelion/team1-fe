@@ -47,7 +47,7 @@ const PrescriptionResultPage = () => {
             <div className="flex justify-center items-center mb-6">
                 <p className="text-xl font-semibold whitespace-pre-line text-center">
                     {t('prescription.result.titleParts.part1')}
-                    {user && <span className="text-green-500 font-semibold">{user.name}</span>}
+                    <span className="text-green-500 font-semibold">{user ? user.name : t('user.defaultName')}</span>
                     {t('prescription.result.titleParts.part2')}
                 </p>
             </div>
@@ -55,10 +55,10 @@ const PrescriptionResultPage = () => {
             <div 
                 className="rounded-sm p-4 border-[1px] mb-20 border-[#D3D4D4] h-110 text-sm text-gray-700 leading-relaxed overflow-y-auto no-scrollbar">
                 <div className="whitespace-pre-line">
-                    {analysisResult}
+                    {analysisResult ? analysisResult : t('prescription.result.placeholder')}
                 </div>
             </div>
-            <TextButton text="통역 채팅 시작하기" icon={Right} onClick={handleChatStart} />
+            <TextButton text={t('prescription.buttons.chat')} icon={Right} onClick={handleChatStart} />
             
         </div>
     );

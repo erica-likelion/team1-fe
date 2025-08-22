@@ -1,6 +1,9 @@
 {
     "brand" : "Medi Mate", 
-    "user": "Lion",
+    "user": {
+        "name": "Lion",
+        "defaultName": "User"
+    },
     "navigation" : {
         "chat": "Translation Chat",
         "home": "Home",
@@ -87,7 +90,8 @@
             "sample": "Select Sample Prescription",
             "capture": "Capture",
             "cancel": "Cancel",
-            "crop": "Crop"
+            "crop": "Crop",
+            "chat": "Start Translation Chat"
         },
         "upload": {
             "description": "Please add your prescription image here.",
@@ -142,7 +146,8 @@
             "titleParts": {
                 "part1": "Medi Mate has analyzed and explained\n",
                 "part2": "'s prescription!"
-            }
+            },
+            "placeholder": "AI-generated text"
         }
     },
 
