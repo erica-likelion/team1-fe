@@ -1,5 +1,6 @@
 {
-    "brand" : "Medi Mate", 
+    "brand" : "Medi Mate",
+    "user": "狮子",
     "navigation" : {
         "chat": "翻译聊天",
         "home": "首页",

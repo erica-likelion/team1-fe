@@ -1,5 +1,6 @@
 {
     "brand" : "Medi Mate", 
+    "user": "Lion",
     "navigation" : {
         "chat": "Translation Chat",
         "home": "Home",

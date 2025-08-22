@@ -1,5 +1,6 @@
 {
     "brand" : "메디 메이트", 
+    "user": "멋사",
     "navigation" : {
         "chat": "통역 채팅",
         "chatroom": "채팅",
