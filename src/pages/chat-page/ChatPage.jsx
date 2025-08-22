@@ -9,12 +9,13 @@ import { useSearch } from "@contexts/SearchContext";
 import ServiceCard from "@components/commons/ServiceCard";
 import Logo from "@assets/images/logo.svg";
 import Plus from "@assets/images/plus.svg";
-
+import Loading from "@assets/images/loading.svg";
 
 const ChatPage = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [chatRooms, setChatRooms] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const { isSearchMode, searchQuery, setQuery } = useSearch();
     const currentUserLang = i18n.language === 'ko' ? 'korean' : i18n.language === 'en' ? 'english' : 'chinese';
     
@@ -24,11 +25,14 @@ const ChatPage = () => {
 
     const loadChatRooms = async () => {
         try {
+            setIsLoading(true);
             const rooms = await getChatRooms();
             setChatRooms(rooms);
         } catch (error) {
             console.error('채팅방 목록 로드 실패:', error);
-        } 
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     // 검색어에 따른 채팅방 필터링
@@ -59,6 +63,17 @@ const ChatPage = () => {
             alert(t('common.tryAgain'));
         }
     };
+
+    if (isLoading) {
+        return (
+            <div>
+                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                    {t('prescription.scanning.wait')}
+                </p>
+            </div>
+        )
+    }
 
     return (
         <div className="p-5 h-auto">

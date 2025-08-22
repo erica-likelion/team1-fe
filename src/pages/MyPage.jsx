@@ -1,6 +1,5 @@
 /* 마이페이지 */
 
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 
@@ -12,25 +11,25 @@ import { getPrescriptionHistory } from "@apis/prescriptionApi";
 import Call from "@assets/images/call.svg";
 import Doctor from "@assets/images/doctor.svg";
 import Medicine from "@assets/images/medicine.svg";
+import Loading from "@assets/images/loading.svg";
 import { useUser } from "@contexts/UserContext";
 
 const MyPage = () => {
     const { t, i18n } = useTranslation();
-    const navigate = useNavigate();
     const { user } = useUser();
     const language = i18n.language;
 
     const [callHistory, setCallHistory] = useState([]);
     const [diagnosisHistory, setDiagnosisHistory] = useState([]);
     const [prescriptionHistory, setPrescriptionHistory] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     
     // 컴포넌트 마운트 시 모든 히스토리 데이터 로드
     useEffect(() => {
         const loadHistoryData = async () => {
             try {
-                setLoading(true);
+                setIsLoading(true);
                 
                 // 모든 API를 병렬로 호출
                 const [callData, diagnosisData, prescriptionData] = await Promise.all([
@@ -45,7 +44,7 @@ const MyPage = () => {
             } catch (err) {
                 console.error('히스토리 데이터 로드 실패:', err);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         };
 
@@ -58,17 +57,28 @@ const MyPage = () => {
                 {language === "en" ? 
                 <>
                     <p>
-                        {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
+                        {user?.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>
                     <span className="font-bold">{user ? user.name : t('user.defaultName')}</span>
                 </>: 
                 <>
                     <span className="font-bold">{user ? user.name : t('user.defaultName')}</span>
                     <p>
-                        {user.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
+                        {user?.gender === "M" ? t('mypage.suffixMale'): t('mypage.suffixFemale')}
                     </p>
                 </>}
             </>
+        )
+    }
+
+    if (isLoading) {
+        return (
+            <div>
+                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                    {t('prescription.scanning.wait')}
+                </p>
+            </div>
         )
     }
 

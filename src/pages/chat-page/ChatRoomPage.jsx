@@ -32,6 +32,8 @@ import { useUser } from '@contexts/userContext';
 
 import { Stomp } from "@stomp/stompjs";
  
+import Loading from "@assets/images/loading.svg";
+
 const ChatRoomPage = () => {
     const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출
     const location = useLocation();
@@ -43,7 +45,7 @@ const ChatRoomPage = () => {
     // 채팅방 상태
     const [messages, setMessages] = useState([]);
     const [roomInfo, setRoomInfo] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
     const [activeHistoryModal, setActiveHistoryModal] = useState(null); // 'precheck', 'prescription', null
     
@@ -268,10 +270,13 @@ const ChatRoomPage = () => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center h-full">
-                <div className="text-gray-500">{t('common.loading')}</div>
+            <div>
+                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                    {t('prescription.scanning.wait')}
+                </p>
             </div>
-        );
+        )
     }
 
     return (
@@ -311,7 +316,7 @@ const ChatRoomPage = () => {
                             ref={(el) => messageRefs.current[message.id] = el}
                         />
                         {/* 첫 번째 메시지 아래에 버튼들 렌더링 */}
-                        {index === 0 && message.sender == "medi" && !hasUserSentMessage && (
+                        {index === 0 && message.sender == "user" && !hasUserSentMessage && (
                             <div className="pl-13.75 py-2 mb-4 flex flex-col items-start gap-2">
                                 {initBtnList.map((btn, btnIndex) => (
                                     <TextButton 
