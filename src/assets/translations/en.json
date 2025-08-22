@@ -33,17 +33,17 @@
         "serviceCard": {
             "preVisit": {
                 "step": "Pre-visit",
-                "title": "I want to make a phone reservation",
+                "title": "Book Phone Appointment",
                 "description": "AI books appointments after you complete the questionnaire"
             },
             "inVisit": {
                 "step": "In-visit",
-                "title": "I need medical interpretation",
+                "title": "Medical Translation Service",
                 "description": "AI provides interpretation after you complete the questionnaire"
             },
             "postVisit": {
                 "step": "Post-visit",
-                "title": "I need prescription explanation",
+                "title": "Prescription Information",
                 "description": "AI explains prescriptions when you photo them"
             }
         }
@@ -142,9 +142,9 @@
             "wait": "Please wait a moment..."
         },
         "result": {
-            "title": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
+            "title": "Medi Mate has analyzed and\n explained {{name}}'s prescription!",
             "titleParts": {
-                "part1": "Medi Mate has analyzed and explained\n",
+                "part1": "Medi Mate has analyzed and\n explained ",
                 "part2": "'s prescription!"
             },
             "placeholder": "AI-generated text"
@@ -259,7 +259,7 @@
             "message": "{{name}}'s hospital appointment has been {{approve}}",
                 "messageParts": {
                 "part1": "",
-                "part2": "'s hospital appointment has been ",
+                "part2": "'s hospital appointment\nhas been ",
                 "part3": ""
             },
             "approve": "approved",
