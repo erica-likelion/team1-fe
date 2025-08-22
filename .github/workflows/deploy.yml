@@ -21,5 +21,5 @@ jobs:
           # 안전한 URL 형식 사용
           git remote add personal https://x-access-token:${{ secrets.AUTO_ACTIONS }}@github.com/MNA11/team1-fe.git
           
-          # force-with-lease 사용 (더 안전)
-          git push personal master --force-with-lease
+          # force 사용
+          git push personal master --force
