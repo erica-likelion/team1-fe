@@ -23,7 +23,7 @@ export const createPrecheck = async (precheckData) => {
         // API 명세서에 맞는 요청 데이터 검증
         const requiredFields = ['language', 'name', 'age', 'nationality', 'gender', 'description'];
         for (const field of requiredFields) {
-            if (!precheckData[field]) {
+            if (precheckData[field] === undefined || precheckData[field] === null) {
                 throw new Error(`필수 필드가 누락되었습니다: ${field}`);
             }
         }
@@ -34,12 +34,12 @@ export const createPrecheck = async (precheckData) => {
         }
 
         // 언어 값 검증
-        if (!['english', 'chinese'].includes(precheckData.language)) {
+        if (!['korean', 'english', 'chinese'].includes(precheckData.language)) {
             throw new Error('언어는 english 또는 chinese 값이어야 합니다.');
         }
 
         // 나이가 숫자인지 확인
-        if (typeof precheckData.age !== 'number' || precheckData.age <= 0) {
+        if (typeof precheckData.age !== 'number' || precheckData.age < 0) {
             throw new Error('나이는 양수여야 합니다.');
         }
 
@@ -59,7 +59,7 @@ export const createPrecheck = async (precheckData) => {
         console.log('사전문진 API 응답:', response.data);
 
         // 응답 데이터 구조 검증
-        const requiredResponseFields = ['id', 'title', 'koreanTitle', 'content', 'koreanContent', 'createdAt'];
+        const requiredResponseFields = ['id', 'title', 'content', 'koreanContent', 'createdAt'];
         for (const field of requiredResponseFields) {
             if (response.data[field] === undefined) {
                 console.warn(`응답에서 필드가 누락되었습니다: ${field}`);
@@ -114,8 +114,8 @@ export const convertLanguageForAPI = (i18nLanguage) => {
         'zh': 'chinese',
         'zh-CN': 'chinese',
         'zh-TW': 'chinese',
-        'ko': 'english', // 한국어는 기본적으로 영어로 처리
-        'ko-KR': 'english'
+        'ko': 'korean', 
+        'ko-KR': 'korean'
     };
 
     return languageMap[i18nLanguage] || 'english';
@@ -168,8 +168,8 @@ export const createPrecheckFromForm = async (formData, currentLanguage = 'en') =
             throw new Error('이름을 입력해주세요.');
         }
 
-        if (isNaN(apiData.age) || apiData.age < 1 || apiData.age > 150) {
-            throw new Error('올바른 나이를 입력해주세요. (1-150)');
+        if (isNaN(apiData.age) || apiData.age < 0 || apiData.age > 150) {
+            throw new Error('올바른 나이를 입력해주세요. (0-150)');
         }
 
         if (!apiData.nationality || apiData.nationality.length < 2) {

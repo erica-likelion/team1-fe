@@ -1,5 +1,9 @@
 {
     "brand" : "Medi Mate", 
+    "user": {
+        "name": "Lion",
+        "defaultName": "User"
+    },
     "navigation" : {
         "chat": "Translation Chat",
         "home": "Home",
@@ -15,7 +19,10 @@
             "upload": "Add Prescription",
             "description": "Prescription Info"
         },
-        "qrCode": "Chat Room QR"
+        "qrCode": "Chat Room QR",
+        "call": "Phone Booking",
+        "reservationTime": "Select Date & Time",
+        "reservationResult": "Booking Confirmation"
     },
 
     "homepage": {
@@ -26,17 +33,17 @@
         "serviceCard": {
             "preVisit": {
                 "step": "Pre-visit",
-                "title": "I want to make a phone reservation",
+                "title": "Book Phone Appointment",
                 "description": "AI books appointments after you complete the questionnaire"
             },
             "inVisit": {
                 "step": "In-visit",
-                "title": "I need medical interpretation",
+                "title": "Medical Translation Service",
                 "description": "AI provides interpretation after you complete the questionnaire"
             },
             "postVisit": {
                 "step": "Post-visit",
-                "title": "I need prescription explanation",
+                "title": "Prescription Information",
                 "description": "AI explains prescriptions when you photo them"
             }
         }
@@ -83,7 +90,8 @@
             "sample": "Select Sample Prescription",
             "capture": "Capture",
             "cancel": "Cancel",
-            "crop": "Crop"
+            "crop": "Crop",
+            "chat": "Start Translation Chat"
         },
         "upload": {
             "description": "Please add your prescription image here.",
@@ -134,11 +142,12 @@
             "wait": "Please wait a moment..."
         },
         "result": {
-            "title": "Medi Mate has analyzed and explained\n{{name}}'s prescription!",
+            "title": "Medi Mate has analyzed and\n explained {{name}}'s prescription!",
             "titleParts": {
-                "part1": "Medi Mate has analyzed and explained\n",
+                "part1": "Medi Mate has analyzed and\n explained ",
                 "part2": "'s prescription!"
-            }
+            },
+            "placeholder": "AI-generated text"
         }
     },
 
@@ -170,6 +179,109 @@
             "loadPrescription": "Load prescription"
         }
     },
+    
+    "precheck": {
+        "name": {
+            "title": "What is your name?",
+            "description": "Please enter your name.",
+            "firstName": "First Name",
+            "lastName": "Last Name"
+        },
+        "age": {
+            "title": "When were you born?",
+            "description": "Please enter your date of birth in 8 digits."
+        },
+        "country": {
+            "title": "Where are you from?",
+            "description": "Please enter your country of birth.",
+            "placeholder": "Select Country",
+            "searchPlaceholder": "Search"
+        },
+        "gender": {
+            "title": "What is your gender?",
+            "description": "Please select your gender.",
+            "placeholder": "Select Gender",
+            "male": "Male",
+            "female": "Female"
+        },
+        "symptoms": {
+            "title": "What symptoms are you experiencing?",
+            "description": "Please describe all the symptoms you're having.",
+            "placeholder": "Please describe your symptoms..."
+        },
+        "scanning": {
+            "message": "{{name}}, Medi Mate is preparing your pre-check based on your information.",
+            "messageParts": {
+                "part1": "",
+                "part2": ", Medi Mate is preparing\n your pre-check based on your information."
+            },
+            "wait": "Please wait a moment..."
+        },
+        "result": {
+            "message": "Medi Mate has completed\n{name}'s pre-check form!",
+            "messageParts": {
+                "part1": "Medi Mate has completed ",
+                "part2": "'s\npre-check form!"
+            },
+            "placeholder": "AI-generated text",
+            "err": "Error"
+        },
+        "buttons": {
+            "submit": "Submit",
+            "translate": "Translate",
+            "call": "Book Hospital Appointment",
+            "chat": "Start Translation Chat"
+        }
+    },
+
+    "call" :{
+        "select": {
+            "title": "Which hospital would you like to book?",
+            "description": "Please select the hospital you'd like to make an appointment with.",
+            "placeholder": "Select Hospital",
+            "searchPlaceholder": "Search"
+        },
+        "date": {
+            "title": "When would you like to receive treatment?",
+            "description": "Please select your preferred date and time for the appointment.",
+            "timeGuide": "Select appointment time",
+            "noTime": "No available appointment times today.\nPlease select another date."
+        },
+        "loading": {
+            "message": "Medi Mate is booking\n{{name}}'s appointment\nbased on pre-consultation.",
+            "messageParts": {
+                "part1": "Medi Mate is booking\n",
+                "part2": "'s appointment\nbased on pre-consultation."
+            },
+            "wait": "Please wait a moment..."
+        },
+        "result": {
+            "message": "{{name}}'s hospital appointment has been {{approve}}",
+                "messageParts": {
+                "part1": "",
+                "part2": "'s hospital appointment\nhas been ",
+                "part3": ""
+            },
+            "approve": "approved",
+            "denied": "denied",
+            "date": "Appointment Date",
+            "time": "Appointment Time",
+            "day": {
+                "0": "Sun",
+                "1": "Mon",
+                "2": "Tue", 
+                "3": "Wed",
+                "4": "Thu",
+                "5": "Fri",
+                "6": "Sat"
+            }
+        },
+        "buttons": {
+            "submit": "Submit",
+            "reservation": "Book Appointment",
+            "home": "Go Home"
+        }
+    },
 
     "common": {
         "loading": "Loading...",
@@ -188,5 +300,28 @@
             "diagnosisHistory": "Diagnosis History",
             "prescriptionHistory": "Prescription History"
         } 
+    },
+
+    "hospitals": {
+        "1": {
+            "title": "Global Medical Center",
+            "description": "Specializing in Internal Medicine, Surgery, Pediatrics, Obstetrics & Gynecology, Orthopedics"
+        },
+        "2": {
+            "title": "International Care Hospital",
+            "description": "Specializing in Cardiology, Neurosurgery, Oncology, Radiology"
+        },
+        "3": {
+            "title": "MediPlus General Hospital",
+            "description": "Specializing in Dermatology, Ophthalmology, ENT, Dentistry, Plastic Surgery"
+        },
+        "4": {
+            "title": "Hanaro Medical Center",
+            "description": "Specializing in Family Medicine, Endocrinology, Rheumatology, Rehabilitation Medicine"
+        },
+        "5": {
+            "title": "Smart Health Clinic",
+            "description": "Specializing in Psychiatry, Urology, Emergency Medicine, Preventive Medicine"
+        }
     }
 }

@@ -16,7 +16,7 @@ const SymptomsPage = () => {
     const canMoveNextStep = isStepValid('symptoms');
     
     const handleNext = () => {
-        console.log('symptoms:', formData.symptoms);
+        //console.log('symptoms:', formData.symptoms);
         navigate('/treat-info/scanning')
     };
 
@@ -32,14 +32,14 @@ const SymptomsPage = () => {
     return (
         <div className="p-5">
             <TitleBlock
-                title = "어떤 증상을 가지고 있나요?"
-                subtitle = "나타난 증상을 모두 입력해 주세요."
+                title = {t('precheck.symptoms.title')}
+                subtitle = {t('precheck.symptoms.description')}
             />
             <div className="mt-13 ">
                 <TextField
                     value={formData.symptoms}
                     onChange={handleSymptomsChange}
-                    placeholder="내용을 입력하세요."
+                    placeholder={t('precheck.symptoms.placeholder')}
                     maxLength={150}
                     height="h-[206px]"
                     multiline={true} //여러줄 입력 가능->textarea를 적용
@@ -53,7 +53,8 @@ const SymptomsPage = () => {
     
             
             <TextButton
-                    text="입력하기"
+                    text={t('precheck.buttons.submit')}
+                    progress="5/5"
                     onClick={handleNext}
                     disabled={!canMoveNextStep}
                     icon={WhiteChevronRight}

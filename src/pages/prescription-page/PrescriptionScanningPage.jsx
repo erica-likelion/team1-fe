@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import { useUser } from "@contexts/UserContext";
 import { uploadPrescription } from "@apis/prescriptionApi";
 
-// 테스트용 목업
-import { mockUploadPrescription } from "@apis/prescriptionApi";
-
 import Loading from "@assets/images/loading.svg";
 
 const PrescriptionScanningPage = () => {
@@ -24,28 +21,7 @@ const PrescriptionScanningPage = () => {
             navigate('/prescription/upload');
             return;
         }
-
-        // API 통신 버전
-        // const analyzePresc = async () => {
-        //     try {
-        //         const [result] = await Promise.all([
-        //             uploadPrescription(language, image),
-        //             new Promise(resolve => setTimeout(resolve, 2000))
-        //         ]);
-
-        //         navigate('/prescription/result', {
-        //             state: {
-        //                 analysisResult: result.content
-        //             }
-        //         })
-        //     } catch (error) {
-        //         console.error('처방전 분석 실패:', error);
-        //         alert('처방전 분석에 실패했습니다. 다시 시도해주세요.');
-        //         navigate('/prescription/upload');
-        //     }
-        // };
-
-
+        
         // API 호출하여 처방전 분석
         const analyzePresc = async () => {
             try {
@@ -74,16 +50,16 @@ const PrescriptionScanningPage = () => {
 
 
     return (
-        <div className="flex flex-col items-center px-5 mt-25">
+        <div className="flex flex-col items-center px-5 mt-25 max-w-[375px] mx-auto">
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('prescription.scanning.messageParts.part1')}
-                    {user && <span className="text-green-500 font-semibold">{user.name}</span>}
+                    <span className="text-green-500 font-semibold">{user ? user.name : t('user.defaultName')}</span>
                     {t('prescription.scanning.messageParts.part2')}
                 </p>
                 
                 <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-                <p className="text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
                     {t('prescription.scanning.wait')}
                 </p>
             </div>

@@ -46,9 +46,9 @@ const getNavBarTitle = (type, t) => {
         case 'call':
             return t('navigation.call');
         case 'reservation_time':
-            return t('navigation.reservation_time');
+            return t('navigation.reservationTime');
         case 'reservation_result':
-            return t('navigation.reservation_result');
+            return t('navigation.reservationResult');
         case 'home':
         case 'chat':
         case 'chatroom':
@@ -69,7 +69,7 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             return {
                 onLeftClick: () => {
                     // 추후 수정: 알림 기능
-                    console.log('알림 클릭');
+                    //console.log('알림 클릭');
                 },
                 onRightClick: () => navigate('/language')
             };

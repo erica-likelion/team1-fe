@@ -18,9 +18,8 @@ const TreantInfoResultPage = () => {
     const { result, error, isLoading } = useTreatInfo();
     const [isTranslated, setIsTranslated] = useState(false);
 
-    const handleNavigation = (path) => {
-        console.log('번역 버튼 클릭됨, 현재 상태:', isTranslated);
-        setIsTranslated(!isTranslated);
+    const handleCallClick = () => {
+        navigate('/call-reservation/number');
     }
 
     const handleTranslate = () => {
@@ -28,14 +27,14 @@ const TreantInfoResultPage = () => {
     }
 
     const getDisplayText = () => {
-        if (error) return `오류: ${error}`;
-        if (!result) return '로딩 중...';
+        if (error) return `${t('precheck.result.err')} ${error}`;
+        if (!result) return `${t('common.loading')}`;
 
-        console.log('현재 번역 상태:', isTranslated);
-        console.log('사용 가능한 콘텐츠:', {
-            content: result.content,
-            koreanContent: result.koreanContent
-        });
+        //console.log('현재 번역 상태:', isTranslated);
+        // console.log('사용 가능한 콘텐츠:', {
+        //     content: result.content,
+        //     koreanContent: result.koreanContent
+        // });
         
         // 현재 언어에 따라 표시할 텍스트 결정
         const currentLanguage = i18n.language;
@@ -57,16 +56,6 @@ const TreantInfoResultPage = () => {
         }
     };
 
-    const getTranslateButtonText = () => {
-        const currentLanguage = i18n.language;
-        
-        if (currentLanguage === 'ko') {
-            return isTranslated ? '한국어로' : '원문으로';
-        } else {
-            return isTranslated ? 'Original' : '한국어로';
-        }
-    };
-
     const handleChatStart = async () => {
         try {
             const roomInfo = await createChatRoom({ type: "precheck", id: result.id});
@@ -76,7 +65,7 @@ const TreantInfoResultPage = () => {
                 }
             });
         } catch(err) {
-            console.log('채팅방 생성 실패: ', err);
+            //console.log('채팅방 생성 실패: ', err);
             alert(t('common.tryAgain'));
         }
     }
@@ -86,13 +75,13 @@ const TreantInfoResultPage = () => {
             <div className="flex flex-col justify-center items-center px-5 mt-15">
                 <p className=" text-center text-xl font-semibold whitespace-pre-line">
                     {t('precheck.result.messageParts.part1')}
-                    {user && <span className="text-[#3DE0AB] font-semibold">{user.name}</span>}
+                    <span className="text-[#3DE0AB] font-semibold">{user ? user.name : t('user.defaultName')}</span>
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
                     value={getDisplayText()}
                     readOnly={true}
-                    placeholder="AI 생성 텍스트"
+                    placeholder={t('precheck.result.placeholder')}
                     maxLength={1000000}
                     height="h-[303px]"
                     multiline={true}
@@ -101,23 +90,23 @@ const TreantInfoResultPage = () => {
                 <button 
                     onClick={handleTranslate} 
                     className="flex justify-center items-center 
-                                font-regular rounded-sm 
+                                font-medium rounded-sm
                                 bg-[#3DE0AB] text-white text-sm
-                                w-[95px] h-[32px] mt-6 ml-60"
+                                w-full h-[32px] mt-6 cursor-pointer"
                 >
-                    번역하기
+                    {t('precheck.buttons.translate')}
                 </button>
             </div>
 
             <div className="relative">
                 <TextButton
-                    text = "병원 전화 예약하기"
-                    onClick={() => handleNavigation('/hospital-booking')}
+                    text = {t('precheck.buttons.call')}
+                    onClick={handleCallClick}
                     icon={GreenChevronRight}
                     className = "mb-15 bg-[#9DEECF] !text-[#00A270]"
                 />
                 <TextButton
-                    text = "통역 채팅 시작하기"
+                    text = {t('precheck.buttons.chat')}
                     onClick={handleChatStart}
                     icon={GreenChevronRight}
                     className = "bg-[#9DEECF] !text-[#00A270]"

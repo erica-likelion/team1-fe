@@ -8,22 +8,40 @@ import Loading from "@assets/images/loading.svg";
 const CallLoadingPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { user } = useUser();
-    const language = i18n.language;
     
     // 전달받은 예약 정보
     const reservationInfo = location.state || {};
-    const { userName, selectedDate, selectedTime } = reservationInfo;
+    const { selectedDate, selectedTime } = reservationInfo;
 
+    
+    useEffect(() => {
+        if (!reservationInfo) {
+            navigate('/call-reservation/number');
+            return;
+        }
+
+        // 2초 후 다음 페이지로 이동
+        const timer = setTimeout(() => {
+            navigate('/call-reservation/result/approved', {
+                state: {
+                    selectedDate,
+                    selectedTime
+                }
+            });
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [navigate, selectedDate, selectedTime, reservationInfo]);
 
 
     return (
-        <div className="flex flex-col items-center px-5 mt-25">
+        <div className="flex flex-col items-center px-5 mt-25 max-w-[375px] mx-auto">
             <div className="text-center">
                 <p className="text-xl font-semibold whitespace-pre-line">
                     {t('call.loading.messageParts.part1')}
-                    {user && <span className="text-[#3DE0AB] font-semibold">{user.name}</span>}
+                    <span className="text-[#3DE0AB] font-semibold">{user ? user.name : t('user.defaultName')}</span>
                     {t('call.loading.messageParts.part2')}
                 </p>
                 

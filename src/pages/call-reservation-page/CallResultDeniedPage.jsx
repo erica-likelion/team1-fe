@@ -7,29 +7,31 @@ import GreenChevronRight from "@assets/images/green_chevron_right.svg";
 
 
 const CallResultDeniedPage = () => {
-    const location = useLocation();
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
-    const language = i18n.language;
+    const { t } = useTranslation();
     const { user } = useUser();
 
     const handleNext = () => {
             navigate('/home');
-        
     };
 
 
     return (
-        <div className="mt-15">
-            <div className="flex items-center text-[20px] text-black font-medium leading-relaxed ml-15">
-                {user?.name}님의 병원 예약이 
-                <span className="text-[#3DE0AB] pl-1"> 반려</span>
-                되었어요.
-            </div>
+        <div className="mt-9.5 px-5">
+            {user &&
+            <div className="flex items-center justify-center text-[20px] font-semibold ">
+                {t('call.result.messageParts.part1')}
+                {user ? user.name : t('user.defaultName')}
+                {t('call.result.messageParts.part2')}
+                <span className="text-[#3DE0AB] pl-1">
+                    {t('call.result.denied')}
+                </span>
+                {t('call.result.messageParts.part3')}
+            </div>}
         
 
             <TextButton
-                text="홈으로 가기"
+                text={t('call.buttons.home')}
                 onClick={handleNext}
                 icon={GreenChevronRight}
                 className ="bg-[#9DEECF] !text-[#00A270]"

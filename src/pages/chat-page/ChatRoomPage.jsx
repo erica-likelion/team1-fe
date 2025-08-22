@@ -19,7 +19,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from '@contexts/SearchContext';
 import { getChatMessages } from '@apis/chatApi';
@@ -32,18 +32,22 @@ import { useUser } from '@contexts/userContext';
 
 import { Stomp } from "@stomp/stompjs";
  
+import Loading from "@assets/images/loading.svg";
+import { changeLanguage } from 'i18next';
+
 const ChatRoomPage = () => {
     const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출
     const location = useLocation();
+    const [searchParams] = useSearchParams();
     const { user: currentUser } = useUser();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { isSearchMode, searchQuery, setQuery, highlightedIndex, setHighlightIndex } = useSearch();
-    
+    const userType = searchParams.get('userType');
     // 채팅방 상태
     const [messages, setMessages] = useState([]);
     const [roomInfo, setRoomInfo] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
     const [activeHistoryModal, setActiveHistoryModal] = useState(null); // 'precheck', 'prescription', null
     
@@ -61,25 +65,30 @@ const ChatRoomPage = () => {
     useEffect(() => {
         connect();
         fetchMessages();
-
+        changeKoreanForMedi();
+        
         return () => disconnect();
     }, [id]);
+
+    const changeKoreanForMedi = () => {
+        if (userType === "medi") i18n.changeLanguage("ko");
+    }
 
     const connect = () => {
         const socket = new WebSocket(`ws://${import.meta.env.VITE_WS_BASE_URL}/ws`);
         stompClient.current = Stomp.over(() => socket);
         stompClient.current.connect({}, () => {
-            console.log("WebSocket 연결 성공");
+            //console.log("WebSocket 연결 성공");
             stompClient.current.subscribe(`/sub/chat/rooms/${id}`, 
                 (message) => {
-                    console.log("메시지 수신:", message.body);
+                    //console.log("메시지 수신:", message.body);
                     const newMessage = JSON.parse(message.body);
                     setMessages((prev) => [...prev, newMessage]);
             });
         }, (error) => {
             console.error("WebSocket 연결 실패:", error);
         });
-        console.log("방 번호", id);
+        //console.log("방 번호", id);
     }
 
     const disconnect = () => {
@@ -175,7 +184,7 @@ const ChatRoomPage = () => {
                 language: currentUser.opponentLanguage,
                 roomId: id
             };
-            console.log("메시지 전송:", messageObj);
+            //console.log("메시지 전송:", messageObj);
             stompClient.current.send('/pub/chat/message', {}, JSON.stringify(messageObj));
         }
         setHasUserSentMessage(true);
@@ -268,10 +277,13 @@ const ChatRoomPage = () => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center h-full">
-                <div className="text-gray-500">{t('common.loading')}</div>
+            <div>
+                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
+                    {t('prescription.scanning.wait')}
+                </p>
             </div>
-        );
+        )
     }
 
     return (

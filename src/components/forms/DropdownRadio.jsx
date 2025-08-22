@@ -26,9 +26,10 @@ const DropdownRadio = ({
  
   useEffect(() => {
     const onClick = (e) => { 
-      if (ref.current && !ref.current.contains(e.target)) 
-      setOpen(false); 
-      setSearchTerm('')
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false); 
+        setSearchTerm('');
+      }
     };
     document.addEventListener('mousedown', onClick);
     
@@ -114,13 +115,15 @@ const DropdownRadio = ({
           
 
         {/* 옵션 리스트 */}
-        <div className={`p-5 ${maxHeight} overflow-y-auto`}>
+        <div className={`p-5 ${maxHeight} overflow-y-auto no-scrollbar`}>
             {filteredItems.length > 0 ? (
               filteredItems.map(({ key, text }) => (
                 <div
                   key={key}
                   className="flex items-center justify-between px-2 py-5 hover:bg-gray-50 cursor-pointer border-b border-gray-400 last:border-b-0"
-                  onClick={() => {
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     onChange?.(key);
                     setOpen(false);
                     setSearchTerm('');

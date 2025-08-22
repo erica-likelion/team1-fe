@@ -3,6 +3,7 @@ const TextField = ({
     onChange,
     placeholder,
     ref,
+    readOnly = false,
     maxLength = 150,
     type = "text",
     height = "h-14",
@@ -18,7 +19,7 @@ const TextField = ({
                     className={`
                         flex flex-row items-start
                         p-4 gap-2.5 w-[335px] border border-gray-200 rounded-md 
-                        placeholder:text-gray-400 outline-none
+                        placeholder:text-gray-400 outline-none no-scrollbar
                         resize-none
                         ${height}
                         ${className}
@@ -28,6 +29,7 @@ const TextField = ({
                     onChange={e => onChange?.(e.target.value)}
                     placeholder={placeholder}
                     min={min}
+                    readOnly={readOnly}
                 />
             </label>
         );
@@ -44,7 +46,7 @@ const TextField = ({
                     <input
                         className={`
                             flex-1 py-4 pr-4 bg-transparent border-transparent
-                            placeholder:text-gray-400 outline-none 
+                            placeholder:text-gray-400 outline-none no-scrollbar
                             ${height}
                             ${className}
                         `}

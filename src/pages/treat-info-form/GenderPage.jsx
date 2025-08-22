@@ -25,29 +25,29 @@ const GenderPage = () => {
     }, [formData.gender]); 
 
     const gender_list = [
-        { key: 'm', text: '남성' },
-        { key: 'w', text: '여성' }]
+        { key: 'm', text: t('precheck.gender.male') },
+        { key: 'w', text: t('precheck.gender.female') }]
     
     const canMoveNextStep = gender !== '';
 
     const handleNext = () => {
         const genderForAPI = gender === 'm' ? 'M' : 'F';
         updateField('gender', genderForAPI);
-        console.log('gender:', gender, 'for API:', genderForAPI);
+        //console.log('gender:', gender, 'for API:', genderForAPI);
         navigate('/treat-info-form/symptoms')
     };
     return (
         <div className="p-5">
             <TitleBlock
-                title = "당신의 성별은 무엇인가요?"
-                subtitle = "성별을 입력해 주세요."
+                title = {t('precheck.gender.title')}
+                subtitle = {t('precheck.gender.description')}
             />
             <div className="mt-13">
                 <DropdownRadio
                     value={gender}
                     onChange={setGender}
                     items={gender_list}               
-                    placeholder = '성별 선택'
+                    placeholder = {t('precheck.gender.placeholder')}
                     className = ''
                     searchable = {false}
                     maxHeight="h-40"
@@ -55,7 +55,8 @@ const GenderPage = () => {
             </div>
 
             <TextButton
-                        text="입력하기"
+                        text={t('precheck.buttons.submit')}
+                        progress="4/5"
                         onClick={handleNext}
                         disabled={!canMoveNextStep}
                         icon={WhiteChevronRight}
