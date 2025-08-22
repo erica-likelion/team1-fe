@@ -21,7 +21,8 @@ const NavBar = ({
     type = "default",
     title = "",
     onLeftClick,
-    onRightClick
+    onRightClick,
+    disableLeftClick = false
 }) => {
     const baseClasses = "flex item-center justify-between bg-[#FAFAFA] px-5 h-15.5 fixed top-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50"
 
@@ -81,9 +82,9 @@ const NavBar = ({
         <div className={baseClasses}>
             <div className="flex-1 flex justify-start items-center">
                 <img 
-                    className="hover:cursor-pointer" 
+                    className={`${disableLeftClick ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer'}`} 
                     src={config.leftIcon} 
-                    onClick={onLeftClick}
+                    onClick={disableLeftClick ? undefined : onLeftClick}
                 />
             </div>
             <div className="flex-2 flex justify-center items-center">

@@ -1,6 +1,6 @@
 /* TopNavBar만 있는 레이아웃 */
 
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import TopNavBar from "@components/commons/TopNavBar";
@@ -12,8 +12,13 @@ const SimpleLayout = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { toggleSearchMode } = useSearch();
+    const [searchParams] = useSearchParams();
 
     const navBarConfig = getNavBarConfig(location.pathname, navigate, t, toggleSearchMode);
+    
+    // userType이 'medi'이고 chatroom 타입일 때 뒤로가기 비활성화
+    const userType = searchParams.get('userType');
+    const disableLeftClick = navBarConfig.type === 'chatroom' && userType === 'medi';
 
     return (
         <div className="max-w-[375px] mx-auto">
@@ -23,6 +28,7 @@ const SimpleLayout = () => {
                     title={navBarConfig.title}
                     onLeftClick={navBarConfig.onLeftClick}
                     onRightClick={navBarConfig.onRightClick}
+                    disableLeftClick={disableLeftClick}
                 />
                 
                 <main className="flex-1 pt-[62px]">
