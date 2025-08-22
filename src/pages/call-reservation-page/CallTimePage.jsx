@@ -185,34 +185,34 @@ const CallTimePage = () => {
                                     {t('call.date.noTime')}
                                 </div>
                             )}
-                            
                             {/* 시간 선택 모달 내용 */}
-                            <div className="space-y-3 h-60 overflow-y-auto pr-2 no-scrollbar">
-                                {availableTimeSlots.map((time) => (
-                                    <div
-                                        key={time}
-                                        disabled = {!selectedDate}
-                                        onClick={() => {
-                                            setSelectedTime(time);
-                                            setShowTimePicker(false);
-                                        }}
-                                        
-                                        className={`flex items-center justify-between pl-4 pb-3 cursor-pointer transition-colors ${
-                                            selectedTime === time
-                                                ? 'text-[#3DE0AB] border-transparent'
-                                                : 'bg-transparent border-transparent text-gray-400 hover:bg-gray-50'
-                                        }`}
-                                    >
-                                        <span className="font-medium">{time}</span>
-                                        {selectedTime === time && (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                                <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            </svg>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        
+                            {selectedDate && availableTimeSlots.length > 0 && (
+                                <div className="space-y-3 h-60 overflow-y-auto pr-2 no-scrollbar">
+                                    {availableTimeSlots.map((time) => (
+                                        <div
+                                            key={time}
+                                            disabled = {!selectedDate}
+                                            onClick={() => {
+                                                setSelectedTime(time);
+                                                setShowTimePicker(false);
+                                            }}
+                                            
+                                            className={`flex items-center justify-between pl-4 pb-3 cursor-pointer transition-colors ${
+                                                selectedTime === time
+                                                    ? 'text-[#3DE0AB] border-transparent'
+                                                    : 'bg-transparent border-transparent text-gray-400 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            <span className="font-medium">{time}</span>
+                                            {selectedTime === time && (
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                </svg>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
