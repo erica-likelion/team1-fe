@@ -8,8 +8,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { ko, zhCN, enUS } from 'date-fns/locale';
-import TextButton from "../../components/commons/TextButton";
-import TitleBlock from "../../components/commons/TitleBlock";
+import TextButton from "@components/commons/TextButton";
+import TitleBlock from "@components/commons/TitleBlock";
 import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 import Calendar from "@assets/images/calendar.svg";
 import Clock from "@assets/images/clock.svg";
@@ -108,7 +108,6 @@ const CallTimePage = () => {
         // 선택된 날짜와 시간을 CallLoadingPage로 전달
         navigate('/call-reservation/loading', {
             state: {
-                userName: user?.name,
                 selectedDate: selectedDate,
                 selectedTime: selectedTime
             }

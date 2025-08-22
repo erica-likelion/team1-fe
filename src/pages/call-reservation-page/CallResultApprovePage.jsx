@@ -9,36 +9,56 @@ import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 const CallResultApprovePage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
-    const language = i18n.language;
+    const { t, } = useTranslation();
     const { user } = useUser();
 
+    const { selectedDate, selectedTime } = location.state || {};
+
     const handleNext = () => {
-            navigate('/home');
-        
+        navigate('/home');
     };
 
+    const getDayofWeek = (dateStr) => {
+        console.log(typeof dateStr);
+        const [year, month, day] = dateStr.split('-');
+        const date = new Date(year, month-1, day);
+        
+        return date.getDay();
+    }
 
     return (
-        <div className="mt-15">
-            <div className="flex items-center text-[20px] text-black font-medium leading-relaxed ml-15">
-                {user?.name}님의 예약이 
-                <span className="text-[#3DE0AB] pl-1"> 승인</span>
-                되었습니다.
-            </div>
-            <div className="flex flex-col item-left mt-20 ml-5 font-medium ">
-                <div className="text-[20px] text-gray-400 leading-relaxed">
-                    예약 날짜
+        <div className="mt-9.5 px-5">
+            {user &&
+            <div className="text-center text-[20px] font-semibold whitespace-pre-line">
+                {t('call.result.messageParts.part1')}
+                {user.name}
+                {t('call.result.messageParts.part2')}
+                <span className="text-[#3DE0AB] pl-1">
+                    {t('call.result.approve')}
+                </span>
+                {t('call.result.messageParts.part3')}
+            </div>}
+            <div className="flex flex-col gap-10 mt-19.5 font-semibold">
+                <div className="space-y-3 text-[20px] text-[#BDBDBD]">
+                    <p>
+                        {t('call.result.date')}
+                    </p>
+                    <p className="font-medium text-2xl text-[#1A1A1A]">
+                        {selectedDate}{` (${t(`call.result.day.${getDayofWeek(selectedDate)}`)})`}
+                    </p>
                 </div>
-                <div className="text-[24px] text-black leading-relaxed">2025-08-25</div>
-                <div className="mt-8 text-[20px] text-gray-400 leading-relaxed">
-                    예약 시간
+                <div className="space-y-3 text-[20px] text-[#BDBDBD]">
+                    <p>
+                        {t('call.result.time')}
+                    </p>
+                    <p className="font-medium text-2xl text-[#1A1A1A]">
+                        {selectedTime}
+                    </p>
                 </div>
-                <div className="text-[24px] text-black leading-relaxed">14:00</div>
             </div>
 
             <TextButton
-                text="예약 내역 확인하기"
+                text={t('call.buttons.home')}
                 onClick={handleNext}
                 icon={WhiteChevronRight}
             />

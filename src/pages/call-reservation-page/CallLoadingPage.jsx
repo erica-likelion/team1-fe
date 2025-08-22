@@ -8,13 +8,12 @@ import Loading from "@assets/images/loading.svg";
 const CallLoadingPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { user } = useUser();
-    const language = i18n.language;
     
     // 전달받은 예약 정보
     const reservationInfo = location.state || {};
-    const { userName, selectedDate, selectedTime } = reservationInfo;
+    const { selectedDate, selectedTime } = reservationInfo;
 
     
     useEffect(() => {
@@ -27,7 +26,6 @@ const CallLoadingPage = () => {
         const timer = setTimeout(() => {
             navigate('/call-reservation/result/approved', {
                 state: {
-                    userName,
                     selectedDate,
                     selectedTime
                 }
@@ -35,7 +33,7 @@ const CallLoadingPage = () => {
         }, 2000);
 
         return () => clearTimeout(timer);
-    }, [navigate, userName, selectedDate, selectedTime, reservationInfo]);
+    }, [navigate, selectedDate, selectedTime, reservationInfo]);
 
 
     return (
