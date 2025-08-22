@@ -59,14 +59,14 @@ export const TreatInfoProvider = ({ children }) => {
         setError(null);
         
         try {
-            console.log('제출할 폼 데이터:', formData);
+            //console.log('제출할 폼 데이터:', formData);
             
             // 개발 환경에서는 목업 사용 여부를 결정
             const USE_MOCK = import.meta.env.DEV && !import.meta.env.VITE_API_BASE_URL;
             
             let apiResult;
             if (USE_MOCK) {
-                console.log('🧪 목업 데이터를 사용합니다 (서버 미배포 상태)');
+                //console.log('🧪 목업 데이터를 사용합니다 (서버 미배포 상태)');
                 
                 // 목업용 데이터 변환
                 const mockData = {
@@ -80,7 +80,7 @@ export const TreatInfoProvider = ({ children }) => {
                 
                 apiResult = await createPrecheckMock(mockData);
             } else {
-                console.log('🌐 실제 API 서버에 요청을 보냅니다');
+                //console.log('🌐 실제 API 서버에 요청을 보냅니다');
                 apiResult = await createPrecheckFromForm(formData, currentLanguage);
             }
             
@@ -91,7 +91,7 @@ export const TreatInfoProvider = ({ children }) => {
             
             // 실제 API 실패시 목업으로 fallback (선택적)
             if (err.message.includes('ERR_CONNECTION_REFUSED') || err.message.includes('Network Error')) {
-                console.log('🔄 서버 연결 실패, 목업 데이터로 fallback');
+                //console.log('🔄 서버 연결 실패, 목업 데이터로 fallback');
                 try {
                     const mockData = {
                         language: currentLanguage === 'ko' ? 'korean' : currentLanguage === 'zh-CN' ? 'chinese' : 'english',

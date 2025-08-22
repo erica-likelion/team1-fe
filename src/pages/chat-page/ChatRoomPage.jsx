@@ -78,17 +78,17 @@ const ChatRoomPage = () => {
         const socket = new WebSocket(`ws://${import.meta.env.VITE_WS_BASE_URL}/ws`);
         stompClient.current = Stomp.over(() => socket);
         stompClient.current.connect({}, () => {
-            console.log("WebSocket 연결 성공");
+            //console.log("WebSocket 연결 성공");
             stompClient.current.subscribe(`/sub/chat/rooms/${id}`, 
                 (message) => {
-                    console.log("메시지 수신:", message.body);
+                    //console.log("메시지 수신:", message.body);
                     const newMessage = JSON.parse(message.body);
                     setMessages((prev) => [...prev, newMessage]);
             });
         }, (error) => {
             console.error("WebSocket 연결 실패:", error);
         });
-        console.log("방 번호", id);
+        //console.log("방 번호", id);
     }
 
     const disconnect = () => {
@@ -184,7 +184,7 @@ const ChatRoomPage = () => {
                 language: currentUser.opponentLanguage,
                 roomId: id
             };
-            console.log("메시지 전송:", messageObj);
+            //console.log("메시지 전송:", messageObj);
             stompClient.current.send('/pub/chat/message', {}, JSON.stringify(messageObj));
         }
         setHasUserSentMessage(true);

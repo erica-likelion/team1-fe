@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import { useUser } from "@contexts/UserContext";
 import { uploadPrescription } from "@apis/prescriptionApi";
 
-// 테스트용 목업
-import { mockUploadPrescription } from "@apis/prescriptionApi";
-
 import Loading from "@assets/images/loading.svg";
 
 const PrescriptionScanningPage = () => {
@@ -24,28 +21,7 @@ const PrescriptionScanningPage = () => {
             navigate('/prescription/upload');
             return;
         }
-
-        // API 통신 버전
-        // const analyzePresc = async () => {
-        //     try {
-        //         const [result] = await Promise.all([
-        //             uploadPrescription(language, image),
-        //             new Promise(resolve => setTimeout(resolve, 2000))
-        //         ]);
-
-        //         navigate('/prescription/result', {
-        //             state: {
-        //                 analysisResult: result.content
-        //             }
-        //         })
-        //     } catch (error) {
-        //         console.error('처방전 분석 실패:', error);
-        //         alert('처방전 분석에 실패했습니다. 다시 시도해주세요.');
-        //         navigate('/prescription/upload');
-        //     }
-        // };
-
-
+        
         // API 호출하여 처방전 분석
         const analyzePresc = async () => {
             try {

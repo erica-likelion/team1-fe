@@ -19,7 +19,7 @@ const CallResultApprovePage = () => {
     };
 
     const getDayofWeek = (dateStr) => {
-        console.log(typeof dateStr);
+        //console.log(typeof dateStr);
         const [year, month, day] = dateStr.split('-');
         const date = new Date(year, month-1, day);
         

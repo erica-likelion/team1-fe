@@ -26,13 +26,13 @@ const CallNumberPage = () => {
     
     const handleHospitalChange = (value) => {
         setSelectedHospital(value);
-        console.log('선택된 병원:', hospitals[parseInt(value)]);
+        //console.log('선택된 병원:', hospitals[parseInt(value)]);
     };
 
     const handleNext = () => {
         if (canMoveNextStep) {
             const hospital = hospitals[parseInt(selectedHospital)];
-            console.log('선택된 병원:', hospital);
+            //console.log('선택된 병원:', hospital);
             navigate('/call-reservation/time');
         }
     };
