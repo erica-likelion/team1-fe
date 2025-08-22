@@ -407,18 +407,46 @@ const PrescriptionUploadPage = () => {
      * 샘플 처방전 항목 클릭 핸들러
      */
     const handleSampleItemSelect = (prescription) => {
-        fetch(prescription.image)
-            .then(res => res.blob())
-            .then(blob => {
+        const img = new Image();
+        
+        img.onload = () => {
+            // Canvas를 통해 이미지를 Blob으로 변환 (크기 제한)
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 최대 크기 제한 (A4 용지 비율: 210mm x 297mm = 약 3:4.2)
+            const maxWidth = 1200;
+            const maxHeight = 1697;
+            let { width, height } = img;
+            
+            if (width > maxWidth || height > maxHeight) {
+                const ratio = Math.min(maxWidth / width, maxHeight / height);
+                width *= ratio;
+                height *= ratio;
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            canvas.toBlob((blob) => {
                 const file = new File([blob], `prescription-${Date.now()}.jpg`, {
                     type: 'image/jpeg',
                 });
+                
                 setImage(file);
                 createPreviewUrl(file);
                 setCroppedImageUrl(null);
                 setIsSample(false);
                 setIsCropping(true);
-            });
+            }, 'image/jpeg', 1);
+        };
+        
+        img.onerror = (error) => {
+            console.error('샘플 이미지 로드 실패:', error);
+        };
+        
+        img.src = prescription.image;
     }
 
     /**
