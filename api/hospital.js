@@ -50,7 +50,7 @@ function parseHospitalXML(xmlString) {
       ykiho: item.ykiho || ''                       // 요양기관기호
     }));
     
-    console.log(`XML에서 ${hospitals.length}개 병원 파싱 완료`);
+    //console.log(`XML에서 ${hospitals.length}개 병원 파싱 완료`);
     return hospitals;
   } catch (error) {
     console.error('XML 파싱 중 오류 발생:', error);

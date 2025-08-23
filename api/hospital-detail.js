@@ -92,12 +92,12 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log(`병원 상세정보 조회 시작: ykiho=${ykiho}`);
+    //console.log(`병원 상세정보 조회 시작: ykiho=${ykiho}`);
     
     // 병원의 진료과목 정보 조회
     const dgsbjtCds = await getHospitalDetail(ykiho, serviceKey);
     
-    console.log(`진료과목 ${dgsbjtCds.length}개 조회 완료`);
+    //console.log(`진료과목 ${dgsbjtCds.length}개 조회 완료`);
     
     // 응답 헤더 설정 및 데이터 반환
     res.setHeader('Content-Type', 'application/json');

@@ -13,35 +13,6 @@ const api = axios.create({
 });
 
 /**
- * 위치 기반으로 병원 목록을 조회하는 함수
- * 공공데이터포털의 의료기관 정보를 활용하여 주변 병원을 검색
- * 
- * @param {number} xPos - 경도 (longitude) - 검색 중심점의 경도 좌표
- * @param {number} yPos - 위도 (latitude) - 검색 중심점의 위도 좌표  
- * @param {number} radius - 검색 반경 (미터 단위) - 중심점에서 얼마나 떨어진 병원까지 검색할지
- * @returns {Promise<Array>} 병원 정보 배열 - yadmNm, telno, clCd, xPos, yPos 등의 정보 포함
- * @throws {Error} API 요청 실패 시 에러 throw
- */
-export const getHospitalsByLocation = async (xPos, yPos, radius) => {
-  try {
-    // GET /api/hospital 엔드포인트 호출 - Vercel Function으로 구현된 병원 검색 API
-    const response = await api.get('api/hospital', {
-      params: {
-        xPos,   // 경도 파라미터
-        yPos,   // 위도 파라미터  
-        radius  // 검색 반경 파라미터
-      }
-    });
-    
-    // 응답 데이터에서 hospitals 배열 추출, 없으면 빈 배열 반환
-    return response.data.hospitals || [];
-  } catch (error) {
-    console.error('Error fetching hospitals:', error);
-    throw error; // 에러를 상위로 전파하여 호출측에서 처리하도록 함
-  }
-};
-
-/**
  * 요양기관기호(ykiho)를 사용하여 병원의 상세 정보를 조회하는 함수
  * 주로 진료과목 코드(dgsbjtCd) 정보를 얻기 위해 사용됨
  * 
@@ -81,13 +52,13 @@ export const getHospitalDetail = async (ykiho) => {
 export const getHospitalsWithDetails = async (xPos, yPos, radius) => {
   try {
     // 1단계: 위치 기반 병원 목록 조회
-    console.log(`병원 검색 시작: 위치(${yPos}, ${xPos}), 반경 ${radius}m`);
+    //console.log(`병원 검색 시작: 위치(${yPos}, ${xPos}), 반경 ${radius}m`);
     const hospitalsResponse = await api.get('api/hospital', {
       params: { xPos, yPos, radius }
     });
     
     const hospitals = hospitalsResponse.data.hospitals || [];
-    console.log(`검색된 병원 수: ${hospitals.length}개`);
+    //console.log(`검색된 병원 수: ${hospitals.length}개`);
     
     // 병원이 없으면 빈 배열 반환
     if (hospitals.length === 0) {
@@ -105,7 +76,7 @@ export const getHospitalsWithDetails = async (xPos, yPos, radius) => {
       try {
         // 개별 병원의 진료과목 정보 조회
         const dgsbjtCds = await getHospitalDetail(hospital.ykiho);
-        console.log(`병원 ${hospital.yadmNm}: 진료과목 ${dgsbjtCds.length}개 조회 완료`);
+        //console.log(`병원 ${hospital.yadmNm}: 진료과목 ${dgsbjtCds.length}개 조회 완료`);
         return { ...hospital, dgsbjtCd: dgsbjtCds };
       } catch (error) {
         // 개별 병원 정보 조회 실패 시 경고 로그 출력, 빈 배열로 처리
@@ -123,7 +94,7 @@ export const getHospitalsWithDetails = async (xPos, yPos, radius) => {
       .filter(result => result.status === 'fulfilled')
       .map(result => result.value);
     
-    console.log(`최종 반환 병원 수: ${successfulResults.length}개`);
+    //console.log(`최종 반환 병원 수: ${successfulResults.length}개`);
     return successfulResults;
       
   } catch (error) {
