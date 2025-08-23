@@ -1,65 +1,95 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { renderToStaticMarkup } from 'react-dom/server';
+import HospitalInfo from '@components/callpage/HospitalInfo';
 
-const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, onCenterChanged }) => {
+const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, onCenterChanged, onHospitalSelect, className="" }) => {
     const { i18n } = useTranslation();
     const mapRef = useRef(null);
     const mapInstance = useRef(null);
     const markers = useRef([]);
+    const currentLanguage = useRef(null);
+
+    // 네이버 지도 API 스크립트 동적 로드 함수
+    const loadNaverMapScript = (language) => {
+        return new Promise((resolve, reject) => {
+            // 기존 스크립트 제거
+            const existingScript = document.querySelector('script[src*="oapi.map.naver.com"]');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+            // window.naver 객체도 제거
+            if (window.naver) {
+                delete window.naver;
+            }
+
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${import.meta.env.VITE_NAVER_MAP_ID}&language=${language}`;
+            
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error('네이버 지도 API 로드 실패'));
+            
+            document.head.appendChild(script);
+        });
+    };
+
+    // 언어 설정 매핑
+    const getMapLanguage = (lng) => {
+        switch (lng) {
+            case 'ko': return 'ko';
+            case 'en': return 'en';
+            case 'zh-CN': return 'zh';
+            default: return 'ko';
+        }
+    };
 
     useEffect(() => {
-        if (!window.naver) {
-            console.error('Naver Maps API가 로드되지 않았습니다.');
-            return;
-        }
+        const initializeMap = async () => {
+            const mapLanguage = getMapLanguage(i18n.language);
+            
+            // 언어가 변경되었거나 처음 로드하는 경우에만 스크립트 재로드
+            if (currentLanguage.current !== mapLanguage) {
+                try {
+                    await loadNaverMapScript(mapLanguage);
+                    currentLanguage.current = mapLanguage;
+                } catch (error) {
+                    console.error('네이버 지도 API 로드 실패:', error);
+                    return;
+                }
+            }
 
-        // 언어 설정 매핑
-        const getMapLanguage = (lng) => {
-            switch (lng) {
-                case 'ko': return 'ko';
-                case 'en': return 'en';
-                case 'zh-CN': return 'zh';
-                default: return 'ko';
+            if (!window.naver) {
+                console.error('Naver Maps API가 로드되지 않았습니다.');
+                return;
+            }
+
+            // 지도 초기화
+            const map = new window.naver.maps.Map(mapRef.current, {
+                center: new window.naver.maps.LatLng(center.lat, center.lng),
+                zoom: zoom,
+                minZoom: 9,
+                maxZoom: 18
+            });
+
+            mapInstance.current = map;
+
+            // 지도 중심점 변경 이벤트 리스너
+            if (onCenterChanged) {
+                window.naver.maps.Event.addListener(map, 'center_changed', () => {
+                    const center = map.getCenter();
+                    onCenterChanged({ lat: center.lat(), lng: center.lng() });
+                });
+            }
+
+            // 병원 마커 추가
+            if (hospitals && hospitals.length > 0) {
+                addHospitalMarkers(map, hospitals);
             }
         };
 
-        // 지도 초기화
-        const map = new window.naver.maps.Map(mapRef.current, {
-            center: new window.naver.maps.LatLng(center.lat, center.lng),
-            zoom: zoom,
-            minZoom: 9,
-            maxZoom: 18,
-            mapTypeControl: true,
-            mapTypeControlOptions: {
-                style: window.naver.maps.MapTypeControlStyle.BUTTON,
-                position: window.naver.maps.Position.TOP_RIGHT
-            },
-            zoomControl: true,
-            zoomControlOptions: {
-                style: window.naver.maps.ZoomControlStyle.SMALL,
-                position: window.naver.maps.Position.TOP_LEFT
-            }
-        });
-
-        // 지도 언어 설정
-        if (window.naver.maps.Service) {
-            window.naver.maps.Service.setLanguage(getMapLanguage(i18n.language));
-        }
-
-        mapInstance.current = map;
-
-        // 지도 중심점 변경 이벤트 리스너
-        if (onCenterChanged) {
-            window.naver.maps.Event.addListener(map, 'center_changed', () => {
-                const center = map.getCenter();
-                onCenterChanged({ lat: center.lat(), lng: center.lng() });
-            });
-        }
-
-        // 병원 마커 추가
-        if (hospitals && hospitals.length > 0) {
-            addHospitalMarkers(map, hospitals);
-        }
+        initializeMap();
 
         return () => {
             // 마커 정리
@@ -68,7 +98,7 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
             });
             markers.current = [];
         };
-    }, []); // 지도는 한 번만 초기화
+    }, [i18n.language]); // 지도는 한 번만 초기화
 
     useEffect(() => {
         if (mapInstance.current && hospitals) {
@@ -94,29 +124,10 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
             const marker = new window.naver.maps.Marker({
                 position: new window.naver.maps.LatLng(lat, lng),
                 map: map,
-                title: hospital.yadmNm || hospital.title || hospital.name,
-                icon: {
-                    content: `
-                        <div style="
-                            background: #4CAF50;
-                            border: 2px solid white;
-                            border-radius: 50%;
-                            width: 20px;
-                            height: 20px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-                        ">
-                            <span style="color: white; font-size: 12px; font-weight: bold;">H</span>
-                        </div>
-                    `,
-                    size: new window.naver.maps.Size(24, 24),
-                    anchor: new window.naver.maps.Point(12, 12)
-                }
+                title: hospital.yadmNm || hospital.title || hospital.name
             });
 
-            // 정보창 내용 생성
+            // 정보창 내용 생성 (버튼 없이)
             const createInfoContent = (hospital) => {
                 const hospitalName = hospital.yadmNm || hospital.title || hospital.name || '병원명 없음';
                 const distance = hospital.distance ? `${Math.round(hospital.distance)}m` : '';
@@ -124,22 +135,15 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
                 const clCd = hospital.clCd || '';
                 const dgsbjtCds = hospital.dgsbjtCd || [];
 
-                return `
-                    <div style="padding: 15px; min-width: 250px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                        <h4 style="margin: 0 0 8px 0; color: #333; font-size: 16px; font-weight: bold;">${hospitalName}</h4>
-                        ${distance ? `<p style="margin: 0 0 5px 0; color: #666; font-size: 12px;">📍 거리: ${distance}</p>` : ''}
-                        ${phone ? `<p style="margin: 0 0 8px 0; color: #666; font-size: 12px;">📞 ${phone}</p>` : ''}
-                        ${clCd ? `<div style="margin: 8px 0;">
-                            <span style="background: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px; font-size: 14px; font-weight: bold;">${clCd}</span>
-                        </div>` : ''}
-                        ${dgsbjtCds.length > 0 ? `<div style="margin: 8px 0 0 0;">
-                            <div style="font-size: 11px; color: #888; margin-bottom: 4px;">진료과목:</div>
-                            <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                ${dgsbjtCds.map(code => `<span style="background: #f0f0f0; color: #666; padding: 2px 6px; border-radius: 3px; font-size: 10px;">${code}</span>`).join('')}
-                            </div>
-                        </div>` : ''}
-                    </div>
-                `;
+                return renderToStaticMarkup(
+                    <HospitalInfo 
+                        hospitalName={hospitalName}
+                        distance={distance}
+                        phone={phone}
+                        clCd={clCd}
+                        dgsbjtCds={dgsbjtCds}
+                    />
+                );
             };
 
             // 정보창 추가
@@ -150,30 +154,32 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
                 backgroundColor: '#fff'
             });
 
-            // 마커 클릭 이벤트
+            // 마커 클릭 이벤트 - 정보창 표시 + 병원 선택
             window.naver.maps.Event.addListener(marker, 'click', () => {
+                // 정보창 토글
                 if (infoWindow.getMap()) {
                     infoWindow.close();
+                    // 정보창을 닫을 때 병원 선택 해제
+                    if (onHospitalSelect) {
+                        onHospitalSelect(null);
+                    }
                 } else {
                     infoWindow.open(map, marker);
+                    // 정보창을 열 때 병원 선택
+                    if (onHospitalSelect) {
+                        onHospitalSelect(hospital);
+                    }
                 }
             });
 
             markers.current.push(marker);
         });
-
-        // 자동 범위 조정 비활성화 - 사용자가 직접 지도를 조작할 수 있도록 함
     };
 
     return (
         <div 
             ref={mapRef} 
-            style={{ 
-                width: '100%', 
-                height: '400px',
-                border: '1px solid #ddd',
-                borderRadius: '8px'
-            }}
+            className={className}
         />
     );
 };
