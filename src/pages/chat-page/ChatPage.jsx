@@ -64,6 +64,14 @@ const ChatPage = () => {
         }
     };
 
+    const getDayofWeek = (dateStr) => {
+        //console.log(typeof dateStr);
+        const [year, month, day] = dateStr.split('-');
+        const date = new Date(year, month-1, day);
+        
+        return date.getDay();
+    }
+
     if (isLoading) {
         return (
             <div>
@@ -106,11 +114,11 @@ const ChatPage = () => {
                 </div>
             ) : (
                 <div className="mt-16 space-y-3">
-                    {filteredChatRooms.map((room) => (
+                    {filteredChatRooms.slice().reverse().map((room) => (
                         <div key={room.id} className="m-0">
                             <ServiceCard 
                                 icon={Logo}
-                                title={room.createdAt}
+                                title={`${room.createdAt} (${t(`call.result.day.${getDayofWeek(room.createdAt)}`)})`}
                                 description={room.lastChat}
                                 onClick={() => handleChatRoomClick(room.id, room.roomCode)}
                                 className="shadow-none"
