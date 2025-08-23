@@ -52,11 +52,6 @@ const CallNumberPage = () => {
 
     const canMoveNextStep = selectedHospital !== '';
     
-    const handleHospitalChange = (value) => {
-        setSelectedHospital(value);
-        //console.log('선택된 병원:', hospitals[parseInt(value)]);
-    };
-
     const handleHospitalSelect = (hospital) => {
         if (hospital === null) {
             // 병원 선택 해제
