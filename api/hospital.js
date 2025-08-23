@@ -1,70 +1,13 @@
-/**
- * 병원 상세 정보 API - 진료과목 코드(dgsbjtCd) 조회
- * 공공데이터포털의 의료기관 상세정보 API를 사용하여 특정 병원의 진료과목 정보를 가져옴
- * 
- * @param {string} ykiho - 요양기관기호 (병원 고유 식별자)
- * @param {string} serviceKey - 공공데이터 API 서비스 키
- * @returns {Promise<Array>} dgsbjtCd 배열 - 해당 병원에서 진료 가능한 과목 코드 목록
- */
-async function getHospitalDetail(ykiho, serviceKey) {
-  try {
-    // 공공데이터포털 의료기관 상세정보 서비스 API URL
-    const baseUrl = 'https://apis.data.go.kr/B551182/MadmDtlInfoService2.7/getDgsbjtInfo2.7';
-    
-    // API 요청 파라미터 구성
-    const params = new URLSearchParams({
-      ServiceKey: serviceKey, // 공공데이터 API 인증키
-      ykiho: ykiho,          // 요양기관기호 
-      _type: 'json'          // 응답 형식 (JSON)
-    });
-
-    const apiUrl = `${baseUrl}?${params}`;
-    
-    // 공공데이터 API 호출
-    const response = await fetch(apiUrl);
-    
-    if (!response.ok) {
-      throw new Error(`API call failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    // API 응답에서 진료과목 코드(dgsbjtCd) 추출
-    const dgsbjtCds = [];
-    if (data.response && data.response.body && data.response.body.items) {
-      const items = data.response.body.items.item;
-      
-      // items가 배열인 경우 (여러 진료과목)
-      if (Array.isArray(items)) {
-        items.forEach(item => {
-          if (item.dgsbjtCd) {
-            dgsbjtCds.push(item.dgsbjtCd);
-          }
-        });
-      } 
-      // items가 단일 객체인 경우 (진료과목 1개)
-      else if (items && items.dgsbjtCd) {
-        dgsbjtCds.push(items.dgsbjtCd);
-      }
-    }
-    
-    return dgsbjtCds;
-  } catch (error) {
-    console.error(`요양기관기호 ${ykiho}의 상세정보 조회 실패:`, error);
-    return []; // 실패 시 빈 배열 반환
-  }
-}
 
 /**
  * XML 응답 데이터 파싱 함수
  * 공공데이터 API에서 받은 XML 형식의 병원 목록을 JavaScript 객체로 변환
- * 각 병원의 진료과목 정보도 함께 조회하여 완전한 데이터 구성
+ * 기본 병원 정보만 파싱하고, 상세 정보(진료과목)는 별도 API에서 조회
  * 
  * @param {string} xmlString - 공공데이터 API에서 받은 XML 응답 문자열
- * @param {string} serviceKey - 공공데이터 API 서비스 키 (진료과목 조회용)
- * @returns {Promise<Array>} 파싱된 병원 정보 배열 (진료과목 포함)
+ * @returns {Array} 파싱된 기본 병원 정보 배열
  */
-async function parseHospitalXML(xmlString, serviceKey) {
+function parseHospitalXML(xmlString) {
   try {
     // 서버 환경에서 정규식을 사용한 XML 파싱 (DOMParser 사용 불가)
     const hospitals = [];
@@ -98,22 +41,7 @@ async function parseHospitalXML(xmlString, serviceKey) {
     }
     
     console.log(`XML에서 ${hospitals.length}개 병원 파싱 완료`);
-    
-    // 각 병원의 진료과목 정보를 병렬로 조회하여 완전한 데이터 구성
-    const hospitalsWithDetails = await Promise.all(
-      hospitals.map(async (hospital) => {
-        // 요양기관기호가 있는 경우에만 상세정보 조회
-        if (hospital.ykiho) {
-          const dgsbjtCds = await getHospitalDetail(hospital.ykiho, serviceKey);
-          return { ...hospital, dgsbjtCd: dgsbjtCds };
-        }
-        // 요양기관기호가 없으면 빈 진료과목 배열
-        return { ...hospital, dgsbjtCd: [] };
-      })
-    );
-    
-    console.log(`${hospitalsWithDetails.length}개 병원의 상세정보 조회 완료`);
-    return hospitalsWithDetails;
+    return hospitals;
   } catch (error) {
     console.error('XML 파싱 중 오류 발생:', error);
     return []; // 실패 시 빈 배열 반환
@@ -140,8 +68,8 @@ function extractValue(xmlContent, tagName) {
  * 
  * 주요 기능:
  * 1. 위치(위도/경도) 기반 주변 병원 검색
- * 2. 각 병원의 진료과목 정보 추가 조회
- * 3. XML 응답을 JSON 형태로 변환하여 프론트엔드에 제공
+ * 2. XML 응답을 JSON 형태로 변환하여 기본 병원 정보 제공
+ * 3. 상세 정보(진료과목)는 별도 API(/api/hospital-detail)에서 조회
  * 
  * @param {Object} req - HTTP 요청 객체
  * @param {Object} req.query - 쿼리 파라미터 {xPos, yPos, radius}
@@ -170,7 +98,8 @@ export default async function handler(req, res) {
       ServiceKey: serviceKey,
       xPos,
       yPos,
-      radius
+      radius,
+      numOfRows: 100 // 응답 개수를 100개
     });
 
     const apiUrl = `${baseUrl}?${params}`;
