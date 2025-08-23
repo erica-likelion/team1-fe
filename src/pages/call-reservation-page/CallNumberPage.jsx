@@ -6,11 +6,10 @@ import { useNavigate } from "react-router";
 import { getHospitalsWithDetails } from "@apis/hospitalApi";
 import TextButton from "@components/commons/TextButton";
 import TitleBlock from "@components/commons/TitleBlock";
-import DropdownRadio from "@components/forms/DropdownRadio";
 import Map from "@components/callpage/Map";
 import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 import Search from "@assets/images/green_search.svg";
-
+import Disabled_Search from "@assets/images/white_search.svg";
 
 const CallNumberPage = () => {
     const { t } = useTranslation();
@@ -32,7 +31,6 @@ const CallNumberPage = () => {
                 },
                 (error) => {
                     console.log('위치 정보를 가져올 수 없습니다:', error);
-                    // 디폴트 위치 사용 (이미 설정됨)
                 }
             );
         }
@@ -44,7 +42,7 @@ const CallNumberPage = () => {
         try {
             const hospitals = await getHospitalsWithDetails(mapCenter.lng, mapCenter.lat, 1000);
             setNearbyHospitals(hospitals);
-            console.log('근처 병원 검색 결과:', hospitals);
+            //console.log('근처 병원 검색 결과:', hospitals);
         } catch (error) {
             console.error('병원 검색 중 오류 발생:', error);
         } finally {
@@ -63,13 +61,13 @@ const CallNumberPage = () => {
         if (hospital === null) {
             // 병원 선택 해제
             setSelectedHospital('');
-            console.log('병원 선택 해제');
+            //console.log('병원 선택 해제');
         } else {
             // 선택된 병원의 인덱스를 찾아서 설정
             const hospitalIndex = nearbyHospitals.findIndex(h => h.yadmNm === hospital.yadmNm);
             if (hospitalIndex !== -1) {
                 setSelectedHospital(hospitalIndex.toString());
-                console.log('지도에서 선택된 병원:', hospital);
+                //console.log('지도에서 선택된 병원:', hospital);
             }
         }
     };
@@ -77,7 +75,7 @@ const CallNumberPage = () => {
     const handleNext = () => {
         if (canMoveNextStep) {
             const hospital = nearbyHospitals[parseInt(selectedHospital)];
-            console.log('선택된 병원:', hospital);
+            //console.log('선택된 병원:', hospital);
             navigate('/call-reservation/time');
         }
     };
@@ -103,11 +101,11 @@ const CallNumberPage = () => {
                     />
                 </div>
                 <TextButton 
-                    text={isSearching ? '검색 중...' : '근처 병원 검색'}
+                    text={isSearching ? t('call.buttons.searching') : t('call.buttons.search')}
                     onClick={searchNearbyHospitals}
                     disabled={isSearching}
-                    icon={Search}
-                    className={`${relativeStyles} bg-[#9DEECF] !text-[#00A270]`}
+                    icon={isSearching ? Disabled_Search : Search}
+                    className={`${relativeStyles} w-full bg-[#9DEECF]  ${isSearching ? "" : "!text-[#00A270]"}`}
                 />
             </div>
 
