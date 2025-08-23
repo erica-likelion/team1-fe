@@ -66,6 +66,12 @@ const HistoryModal = ({
         }, 300);
     }, [onClose]);
 
+    const handleCardClick = (historyId) => {
+        if (onSelectHistory) {
+            onSelectHistory(historyId);
+        }
+    }
+
     return (
         <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full bg-transparent z-100">
             <div className={`bg-white p-5 max-w-[375px] mx-auto shadow-[0_-2px_4px_0_rgba(0,0,0,0.10)] rounded-t-xl transition-transform duration-300 ease-out ${
@@ -90,7 +96,7 @@ const HistoryModal = ({
                                     icon={modalIcon}
                                     title={history.title}
                                     description={history.createdAt}
-                                    onClick={onSelectHistory}
+                                    onClick={() => handleCardClick(history.id)}
                                     className="shadow-none"
                                 />
                                 <div className="my-0.5 border-b-1 border-[#E9E9EA]" />
