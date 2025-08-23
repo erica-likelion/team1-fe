@@ -75,7 +75,7 @@ const ChatRoomPage = () => {
     }
 
     const connect = () => {
-        const socket = new WebSocket(`ws://${import.meta.env.VITE_WS_BASE_URL}/ws`);
+        const socket = new WebSocket(`${import.meta.env.VITE_WSS_BASE_URL}`);
         stompClient.current = Stomp.over(() => socket);
         stompClient.current.connect({}, () => {
             //console.log("WebSocket 연결 성공");
