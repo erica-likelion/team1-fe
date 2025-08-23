@@ -118,9 +118,8 @@ const ChatPage = () => {
                         <div key={room.id} className="m-0">
                             <ServiceCard 
                                 icon={Logo}
-                                title={`채팅 ${room.id}`}
+                                title={`${room.createdAt} (${t(`call.result.day.${getDayofWeek(room.createdAt)}`)})`}
                                 description={room.lastChat}
-                                description2={`${room.createdAt} (${t(`call.result.day.${getDayofWeek(room.createdAt)}`)})`}
                                 onClick={() => handleChatRoomClick(room.id, room.roomCode)}
                                 className="shadow-none"
                             />
