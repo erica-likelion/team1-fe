@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { renderToStaticMarkup } from 'react-dom/server';
 import HospitalInfo from '@components/callpage/HospitalInfo';
+import Circle from "@assets/images/circle.svg";
+
 
 const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, onCenterChanged, onHospitalSelect, className="" }) => {
     const { i18n } = useTranslation();
@@ -70,10 +72,59 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
                 center: new window.naver.maps.LatLng(center.lat, center.lng),
                 zoom: zoom,
                 minZoom: 9,
-                maxZoom: 18
+                maxZoom: 18,
+                mapDataControl: false, // @naver 아이콘
+                scaleControl: false, // 척도 아이콘
+                logoControl: true, // naver 아이콘 <- 이건 못지움
+                logoControlOptions: {
+                    position: window.naver.maps.Position.TOP_RIGHT
+                }
             });
 
             mapInstance.current = map;
+
+            // 현재 위치 버튼 추가
+            const locationButton = document.createElement('button');
+            locationButton.innerHTML = `<img src=${Circle} alt="circle" className="w-6 h-6" />`
+            locationButton.style.cssText = `
+                position: absolute;
+                bottom: 20px;
+                right: 10px;
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 8px;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+                font-size: 18px;
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            
+            // 클릭 이벤트 - 현재 위치로 이동
+            locationButton.addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            const newCenter = new window.naver.maps.LatLng(latitude, longitude);
+                            map.setCenter(newCenter);
+                            if (onCenterChanged) {
+                                onCenterChanged({ lat: latitude, lng: longitude });
+                            }
+                        },
+                        (error) => {
+                            console.error('위치 정보를 가져올 수 없습니다:', error);
+                        }
+                    );
+                }
+            });
+
+            mapRef.current.appendChild(locationButton);
 
             // 지도 중심점 변경 이벤트 리스너
             if (onCenterChanged) {
@@ -92,11 +143,18 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
         initializeMap();
 
         return () => {
-            // 마커 정리
+            // 마커 정리 강화
             markers.current.forEach(marker => {
-                marker.setMap(null);
+                if (marker) {
+                    marker.setMap(null);
+                }
             });
             markers.current = [];
+            
+            // 지도 인스턴스도 정리
+            if (mapInstance.current) {
+                mapInstance.current = null;
+            }
         };
     }, [i18n.language]); // 지도는 한 번만 초기화
 
@@ -124,10 +182,28 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
             const marker = new window.naver.maps.Marker({
                 position: new window.naver.maps.LatLng(lat, lng),
                 map: map,
-                title: hospital.yadmNm || hospital.title || hospital.name
+                title: hospital.yadmNm || hospital.title || hospital.name,
+                icon: {
+                    content: [
+                        '<div style="',
+                        'background: #00A270;',
+                        'border: 2px solid white;',
+                        'border-radius: 50%;',
+                        'width: 24px;',
+                        'height: 24px;',
+                        'display: flex;',
+                        'align-items: center;',
+                        'justify-content: center;',
+                        'box-shadow: 0 2px 4px rgba(0,0,0,0.3);',
+                        '">',
+                        '<span style="color: white; font-size: 14px; font-weight: bold;">+</span>',
+                        '</div>'
+                    ].join(''),
+                    anchor: new window.naver.maps.Point(12, 12)
+                }
             });
 
-            // 정보창 내용 생성 (버튼 없이)
+            // 정보창 내용 생성
             const createInfoContent = (hospital) => {
                 const hospitalName = hospital.yadmNm || hospital.title || hospital.name || '병원명 없음';
                 const distance = hospital.distance ? `${Math.round(hospital.distance)}m` : '';
@@ -149,9 +225,14 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
             // 정보창 추가
             const infoWindow = new window.naver.maps.InfoWindow({
                 content: createInfoContent(hospital),
-                borderWidth: 1,
-                anchorSize: new window.naver.maps.Size(30, 30),
-                backgroundColor: '#fff'
+                borderWidth: 0,
+                backgroundColor: 'transparent',
+                anchorSize: new window.naver.maps.Size(20, 10),
+                anchorSkew: true,
+                anchorColor: '#ffffff',
+                pixelOffset: new window.naver.maps.Point(0, -10),
+                maxWidth: 280,
+                disableAutoPan: false
             });
 
             // 마커 클릭 이벤트 - 정보창 표시 + 병원 선택
