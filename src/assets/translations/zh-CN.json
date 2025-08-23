@@ -278,7 +278,9 @@
         "buttons": {
             "submit": "提交",
             "reservation": "预约",
-            "home": "返回首页"
+            "home": "返回首页",
+            "search": "搜索附近医院",
+            "searching": "搜索中..."
         }
     },
 

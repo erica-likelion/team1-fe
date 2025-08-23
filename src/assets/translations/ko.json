@@ -278,7 +278,9 @@
         "buttons": {
             "submit": "입력하기",
             "reservation": "예약하기",
-            "home": "홈으로 가기"
+            "home": "홈으로 가기",
+            "search": "근처 병원 검색",
+            "searching": "검색중..."
         }
     },
 
