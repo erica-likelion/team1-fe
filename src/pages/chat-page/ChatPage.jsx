@@ -52,7 +52,7 @@ const ChatPage = () => {
 
     const createNewChat = async () => {
         try {
-            const roomInfo = await createChatRoom({type: "newChat", langauge: {currentUserLang}});
+            const roomInfo = await createChatRoom({type: "newChat", language: currentUserLang});
             navigate(`/chat/${roomInfo.id}/${roomInfo.roomCode}`, {
                 state: {
                     type: "newChat"

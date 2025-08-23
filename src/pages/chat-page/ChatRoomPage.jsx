@@ -106,10 +106,11 @@ const ChatRoomPage = () => {
             
             // 가장 첫 번째 메시지의 createdAt을 roomInfo에 저장
             const firstMessageDate = fetchedMessages.length > 0 ? new Date(fetchedMessages[0].createdAt) : new Date();
+            const koreanTime = new Date(firstMessageDate.getTime() + (9 * 60 * 60 * 1000));
             setRoomInfo({
                 type: type, 
-                date: firstMessageDate.toISOString().split('T')[0],
-                time: firstMessageDate.toISOString().split('T')[1].substring(0, 5)
+                date: koreanTime.toISOString().split('T')[0],
+                time: koreanTime.toISOString().split('T')[1].substring(0, 5)
             });
         } catch (err) {
             console.log(err);
