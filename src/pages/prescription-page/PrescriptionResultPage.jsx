@@ -8,6 +8,8 @@ import Right from "@assets/images/white_chevron_right.svg";
 
 import TextButton from "@components/commons/TextButton.jsx";
 
+import MarkdownRenderer from "@components/prescription/MarkdownRenderer";
+
 const PrescriptionResultPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -52,11 +54,10 @@ const PrescriptionResultPage = () => {
                 </p>
             </div>
 
-            <div 
-                className="rounded-sm p-4 border-[1px] mb-20 border-[#D3D4D4] h-110 text-sm text-gray-700 leading-relaxed overflow-y-auto no-scrollbar">
-                <div className="whitespace-pre-line">
+            <div className="rounded-sm p-4 border-[1px] mb-20 border-[#D3D4D4] h-110 overflow-y-auto no-scrollbar">
+                <MarkdownRenderer>
                     {analysisResult ? analysisResult : t('prescription.result.placeholder')}
-                </div>
+                </MarkdownRenderer>
             </div>
             <TextButton text={t('prescription.buttons.chat')} icon={Right} onClick={handleChatStart} />
             
