@@ -33,7 +33,6 @@ import { useUser } from '@contexts/UserContext';
 import { Stomp } from "@stomp/stompjs";
  
 import Loading from "@assets/images/loading.svg";
-import { changeLanguage } from 'i18next';
 
 const ChatRoomPage = () => {
     const { roomId: id, roomCode } = useParams(); // URL에서 채팅방 ID 추출

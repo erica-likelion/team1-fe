@@ -102,7 +102,7 @@ const NavBar = ({
                     onClick={disableLeftClick ? undefined : onLeftClick}
                 />}
             </div>
-            <div className="flex-2 flex justify-center items-center">
+            <div className="flex-3 flex justify-center items-center">
                 <p className="font-semibold text-xl">{title}</p>
             </div>
             <div className="flex-1 flex justify-end items-center">

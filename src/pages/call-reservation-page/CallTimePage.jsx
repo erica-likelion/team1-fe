@@ -156,10 +156,8 @@ const CallTimePage = () => {
                             }
                         }}
                     >
-                        <div className={`w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50 ${selectedTime ? "text-black" : "text-gray-400"}`}>
-                            {selectedTime || '00:00'}
-                        </div>
-                        <div className="absolute right-5 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                        <div className={`flex items-center w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50`}>
+                            <p className={`w-full ${selectedTime ? "text-black" : "text-gray-400"}`}>{selectedTime || '00:00'}</p>
                             <img src={Clock} alt="clock" className="w-5 h-5 pointer-events-none" />   
                         </div>
                     </div>

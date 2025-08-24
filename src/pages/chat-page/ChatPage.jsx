@@ -83,6 +83,7 @@ const ChatPage = () => {
         )
     }
 
+    
     return (
         <div className="p-5 h-auto">
             <div className="flex flex-col item-center mx-5 bg-[#FAFAFA] fixed top-15.5 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50">
@@ -92,7 +93,7 @@ const ChatPage = () => {
                         placeholder={t('chat.searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="p-2.5 pt-4.5 w-full text-2xl font-medium border-none outline-none placeholder-[#BDBDBD]"
+                        className="p-2.5 pt-5.5 w-full text-xl font-medium border-none outline-none placeholder-[#BDBDBD]"
                         autoFocus
                     />
                 ) : (

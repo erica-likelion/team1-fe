@@ -21,7 +21,7 @@
         },
         "qrCode": "Chat Room QR",
         "call": "Phone Booking",
-        "reservationTime": "Select Date & Time",
+        "reservationTime": "Date & Time",
         "reservationResult": "Booking Confirmation"
     },
 

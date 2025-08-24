@@ -21,7 +21,7 @@
         },
         "qrCode": "聊天室 QR",
         "call": "电话预约",
-        "reservationTime": "选择预约日期和时间",
+        "reservationTime": "选择预约时间",
         "reservationResult": "医院预约确认"
     },
 
@@ -175,7 +175,7 @@
         "buttons": {
             "interpretation": "诊疗翻译",
             "loadPrecheck": "调取预问诊",
-            "loadPrescription": "Load prescription"
+            "loadPrescription": "加载处方"
         }
     },
 
