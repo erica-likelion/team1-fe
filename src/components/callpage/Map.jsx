@@ -5,7 +5,7 @@ import HospitalInfo from '@components/callpage/HospitalInfo';
 import Circle from "@assets/images/circle.svg";
 
 
-const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, onCenterChanged, onHospitalSelect, className="" }) => {
+const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, userLocation, onCenterChanged, onHospitalSelect, onReturnToUserLocation, onRequestLocation, isLoadingLocation, className="" }) => {
     const { i18n } = useTranslation();
     const mapRef = useRef(null);
     const mapInstance = useRef(null);
@@ -47,6 +47,28 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
         }
     };
 
+    const moveToUserLocation = () => {
+        if (!mapInstance.current) return;
+        
+        // 위치 정보가 없으면 새로 조회 시도
+        if (!userLocation) {
+            onRequestLocation?.();
+            return;
+        }
+        
+        const newCenter = new window.naver.maps.LatLng(userLocation.lat, userLocation.lng);
+        mapInstance.current.morph(newCenter, 16); // Naver Map API의 애니메이션 이동 메서드
+        
+        if (onReturnToUserLocation) {
+            onReturnToUserLocation();
+        }
+        
+        if (onCenterChanged) {
+            onCenterChanged(userLocation);
+        }
+    };
+
+    // 지도 초기화 useEffect
     useEffect(() => {
         const initializeMap = async () => {
             const mapLanguage = getMapLanguage(i18n.language);
@@ -83,49 +105,6 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
 
             mapInstance.current = map;
 
-            // 현재 위치 버튼 추가
-            const locationButton = document.createElement('button');
-            locationButton.innerHTML = `<img src=${Circle} alt="circle" className="w-6 h-6" />`
-            locationButton.style.cssText = `
-                position: absolute;
-                bottom: 20px;
-                right: 10px;
-                width: 44px;
-                height: 44px;
-                border: none;
-                border-radius: 8px;
-                background: white;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                cursor: pointer;
-                font-size: 18px;
-                z-index: 30;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            
-            // 클릭 이벤트 - 현재 위치로 이동
-            locationButton.addEventListener('click', () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const { latitude, longitude } = position.coords;
-                            const newCenter = new window.naver.maps.LatLng(latitude, longitude);
-                            map.setCenter(newCenter);
-                            if (onCenterChanged) {
-                                onCenterChanged({ lat: latitude, lng: longitude });
-                            }
-                        },
-                        (error) => {
-                            console.error('위치 정보를 가져올 수 없습니다:', error);
-                        }
-                    );
-                }
-            });
-
-            mapRef.current.appendChild(locationButton);
-
             // 지도 중심점 변경 이벤트 리스너
             if (onCenterChanged) {
                 window.naver.maps.Event.addListener(map, 'center_changed', () => {
@@ -156,7 +135,54 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
                 mapInstance.current = null;
             }
         };
-    }, [i18n.language]); // 지도는 한 번만 초기화
+    }, [i18n.language]);
+
+    // 위치 버튼 관리 useEffect
+    useEffect(() => {
+        if (!mapRef.current || !mapInstance.current) return;
+
+        // 기존 버튼 제거
+        const existingButton = mapRef.current.querySelector('[data-location-button]');
+        if (existingButton) {
+            existingButton.remove();
+        }
+
+        // 새 위치 버튼 추가
+        const locationButton = document.createElement('button');
+        locationButton.setAttribute('data-location-button', 'true');
+        locationButton.innerHTML = `<img src=${Circle} alt="circle" className="w-6 h-6" />`;
+        locationButton.style.cssText = `
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            opacity: ${isLoadingLocation ? '0.5' : '1'};
+        `;
+        
+        locationButton.addEventListener('click', moveToUserLocation);
+        locationButton.disabled = isLoadingLocation; // 로딩 중일 때만 비활성화
+
+        mapRef.current.appendChild(locationButton);
+
+        return () => {
+            const button = mapRef.current?.querySelector('[data-location-button]');
+            if (button) {
+                button.remove();
+            }
+        };
+    }, [userLocation, isLoadingLocation]);
 
     useEffect(() => {
         if (mapInstance.current && hospitals) {

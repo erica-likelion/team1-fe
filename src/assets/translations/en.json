@@ -239,7 +239,8 @@
             "title": "Which hospital would you like to book?",
             "description": "Please select the hospital you'd like to make an appointment with.",
             "placeholder": "Select Hospital",
-            "searchPlaceholder": "Search"
+            "searchPlaceholder": "Search",
+            "unavailableGeo": "Location service is not supported."
         },
         "date": {
             "title": "When would you like to receive treatment?",

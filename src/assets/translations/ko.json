@@ -238,7 +238,8 @@
             "title": "어느 병원에 예약할까요?",
             "description": "예약하고 싶은 병원을 선택해 주세요.",
             "placeholder": "병원 선택",
-            "searchPlaceholder": "검색"
+            "searchPlaceholder": "검색",
+            "unavailableGeo": "위치 서비스가 지원되지 않습니다."
         },
         "date": {
             "title": "언제 진료 받고 싶으세요?",

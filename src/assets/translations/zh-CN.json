@@ -238,7 +238,8 @@
             "title": "您想预约哪家医院？",
             "description": "请选择您要预约的医院。",
             "placeholder": "选择医院",
-            "searchPlaceholder": "搜索"
+            "searchPlaceholder": "搜索",
+            "unavailableGeo": "不支持位置服务。"
         },
         "date": {
             "title": "您希望什么时候就诊？",

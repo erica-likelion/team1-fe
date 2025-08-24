@@ -15,26 +15,55 @@ const CallSelectHospitalPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [selectedHospital, setSelectedHospital] = useState('');
-    const [userLocation, setUserLocation] = useState({ lat: 37.2962, lng: 126.8365 }); // 디폴트 위치
-    const [mapCenter, setMapCenter] = useState({ lat: 37.2962, lng: 126.8365 });
+    const [userLocation, setUserLocation] = useState({ lat: 37.2962, lng: 126.8365 }); // ERICA
+    const [mapCenter, setMapCenter] = useState({ lat: 37.2962, lng: 126.8365 }); // ERICA
     const [nearbyHospitals, setNearbyHospitals] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
+    const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
     // 사용자 위치 가져오기
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setUserLocation({ lat: latitude, lng: longitude });
-                    setMapCenter({ lat: latitude, lng: longitude });
-                },
-                (error) => {
-                    console.log('위치 정보를 가져올 수 없습니다:', error);
-                }
-            );
+    const getCurrentLocation = async () => {
+        if (!navigator.geolocation) {
+            alert(t('call.select.unavailableGeo'));
+            setIsLoadingLocation(false);
+            return;
         }
+
+        const options = {
+            enableHighAccuracy: false, // 빠른 응답을 위해
+            timeout: 8000,
+            maximumAge: 300000 // 5분간 캐시 사용
+        };
+
+        setIsLoadingLocation(true);
+        try {
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, options);
+            });
+
+            const { latitude, longitude } = position.coords;
+            const location = { lat: latitude, lng: longitude };
+            
+            setUserLocation(location);
+            setMapCenter(location);
+            
+        } catch (error) {
+            alert(t('call.select.unavailableGeo'));
+            console.log('위치 정보를 가져올 수 없습니다:', error);
+        } finally {
+            setIsLoadingLocation(false);
+        }
+    };
+
+    useEffect(() => {
+        getCurrentLocation();
     }, []);
+
+    const handleReturnToUserLocation = () => {
+        if (userLocation) {
+            setMapCenter(userLocation);
+        }
+    };
 
     // 현재 위치 근처 병원 검색
     const searchNearbyHospitals = async () => {
@@ -90,8 +119,12 @@ const CallSelectHospitalPage = () => {
                         hospitals={nearbyHospitals}
                         center={mapCenter}
                         zoom={13}
+                        userLocation={userLocation}
                         onCenterChanged={(center) => setMapCenter(center)}
                         onHospitalSelect={handleHospitalSelect}
+                        onReturnToUserLocation={handleReturnToUserLocation}
+                        onRequestLocation={getCurrentLocation}
+                        isLoadingLocation={isLoadingLocation}
                         className="w-full h-[50vh]"
                     />
                 </div>
