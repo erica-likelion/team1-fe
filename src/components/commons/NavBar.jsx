@@ -66,6 +66,7 @@ const NavBar = ({
                 rightIcon: Close
             },
             precheck: {
+                leftIcon: null,
                 rightIcon:Close,
             },
             call: {
@@ -73,6 +74,7 @@ const NavBar = ({
                 rightIcon: Close,
             },
             reservation_result: {
+                leftIcon: null,
                 rightIcon: Close,
             },
             language: {
@@ -93,12 +95,12 @@ const NavBar = ({
     return (
         <div className={baseClasses}>
             <div className="flex-1 flex justify-start items-center">
-                <img 
+                {config.leftIcon && <img 
                     className={`${disableLeftClick ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer'}`} 
                     src={config.leftIcon} 
                     alt="navbar_left_icon"
                     onClick={disableLeftClick ? undefined : onLeftClick}
-                />
+                />}
             </div>
             <div className="flex-2 flex justify-center items-center">
                 <p className="font-semibold text-5">{title}</p>
