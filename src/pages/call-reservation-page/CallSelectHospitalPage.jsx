@@ -15,8 +15,8 @@ const CallSelectHospitalPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [selectedHospital, setSelectedHospital] = useState('');
-    const [userLocation, setUserLocation] = useState({ lat: 37.2962, lng: 126.8365 }); // ERICA
-    const [mapCenter, setMapCenter] = useState({ lat: 37.2962, lng: 126.8365 }); // ERICA
+    const [userLocation, setUserLocation] = useState({ lat: 37.3121, lng: 126.8301 }); // 안산문화광장
+    const [mapCenter, setMapCenter] = useState({ lat: 37.3121, lng: 126.8301 }); // 안산문화광장
     const [nearbyHospitals, setNearbyHospitals] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [isLoadingLocation, setIsLoadingLocation] = useState(true);
