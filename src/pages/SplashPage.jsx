@@ -29,7 +29,7 @@ const SplashPage = () => {
                 isVisible ? 'opacity-100' : 'opacity-0'
             }`}
         >
-            <img src={Logo} className="w-[177px] h-[177px]"/>
+            <img src={Logo} alt="logo" className="w-[177px] h-[177px]"/>
             <p className="mt-[-18px] text-[28px] font-medium text-[#3DE0AB]">{t('brand')}</p>
         </div>
     )

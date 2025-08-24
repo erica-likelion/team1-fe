@@ -75,7 +75,7 @@ const ChatPage = () => {
     if (isLoading) {
         return (
             <div>
-                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <img src={Loading} alt="loading" className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                 <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
                     {t('prescription.scanning.wait')}
                 </p>
@@ -131,7 +131,7 @@ const ChatPage = () => {
 
             <div className="flex justify-center items-center bg-[#3DE0AB] w-10 h-10 rounded-sm cursor-pointer fixed bottom-33.5 left-1/2 transform -translate-x-1/2 z-50"
                 onClick={createNewChat}>
-                <img src={Plus} />
+                <img src={Plus} alt="new_chat" />
             </div>
         </div>
     );

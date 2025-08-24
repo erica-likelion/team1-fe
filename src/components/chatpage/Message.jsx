@@ -45,7 +45,7 @@ const Message = forwardRef(({ message }, ref) => {
         return (
             <div ref={ref} className="flex justify-end w-full">
                 <div className="flex justify-end w-full items-start m-2 gap-2">
-                    <img src={translate ? World : Exchange} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
+                    <img src={translate ? World : Exchange} alt="translate_button" className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                     <div className={`${messageDivStyle} bg-[#C5F4E1] text-[#00A270]`}>
                         <Highlighter
                             searchWords={isSearchMode && searchQuery ? [searchQuery] : []}
@@ -63,7 +63,7 @@ const Message = forwardRef(({ message }, ref) => {
                 <div className="flex items-start m-2 gap-2 w-full">
                     {/* 프로필 아바타 */}
                     <div className="flex justify-center items-center w-8 h-8 mt-0 mr-2 rounded-lg shadow-[2px_2px_8px_0_rgba(23,23,27,0.15)]">
-                        <img src={Logo} className="w-6 h-6" />
+                        <img src={Logo} alt="logo" className="w-6 h-6" />
                     </div>
                     {/* 메시지 내용 */}
                     <div className={`${messageDivStyle} bg-[#F6F6F6] text-[#000000]`}>
@@ -74,7 +74,7 @@ const Message = forwardRef(({ message }, ref) => {
                             className="whitespace-pre-wrap"
                         />
                     </div>
-                    <img src={translate ? Exchange : World} className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
+                    <img src={translate ? Exchange : World} alt="translate_button" className="self-end w-4 h-4 cursor-pointer" onClick={handleTranslateClick}/>
                 </div>
             </div>
         );

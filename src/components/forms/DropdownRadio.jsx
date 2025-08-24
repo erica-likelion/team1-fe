@@ -80,7 +80,7 @@ const DropdownRadio = ({
         
         {/* 상 화살표 삽입 필요 */}
         <span className={`ml-3 transform transition-transform duration-200 text-gray-500 ${open ? 'rotate-180' : ''}`}>
-          <img className="w-4" src={TopArrow}/>
+          <img className="w-4" alt="fold_icon" src={TopArrow}/>
         </span>
       </button>
 
@@ -106,7 +106,7 @@ const DropdownRadio = ({
                 />
                 
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <img className="w-4 h-4 mr-3" src={GraySearch}/>
+                <img className="w-4 h-4 mr-3" alt="search" src={GraySearch}/>
                   
                 </div>
               </div>
@@ -135,13 +135,13 @@ const DropdownRadio = ({
                       
                       // 선택된 상태 - 초록색 체크 원
                       <div>
-                        <img className="w-6 h-6" src={ActiveCheckbox}/>
+                        <img className="w-6 h-6" alt="selected_circle" src={ActiveCheckbox}/>
                       </div>
                     ) : (
                       
                       // 선택되지 않은 상태 - 빈 원
                       <div>
-                        <img className="w-6 h-6" src={Checkbox}/>
+                        <img className="w-6 h-6" alt="unselected_circle" src={Checkbox}/>
                       </div>
                     )}
                   </div>

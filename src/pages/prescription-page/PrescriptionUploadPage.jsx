@@ -524,6 +524,7 @@ const PrescriptionUploadPage = () => {
                     >
                         <img
                             ref={imgRef}
+                            alt="upload_img"
                             src={previewUrl}
                             onLoad={onImageLoad}
                             className="max-w-full object-contain"
@@ -567,7 +568,7 @@ const PrescriptionUploadPage = () => {
                     <>
                         <img 
                             src={croppedImageUrl || previewUrl} 
-                            alt={t('prescription.upload.uploaded_image_alt')} 
+                            alt="upload_img"
                             className="max-w-full max-h-[400px] object-contain rounded-md"
                         />
                         <p className="text-xs font-medium text-[#00C88D]">

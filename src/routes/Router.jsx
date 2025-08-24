@@ -23,7 +23,7 @@ import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScann
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
 import TreatInfoScanningPage from '@/pages/treat-info-form/TreatInfoScanningPage';
 import TreatInfoResultPage from '@/pages/treat-info-form/TreatInfoResultPage';
-import CallNumberPage from '@/pages/call-reservation-page/CallNumberPage';
+import CallSelectHospitalPage from '@/pages/call-reservation-page/CallSelectHospitalPage';
 import CallTimePage from '@/pages/call-reservation-page/CallTimePage';
 import CallLoadingPage from '@/pages/call-reservation-page/CallLoadingPage';
 import CallResultApprovePage from '@/pages/call-reservation-page/CallResultApprovePage';
@@ -57,7 +57,7 @@ const Router = () => {
                             <Route path="prescription" element={<PrescriptionPage />} />
                             <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
                             <Route path="prescription/result" element={<PrescriptionResultPage />} />
-                            <Route path='call-reservation/number' element={<CallNumberPage/>}/>
+                            <Route path='call-reservation/select' element={<CallSelectHospitalPage/>}/>
                             <Route path='call-reservation/time' element={<CallTimePage/>}/>
                             <Route path='call-reservation/result/approved' element={<CallResultApprovePage/>}/>
                             <Route path='call-reservation/result/denied' element={<CallResultDeniedPage/>}/>

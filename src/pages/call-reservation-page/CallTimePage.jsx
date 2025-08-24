@@ -142,7 +142,7 @@ const CallTimePage = () => {
                         locale={getDateLocale()}
                         onFocus={handleFocus}
                     />
-                    <img src={Calendar} ref={labelContentRef} alt="Calendar" className="w-5 h-5 cursor-pointer" />
+                    <img src={Calendar} ref={labelContentRef} alt="calendar" className="w-5 h-5 cursor-pointer" />
                 </label>
             </div>
             
@@ -160,7 +160,7 @@ const CallTimePage = () => {
                             {selectedTime || '00:00'}
                         </div>
                         <div className="absolute right-5 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                            <img src={Clock} alt="Clock" className="w-5 h-5 pointer-events-none" />   
+                            <img src={Clock} alt="clock" className="w-5 h-5 pointer-events-none" />   
                         </div>
                     </div>
                 </div>
