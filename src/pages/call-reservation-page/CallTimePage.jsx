@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useUser } from "@contexts/UserContext";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,11 +18,15 @@ import Clock from "@assets/images/clock.svg";
 const CallTimePage = () => {
     const { t, i18n } = useTranslation();
     const { user } = useUser();
+    const location = useLocation();
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [showTimePicker, setShowTimePicker] = useState(false);
     const navigate = useNavigate();
     
+    const reservationInfo = location.state || {};
+    const { hospital } = reservationInfo;
+
     // 현재 언어에 맞는 로케일 선택
     const getDateLocale = () => {
         switch (i18n.language) {
@@ -108,6 +112,7 @@ const CallTimePage = () => {
         // 선택된 날짜와 시간을 CallLoadingPage로 전달
         navigate('/call-reservation/loading', {
             state: {
+                hospital: hospital,
                 selectedDate: selectedDate,
                 selectedTime: selectedTime
             }

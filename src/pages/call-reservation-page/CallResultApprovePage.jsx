@@ -12,7 +12,7 @@ const CallResultApprovePage = () => {
     const { t, } = useTranslation();
     const { user } = useUser();
 
-    const { selectedDate, selectedTime } = location.state || {};
+    const { hospital, selectedDate, selectedTime } = location.state || {};
 
     const handleNext = () => {
         navigate('/home');
@@ -39,6 +39,14 @@ const CallResultApprovePage = () => {
                 {t('call.result.messageParts.part3')}
             </div>}
             <div className="flex flex-col gap-10 mt-19.5 font-semibold">
+                <div className="space-y-3 text-[20px] text-[#BDBDBD]">
+                    <p>
+                        {t('call.result.hospital')}
+                    </p>
+                    <p className="font-medium text-2xl text-[#1A1A1A]">
+                        {hospital}
+                    </p>
+                </div>
                 <div className="space-y-3 text-[20px] text-[#BDBDBD]">
                     <p>
                         {t('call.result.date')}

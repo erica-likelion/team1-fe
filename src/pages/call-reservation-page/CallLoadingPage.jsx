@@ -13,27 +13,28 @@ const CallLoadingPage = () => {
     
     // 전달받은 예약 정보
     const reservationInfo = location.state || {};
-    const { selectedDate, selectedTime } = reservationInfo;
+    const { hospital, selectedDate, selectedTime } = reservationInfo;
 
     
-    // useEffect(() => {
-    //     if (!reservationInfo) {
-    //         navigate('/call-reservation/select');
-    //         return;
-    //     }
+    useEffect(() => {
+        if (!reservationInfo) {
+            navigate('/call-reservation/select');
+            return;
+        }
 
-    //     // 2초 후 다음 페이지로 이동
-    //     const timer = setTimeout(() => {
-    //         navigate('/call-reservation/result/approved', {
-    //             state: {
-    //                 selectedDate,
-    //                 selectedTime
-    //             }
-    //         });
-    //     }, 2000);
+        // 2초 후 다음 페이지로 이동
+        const timer = setTimeout(() => {
+            navigate('/call-reservation/result/approved', {
+                state: {
+                    hospital,
+                    selectedDate,
+                    selectedTime
+                }
+            });
+        }, 2000);
 
-    //     return () => clearTimeout(timer);
-    // }, [navigate, selectedDate, selectedTime, reservationInfo]);
+        return () => clearTimeout(timer);
+    }, [navigate, selectedDate, selectedTime, reservationInfo]);
 
 
     return (
