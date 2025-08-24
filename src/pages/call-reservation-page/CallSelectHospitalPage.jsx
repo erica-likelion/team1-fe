@@ -11,7 +11,7 @@ import WhiteChevronRight from "@assets/images/white_chevron_right.svg";
 import Search from "@assets/images/green_search.svg";
 import Disabled_Search from "@assets/images/white_search.svg";
 
-const CallNumberPage = () => {
+const CallSelectHospitalPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [selectedHospital, setSelectedHospital] = useState('');
@@ -114,4 +114,4 @@ const CallNumberPage = () => {
     );
 };
 
-export default CallNumberPage;
+export default CallSelectHospitalPage;
