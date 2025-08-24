@@ -264,6 +264,7 @@
             },
             "approve": "批准",
             "denied": "拒绝",
+            "hospital": "医院",
             "date": "预约日期",
             "time": "预约时间",
             "day": {

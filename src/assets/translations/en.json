@@ -265,6 +265,7 @@
             },
             "approve": "approved",
             "denied": "denied",
+            "hospital": "Hospital",
             "date": "Appointment Date",
             "time": "Appointment Time",
             "day": {

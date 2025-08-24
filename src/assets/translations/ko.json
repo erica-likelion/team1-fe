@@ -264,6 +264,7 @@
             },
             "approve": "승인",
             "denied": "반려",
+            "hospital": "병원명",
             "date": "예약 날짜",
             "time": "예약 시간",
             "day": {
