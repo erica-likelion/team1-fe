@@ -18,7 +18,7 @@ const CallLoadingPage = () => {
     
     useEffect(() => {
         if (!reservationInfo) {
-            navigate('/call-reservation/number');
+            navigate('/call-reservation/select');
             return;
         }
 
