@@ -19,7 +19,7 @@ const TreantInfoResultPage = () => {
     const [isTranslated, setIsTranslated] = useState(false);
 
     const handleCallClick = () => {
-        navigate('/call-reservation/number');
+        navigate('/call-reservation/select');
     }
 
     const handleTranslate = () => {
