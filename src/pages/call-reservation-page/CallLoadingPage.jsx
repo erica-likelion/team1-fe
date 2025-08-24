@@ -16,24 +16,24 @@ const CallLoadingPage = () => {
     const { selectedDate, selectedTime } = reservationInfo;
 
     
-    useEffect(() => {
-        if (!reservationInfo) {
-            navigate('/call-reservation/select');
-            return;
-        }
+    // useEffect(() => {
+    //     if (!reservationInfo) {
+    //         navigate('/call-reservation/select');
+    //         return;
+    //     }
 
-        // 2초 후 다음 페이지로 이동
-        const timer = setTimeout(() => {
-            navigate('/call-reservation/result/approved', {
-                state: {
-                    selectedDate,
-                    selectedTime
-                }
-            });
-        }, 2000);
+    //     // 2초 후 다음 페이지로 이동
+    //     const timer = setTimeout(() => {
+    //         navigate('/call-reservation/result/approved', {
+    //             state: {
+    //                 selectedDate,
+    //                 selectedTime
+    //             }
+    //         });
+    //     }, 2000);
 
-        return () => clearTimeout(timer);
-    }, [navigate, selectedDate, selectedTime, reservationInfo]);
+    //     return () => clearTimeout(timer);
+    // }, [navigate, selectedDate, selectedTime, reservationInfo]);
 
 
     return (
@@ -47,7 +47,7 @@ const CallLoadingPage = () => {
                 
                 <img src={Loading} alt="loading" className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                 <p className="text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
-                    {t('prescription.scanning.wait')}
+                    {t('precheck.scanning.wait')}
                 </p>
             </div>
         </div>
