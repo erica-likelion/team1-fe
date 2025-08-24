@@ -104,7 +104,7 @@ const ChatBar = ({
                     disabled={disabled}
                     className="cursor-pointer"
                 >
-                    <img src={QrCode} className="w-6 h-6" />
+                    <img src={QrCode} alt="qrCode" className="w-6 h-6" />
                 </button>
 
                 <div className="w-[239px] flex justify-between items-center gap-3 border border-[#BDBDBD] rounded-sm p-2 focus-within:ring-2 focus-within:ring-[#3DE0AB] focus-within:border-transparent">
@@ -124,7 +124,7 @@ const ChatBar = ({
                         disabled={disabled}
                         className={`cursor-pointer ${listening ? 'animate-pulse bg-[#C5F4E1] rounded-full p-1' : ''}`}
                     >
-                        <img src={listening ? ActiveMic : Mic} className="w-6 h-6" />
+                        <img src={listening ? ActiveMic : Mic} alt="mic" className="w-6 h-6" />
                     </button>
                 </div>
 
@@ -139,7 +139,7 @@ const ChatBar = ({
                         }
                     `}
                 >
-                    <img src={Arrow} className="w-6 h-6"/>
+                    <img src={Arrow} alt="submit_arrow" className="w-6 h-6"/>
                 </button>
             </div>
         </div>

@@ -25,8 +25,8 @@ const LanguagePage = () => {
                         <div className="flex items-center justify-between">
                             <span className="font-medium">{language.name}</span>
                             {i18n.language === language.code ? (
-                                <img className="w-6 h-6" src={ActiveCheckbox} />
-                            ) : (<img className="w-6 h-6" src={Checkbox} />)}
+                                <img className="w-6 h-6" alt="selected_checkbox" src={ActiveCheckbox} />
+                            ) : (<img className="w-6 h-6" alt="unselected_checkbox" src={Checkbox} />)}
                         </div>
                     </div>
                 ))}

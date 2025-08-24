@@ -20,7 +20,7 @@ const TextButton = ({ text, progress = "", icon, onClick, disabled = false, clas
                     <p>{total}</p>
                 </div>}
                 {icon && 
-                <img src={icon} className="inline" />}
+                <img src={icon} className="inline" alt="button_icon" />}
         </button>
     );
 }

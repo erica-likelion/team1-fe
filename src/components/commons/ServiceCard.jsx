@@ -14,7 +14,7 @@ const ServiceCard = ({
       >
         {icon && 
         <div className="w-14 h-14 bg-[#C5F4E1] rounded-sm flex items-center justify-center overflow-hidden">
-            <img className="max-w-9 max-h-9" src={icon} />
+            <img className="max-w-9 max-h-9" src={icon} alt="card_icon"/>
         </div>}
         <div className="flex-1">
             <p className="font-semibold">{title}</p>

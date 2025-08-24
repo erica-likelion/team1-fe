@@ -3,7 +3,7 @@
 import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import TopNavBar from "@components/commons/TopNavBar";
+import NavBar from "@components/commons/NavBar";
 import { getNavBarConfig } from "@utils/navConfig";
 import { useSearch } from "@contexts/SearchContext";
 
@@ -23,7 +23,7 @@ const SimpleLayout = () => {
     return (
         <div className="max-w-[375px] mx-auto">
             <div className="flex flex-col mb-7">
-                <TopNavBar 
+                <NavBar 
                     type={navBarConfig.type} 
                     title={navBarConfig.title}
                     onLeftClick={navBarConfig.onLeftClick}

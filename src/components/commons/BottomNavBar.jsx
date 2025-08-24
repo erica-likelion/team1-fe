@@ -28,7 +28,7 @@ const BottomNavBar = ({
             <div className="flex item-center justify-between bg-[#FAFAFA] shadow-[0_-1px_2px_0_rgba(0,0,0,0.10)] px-10 pt-2 pb-8 fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-[375px] w-full z-50">
                 {tabs.map((tab) => (
                     <div key={tab.id} className="flex-1 flex flex-col justify-center items-center gap-2">
-                        <img className="hover:cursor-pointer" src={type === tab.id ? tab.activeIcon : tab.icon} onClick={tab.clickEvent} />
+                        <img className="hover:cursor-pointer" alt="tab_icon" src={type === tab.id ? tab.activeIcon : tab.icon} onClick={tab.clickEvent} />
                         <p className="font-medium text-[12px]" >{tab.label}</p>
                     </div>
                 ))}

@@ -79,11 +79,11 @@ const HistoryModal = ({
             }`}>
                 <div className="flex justify-between items-center mb-4">
                     <p className="text-lg font-semibold">{title}</p>
-                    <img className="cursor-pointer" src={Close} onClick={handleClose}/>
+                    <img className="cursor-pointer" alt="close" src={Close} onClick={handleClose}/>
                 </div>
                 {isLoading ? 
                  <div className="h-[40vh]">
-                <img src={Loading} className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                <img src={Loading} alt="loading" className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                     <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
                         {t('prescription.scanning.wait')}
                     </p>
