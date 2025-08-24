@@ -10,7 +10,6 @@ const getNavBarType = (pathname) => {
     if (pathname === '/prescription/upload') return 'prescription_upload';
     if (pathname === '/prescription/result') return 'prescription_result';
     if (pathname === ('/treat-info/result')) return 'precheck';
-    if (pathname === '/mypage/history') return 'history';
     if (pathname ===  '/call-reservation/number') return 'call';
     if (pathname === '/call-reservation/time') return'reservation_time';
     if (pathname.startsWith ('/call-reservation/result')) return 'reservation_result';
@@ -39,8 +38,6 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.preCheck');
         case 'precheck':
             return t('navigation.preCheck');
-        case 'history':
-            return t('navigation.history');
         case 'qr':
             return t('navigation.qrCode');
         case 'call':
@@ -112,7 +109,6 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             };
         case 'prescription':
         case 'prescription_upload':
-        case 'history':
         case 'reservation_time':
         case 'default':
         default:
