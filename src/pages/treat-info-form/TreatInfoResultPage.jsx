@@ -79,7 +79,7 @@ const TreantInfoResultPage = () => {
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
-                    value={""}
+                    value={getDisplayText()}
                     readOnly={true}
                     placeholder={t('precheck.result.placeholder')}
                     maxLength={1000000}

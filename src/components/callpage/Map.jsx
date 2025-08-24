@@ -5,7 +5,7 @@ import HospitalInfo from '@components/callpage/HospitalInfo';
 import Circle from "@assets/images/circle.svg";
 
 
-const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, userLocation, onCenterChanged, onHospitalSelect, onReturnToUserLocation, onRequestLocation, isLoadingLocation, className="" }) => {
+const Map = ({ hospitals = [], center = { lat: 37.3121, lng: 126.8301 }, zoom, userLocation, onCenterChanged, onHospitalSelect, onReturnToUserLocation, onRequestLocation, isLoadingLocation, className="" }) => {
     const { i18n } = useTranslation();
     const mapRef = useRef(null);
     const mapInstance = useRef(null);
@@ -253,10 +253,10 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
                 content: createInfoContent(hospital),
                 borderWidth: 0,
                 backgroundColor: 'transparent',
-                anchorSize: new window.naver.maps.Size(20, 10),
-                anchorSkew: true,
+                anchorSize: new window.naver.maps.Size(20, 15),
+                anchorSkew: false,
                 anchorColor: '#ffffff',
-                pixelOffset: new window.naver.maps.Point(0, -10),
+                pixelOffset: new window.naver.maps.Point(0, -5),
                 maxWidth: 280,
                 disableAutoPan: false
             });

@@ -139,7 +139,7 @@
                 "part1": "Scanning the prescription\nadded by ",
                 "part2": "."
             },
-            "wait": "It takes about 30 seconds to 1 minute..."
+            "wait": "It takes about\n30 seconds to 1 minute."
         },
         "result": {
             "title": "Medi Mate has analyzed and\n explained {{name}}'s prescription!",
