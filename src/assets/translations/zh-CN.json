@@ -16,12 +16,12 @@
         "rxInfo": "处方单说明",
         "prescription": {
             "guide": "处方单扫描指南",
-            "upload": "添加要扫描的处方单",
+            "upload": "扫描处方",
             "description": "处方单说明"
         },
         "qrCode": "聊天室 QR",
         "call": "电话预约",
-        "reservationTime": "选择预约日期和时间",
+        "reservationTime": "选择预约时间",
         "reservationResult": "医院预约确认"
     },
 
@@ -138,7 +138,7 @@
                 "part1": "正在扫描",
                 "part2": "\n添加的处方单。"
             },
-            "wait": "请稍等..."
+            "wait": "大约需要30秒到1分钟..."
         },
         "result": {
             "title": "美迪伙伴已经分析并说明了\n{{name}}的处方！",
@@ -175,7 +175,7 @@
         "buttons": {
             "interpretation": "诊疗翻译",
             "loadPrecheck": "调取预问诊",
-            "loadPrescription": "Load prescription"
+            "loadPrescription": "加载处方"
         }
     },
 
@@ -251,7 +251,7 @@
             "message": "医疗助手正在根据{{name}}的\n预诊信息\n为您预约医院。",
             "messageParts": {
             "part1": "医疗助手正在根据",
-            "part2": "的\n预诊信息\n为您预约医院。"
+            "part2": "的\n预诊信息为您预约医院。"
             },
             "wait": "请稍等..."
         },
@@ -264,6 +264,7 @@
             },
             "approve": "批准",
             "denied": "拒绝",
+            "hospital": "医院",
             "date": "预约日期",
             "time": "预约时间",
             "day": {

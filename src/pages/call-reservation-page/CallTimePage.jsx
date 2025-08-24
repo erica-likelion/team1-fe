@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useUser } from "@contexts/UserContext";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,11 +18,15 @@ import Clock from "@assets/images/clock.svg";
 const CallTimePage = () => {
     const { t, i18n } = useTranslation();
     const { user } = useUser();
+    const location = useLocation();
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [showTimePicker, setShowTimePicker] = useState(false);
     const navigate = useNavigate();
     
+    const reservationInfo = location.state || {};
+    const { hospital } = reservationInfo;
+
     // 현재 언어에 맞는 로케일 선택
     const getDateLocale = () => {
         switch (i18n.language) {
@@ -108,6 +112,7 @@ const CallTimePage = () => {
         // 선택된 날짜와 시간을 CallLoadingPage로 전달
         navigate('/call-reservation/loading', {
             state: {
+                hospital: hospital,
                 selectedDate: selectedDate,
                 selectedTime: selectedTime
             }
@@ -156,10 +161,8 @@ const CallTimePage = () => {
                             }
                         }}
                     >
-                        <div className={`w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50 ${selectedTime ? "text-black" : "text-gray-400"}`}>
-                            {selectedTime || '00:00'}
-                        </div>
-                        <div className="absolute right-5 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                        <div className={`flex items-center w-[335px] p-4 border border-gray-200 rounded-lg bg-gray-50`}>
+                            <p className={`w-full ${selectedTime ? "text-black" : "text-gray-400"}`}>{selectedTime || '00:00'}</p>
                             <img src={Clock} alt="clock" className="w-5 h-5 pointer-events-none" />   
                         </div>
                     </div>

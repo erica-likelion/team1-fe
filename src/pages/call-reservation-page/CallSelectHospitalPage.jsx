@@ -100,7 +100,11 @@ const CallSelectHospitalPage = () => {
         if (canMoveNextStep) {
             const hospital = nearbyHospitals[parseInt(selectedHospital)];
             //console.log('선택된 병원:', hospital);
-            navigate('/call-reservation/time');
+            navigate('/call-reservation/time', {
+                state: {
+                    hospital: hospital.yadmNm
+                }
+            });
         }
     };
 

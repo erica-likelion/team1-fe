@@ -79,7 +79,7 @@ const TreantInfoResultPage = () => {
                     {t('precheck.result.messageParts.part2')}
                 </p>
                 <TextField
-                    value={getDisplayText()}
+                    value={""}
                     readOnly={true}
                     placeholder={t('precheck.result.placeholder')}
                     maxLength={1000000}
@@ -103,13 +103,13 @@ const TreantInfoResultPage = () => {
                     text = {t('precheck.buttons.call')}
                     onClick={handleCallClick}
                     icon={GreenChevronRight}
-                    className = "mb-15 bg-[#9DEECF] !text-[#00A270]"
+                    className = "mb-15 !bg-[#9DEECF] !text-[#00A270] active:!bg-[#79E8BD]"
                 />
                 <TextButton
                     text = {t('precheck.buttons.chat')}
                     onClick={handleChatStart}
                     icon={GreenChevronRight}
-                    className = "bg-[#9DEECF] !text-[#00A270]"
+                    className = "!bg-[#9DEECF] !text-[#00A270] !active-[#79E8BD] active:!bg-[#79E8BD]"
                 />
             </div>
             

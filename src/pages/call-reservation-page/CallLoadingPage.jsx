@@ -13,7 +13,7 @@ const CallLoadingPage = () => {
     
     // 전달받은 예약 정보
     const reservationInfo = location.state || {};
-    const { selectedDate, selectedTime } = reservationInfo;
+    const { hospital, selectedDate, selectedTime } = reservationInfo;
 
     
     useEffect(() => {
@@ -26,6 +26,7 @@ const CallLoadingPage = () => {
         const timer = setTimeout(() => {
             navigate('/call-reservation/result/approved', {
                 state: {
+                    hospital,
                     selectedDate,
                     selectedTime
                 }
@@ -47,7 +48,7 @@ const CallLoadingPage = () => {
                 
                 <img src={Loading} alt="loading" className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                 <p className="text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
-                    {t('prescription.scanning.wait')}
+                    {t('precheck.scanning.wait')}
                 </p>
             </div>
         </div>

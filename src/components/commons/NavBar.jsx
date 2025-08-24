@@ -4,7 +4,7 @@ import Language from "@assets/images/language.svg";
 import Close from "@assets/images/close.svg";
 import Alert from "@assets/images/alert.svg";
 import Search from "@assets/images/search.svg";
-
+import ChevronLeft from "@assets/images/chevron_left.svg";
 /* 
     NavBar
     - type: home, mypage, chat, language, 
@@ -78,7 +78,7 @@ const NavBar = ({
                 rightIcon: Close,
             },
             language: {
-                leftIcon: LeftArrow,
+                leftIcon: ChevronLeft,
                 rightIcon: null
             },
             default: {
@@ -102,8 +102,8 @@ const NavBar = ({
                     onClick={disableLeftClick ? undefined : onLeftClick}
                 />}
             </div>
-            <div className="flex-2 flex justify-center items-center">
-                <p className="font-semibold text-5">{title}</p>
+            <div className="flex-3 flex justify-center items-center">
+                <p className="font-semibold text-xl">{title}</p>
             </div>
             <div className="flex-1 flex justify-end items-center">
                 {config.rightIcon && <img 
