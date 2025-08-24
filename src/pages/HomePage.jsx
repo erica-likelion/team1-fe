@@ -36,18 +36,18 @@ const HomePage = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="px-5 py-2.5 self-start">
+            <div className="px-5 py-2.5 mb-2 self-start">
                 <p className="font-semibold">
                     {t('homepage.headerPart1')}<br />
                     <span className="text-[#3DE0AB]">{t('homepage.headerPart2')}</span>
                     {t('homepage.headerPart3')}
                 </p>
             </div>
-            <div className="w-[331px] border-[1px] border-[#E9E9EA]"></div>
+            <div className="w-[331px] my-1 border-[1px] border-[#E9E9EA]"></div>
             <div>
-                <p className="py-10 font-semibold text-[20px]">{t('homepage.main')}</p>
+                <p className="py-10 font-semibold text-[20px] leading-[142%] tracking-[-0.4px]">{t('homepage.main')}</p>
             </div>
-            <div className="flex flex-col items-center gap-5 w-full">
+            <div className="flex flex-col items-center gap-4 w-full">
                 {serviceCards.map((card, index) => (
                     <div key={index} className="flex flex-col gap-2 w-[335px]">
                         <p className="font-semibold">{card.step}</p>
