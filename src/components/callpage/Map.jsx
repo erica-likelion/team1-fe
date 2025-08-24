@@ -57,7 +57,7 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
         }
         
         const newCenter = new window.naver.maps.LatLng(userLocation.lat, userLocation.lng);
-        mapInstance.current.morph(newCenter, 18); // Naver Map API의 애니메이션 이동 메서드
+        mapInstance.current.morph(newCenter); // Naver Map API의 애니메이션 이동 메서드
         
         if (onReturnToUserLocation) {
             onReturnToUserLocation();
@@ -93,8 +93,8 @@ const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 
             const map = new window.naver.maps.Map(mapRef.current, {
                 center: new window.naver.maps.LatLng(center.lat, center.lng),
                 zoom: zoom,
-                minZoom: 12,
-                maxZoom: 18,
+                minZoom: 10,
+                maxZoom: 16,
                 mapDataControl: false, // @naver 아이콘
                 scaleControl: false, // 척도 아이콘
                 logoControl: true, // naver 아이콘 <- 이건 못지움
