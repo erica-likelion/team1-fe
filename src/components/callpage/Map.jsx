@@ -5,7 +5,7 @@ import HospitalInfo from '@components/callpage/HospitalInfo';
 import Circle from "@assets/images/circle.svg";
 
 
-const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom = 13, userLocation, onCenterChanged, onHospitalSelect, onReturnToUserLocation, onRequestLocation, isLoadingLocation, className="" }) => {
+const Map = ({ hospitals = [], center = { lat: 37.5665, lng: 126.9780 }, zoom, userLocation, onCenterChanged, onHospitalSelect, onReturnToUserLocation, onRequestLocation, isLoadingLocation, className="" }) => {
     const { i18n } = useTranslation();
     const mapRef = useRef(null);
     const mapInstance = useRef(null);

@@ -122,7 +122,7 @@ const CallSelectHospitalPage = () => {
                     <Map 
                         hospitals={nearbyHospitals}
                         center={mapCenter}
-                        zoom={13}
+                        zoom={15}
                         userLocation={userLocation}
                         onCenterChanged={(center) => setMapCenter(center)}
                         onHospitalSelect={handleHospitalSelect}
