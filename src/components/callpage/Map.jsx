@@ -184,6 +184,14 @@ const Map = ({ hospitals = [], center = { lat: 37.3121, lng: 126.8301 }, zoom, u
         };
     }, [userLocation, isLoadingLocation]);
 
+    // center prop 변경 시 지도 이동
+    useEffect(() => {
+        if (mapInstance.current && center) {
+            const newCenter = new window.naver.maps.LatLng(center.lat, center.lng);
+            mapInstance.current.setCenter(newCenter);
+        }
+    }, [center]);
+
     useEffect(() => {
         if (mapInstance.current && hospitals) {
             // 기존 마커 제거
