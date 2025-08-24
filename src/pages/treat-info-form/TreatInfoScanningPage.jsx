@@ -49,7 +49,7 @@ const TreantInfoScanningPage = () => {
                 
                 <img src={Loading} alt="loading" className="animate-spin fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                 <p className="max-w-[375px] text-[#A6A9AA] font-semibold fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-18">
-                    {t('prescription.scanning.wait')}
+                    {t('precheck.scanning.wait')}
                 </p>
             </div>
         </div>
