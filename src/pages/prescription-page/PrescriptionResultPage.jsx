@@ -21,8 +21,8 @@ const PrescriptionResultPage = () => {
 
     // 결과가 없으면 업로드 페이지로 리다이렉트
     if (!analysisResult) {
-        //navigate('/prescription/upload');
-        //return null;
+        navigate('/prescription/upload');
+        return null;
     }
 
     const handleChatStart = async () => {
