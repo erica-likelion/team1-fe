@@ -16,7 +16,7 @@
         "rxInfo": "处方单说明",
         "prescription": {
             "guide": "处方单扫描指南",
-            "upload": "添加要扫描的处方单",
+            "upload": "扫描处方",
             "description": "处方单说明"
         },
         "qrCode": "聊天室 QR",
@@ -138,7 +138,7 @@
                 "part1": "正在扫描",
                 "part2": "\n添加的处方单。"
             },
-            "wait": "请稍等..."
+            "wait": "大约需要30秒到1分钟..."
         },
         "result": {
             "title": "美迪伙伴已经分析并说明了\n{{name}}的处方！",

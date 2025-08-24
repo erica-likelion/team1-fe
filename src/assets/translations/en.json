@@ -77,7 +77,7 @@
         "steps": {
             "step1": "Please prepare the prescription you received from the hospital.",
             "step2": "Move to an environment with good lighting.",
-            "step3": "To ensure all parts of the prescription are clearly visible,\nlay it flat and take the photo.",
+            "step3": "To ensure all parts of the prescription are clearly visible, lay it flat and take the photo.",
             "step4": "Please add the captured image or file.",
             "step5": "When Medi Mate scans your prescription,\nwe will explain the medications based on the analysis.",
             "details": "(Prescription name, efficacy, usage, precautions, interactions, side effects, storage methods, etc.)"
@@ -139,7 +139,7 @@
                 "part1": "Scanning the prescription\nadded by ",
                 "part2": "."
             },
-            "wait": "Please wait a moment..."
+            "wait": "It takes about 30 seconds to 1 minute..."
         },
         "result": {
             "title": "Medi Mate has analyzed and\n explained {{name}}'s prescription!",
