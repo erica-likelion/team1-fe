@@ -3,7 +3,7 @@
 <br/>
 
 <div align = "center">
- <h3>낯선 병원에서 소통이 어려운 외국인 이주민을 위해, 한국에서의 진료 과정을 함께하는 AI 의료 연결 서비스</h3>
+ <h3>낯선 병원에서 소통이 어려운 외국인 이주민을 위해, <br/>한국에서의 진료 과정을 함께하는 AI 의료 연결 서비스</h3>
 </div>
 
 <br/>
@@ -51,6 +51,27 @@
 ### 필수 조건
 - Node.js (최신 LTS 버전 권장)
 - npm 또는 yarn
+#### ⚙️ 환경 변수 설정
+
+프로젝트 실행을 위해 다음 환경 변수들을 `.env` 파일에 설정해야 합니다:
+
+```js
+# 백엔드 API 설정
+VITE_API_BASE_URL={백엔드 URL}/ // ex) http://localhost:8080/
+
+# 웹소켓 설정 (채팅 기능용)
+VITE_WSS_BASE_URL={백엔드 웹소켓 URL} // ex) ws://localhost:8080/ws || wss://localhost:8080/ws 
+
+# 네이버 지도 API
+VITE_NAVER_MAP_ID={your_naver_map_id}
+
+# 건강보험심사평가원_병원정보서비스 | 의료기관별상세정보서비스  인증 키 
+MEDICAL_SERVICE_SECRET={your_medical_service_secret}
+```
+
+- [네이버 지도 API](https://www.ncloud.com/product/applicationService/maps)
+- [건강보험심사평가원_병원정보서비스](https://www.data.go.kr/data/15001698/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/getHospBasisList)
+- [건강보험심사평가원_의료기관별상세정보서비스](https://www.data.go.kr/data/15001699/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/getDgsbjtInfo2.7)
 
 ### 설치
 
