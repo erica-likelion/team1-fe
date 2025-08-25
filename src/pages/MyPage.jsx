@@ -33,7 +33,7 @@ const MyPage = () => {
                 
                 // 모든 API를 병렬로 호출
                 const [callData, diagnosisData, prescriptionData] = await Promise.all([
-                    getCallHistory(),
+                    getCallHistory(language),
                     getPrecheckHistory(),
                     getPrescriptionHistory()
                 ]);
