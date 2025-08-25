@@ -93,6 +93,7 @@
             "chat": "开始翻译聊天"
         },
         "upload": {
+            "camera": "拍照",
             "description": "请在此添加您的处方单图像。",
             "file_format_description": "支持的格式: JPEG、PNG",
             "or": "或者",

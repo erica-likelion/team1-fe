@@ -94,6 +94,7 @@
             "chat": "Start Translation Chat"
         },
         "upload": {
+            "camera": "Take Photo",
             "description": "Please add your prescription image here.",
             "file_format_description": "Supported formats: JPEG, PNG",
             "or": "or",
