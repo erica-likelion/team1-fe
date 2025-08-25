@@ -117,7 +117,7 @@ const CallSelectHospitalPage = () => {
                 subtitle = {t('call.select.description')}
             />
 
-            <div className="mt-6 space-y-3 mb-15">
+            <div className="mt-6 space-y-3 mb-14">
                 <div className="w-full h-auto">
                     <Map 
                         hospitals={nearbyHospitals}

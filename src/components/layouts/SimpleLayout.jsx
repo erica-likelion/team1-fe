@@ -22,7 +22,7 @@ const SimpleLayout = () => {
 
     return (
         <div className="max-w-[375px] mx-auto">
-            <div className="flex flex-col mb-7">
+            <div className="flex flex-col">
                 <NavBar 
                     type={navBarConfig.type} 
                     title={navBarConfig.title}

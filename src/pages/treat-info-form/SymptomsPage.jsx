@@ -35,7 +35,7 @@ const SymptomsPage = () => {
                 title = {t('precheck.symptoms.title')}
                 subtitle = {t('precheck.symptoms.description')}
             />
-            <div className="mt-13 ">
+            <div className="mt-13 mb-14">
                 <TextField
                     value={formData.symptoms}
                     onChange={handleSymptomsChange}

@@ -42,7 +42,7 @@ const GenderPage = () => {
                 title = {t('precheck.gender.title')}
                 subtitle = {t('precheck.gender.description')}
             />
-            <div className="mt-13">
+            <div className="mt-13 mb-14">
                 <DropdownRadio
                     value={gender}
                     onChange={setGender}

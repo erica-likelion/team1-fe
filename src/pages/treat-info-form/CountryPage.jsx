@@ -81,7 +81,7 @@ const CountryPage = () => {
                         icon={WhiteChevronRight}
             /> 
 
-            <div className="mt-13">
+            <div className="mt-13 mb-14">
                 <DropdownRadio
                     value={countryCode}
                     onChange={handleCountryChange}

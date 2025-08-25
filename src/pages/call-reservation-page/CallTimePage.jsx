@@ -152,7 +152,7 @@ const CallTimePage = () => {
             </div>
             
             {/* 시간 입력 */}
-            <div className="mb-8">
+            <div className="mb-14">
                     <div 
                         className={`relative ${selectedDate ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
                         onClick={() => {
