@@ -19,6 +19,7 @@ import GenderPage from '@pages/treat-info-form/GenderPage';
 import SymptomsPage from '@pages/treat-info-form/SymptomsPage';
 import PrescriptionPage from '@pages/prescription-page/PrescriptionPage';
 import PrescriptionUploadPage from '@pages/prescription-page/PrescriptionUploadPage';
+import CameraPage from '@pages/prescription-page/CameraPage';
 import PrescriptionScanningPage from '@pages/prescription-page/PrescriptionScanningPage';
 import PrescriptionResultPage from '@pages/prescription-page/PrescriptionResultPage';
 import TreatInfoScanningPage from '@/pages/treat-info-form/TreatInfoScanningPage';
@@ -56,6 +57,7 @@ const Router = () => {
                             <Route path='treat-info/result' element ={<TreatInfoResultPage/>}/>
                             <Route path="prescription" element={<PrescriptionPage />} />
                             <Route path="prescription/upload" element={<PrescriptionUploadPage />} />
+                            <Route path="prescription/camera" element={<CameraPage />} />
                             <Route path="prescription/result" element={<PrescriptionResultPage />} />
                             <Route path='call-reservation/select' element={<CallSelectHospitalPage/>}/>
                             <Route path='call-reservation/time' element={<CallTimePage/>}/>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCallback, useState, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
@@ -32,6 +32,7 @@ import Ophthalmologic from "@assets/sample-prescriptions/ophthalmologic.jpg"
 const PrescriptionUploadPage = () => {
     // 페이지 네비게이션을 위한 훅
     const navigate = useNavigate();
+    const location = useLocation();
     
     // 다국어 지원을 위한 번역 훅
     const { t } = useTranslation();
@@ -39,11 +40,6 @@ const PrescriptionUploadPage = () => {
     // 업로드된 단일 파일 상태
     const [image, setImage] = useState(null);
     
-    // 카메라 모드 활성화 여부
-    const [isCamera, setIsCamera] = useState(false);
-    
-    // 카메라의 MediaStream 객체 (실시간 비디오 스트림)
-    const [stream, setStream] = useState(null);
     
     // 이미지 미리보기 URL
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -60,8 +56,6 @@ const PrescriptionUploadPage = () => {
     // 크롭 이미지 요소 참조
     const imgRef = useRef(null);
     
-    // 비디오 요소에 대한 참조
-    const videoRef = useRef(null);
 
     // 샘플 처방전 선택 버튼 클릭 여부
     const [isSample, setIsSample] = useState(false);
@@ -95,30 +89,42 @@ const PrescriptionUploadPage = () => {
         }
     ]
 
+
     /**
-     * stream이 변경될 때 비디오 요소에 스트림 연결
+     * 카메라에서 촬영된 이미지 처리
      */
     useEffect(() => {
-        if (stream && videoRef.current) {
-            videoRef.current.srcObject = stream;
+        if (location.state?.capturedImage) {
+            const capturedFile = location.state.capturedImage;
+            setImage(capturedFile);
+            
+            // 미리보기 URL 생성
+            setPreviewUrl(prevUrl => {
+                if (prevUrl) {
+                    URL.revokeObjectURL(prevUrl);
+                }
+                return URL.createObjectURL(capturedFile);
+            });
+            
+            setCroppedImageUrl(null);
+            setIsCropping(true);
+            
+            // 상태 초기화를 위해 history 교체
+            navigate('/prescription/upload', { replace: true });
         }
-    }, [stream]);
+    }, [location.state, navigate]);
 
     /**
      * 컴포넌트 언마운트 시 리소스 정리
-     * - 카메라 스트림 트랙 중지
      * - 미리보기 URL 메모리 해제
      */
     useEffect(() => {
         return () => {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
             if (previewUrl) {
                 URL.revokeObjectURL(previewUrl);
             }
         };
-    }, [stream, previewUrl]);
+    }, [previewUrl]);
 
     /**
      * 파일에 대한 미리보기 URL 생성
@@ -326,55 +332,14 @@ const PrescriptionUploadPage = () => {
         input.click();
     };
 
-    /**
-     * 비디오 스트림에서 사진 캡처
-     * - 원본 해상도 유지하여 캡처
-     * - JPEG 형식으로 저장
-     */
-    const capturePhoto = () => {
-        if (!videoRef.current) return;
-        
-        const video = videoRef.current;
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        
-        // 원본 비디오 크기 그대로 캡처 (비율 유지)
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        
-        // Canvas를 Blob으로 변환하여 파일 생성
-        canvas.toBlob((blob) => {
-            const file = new File([blob], `prescription-${Date.now()}.jpg`, {
-                type: 'image/jpeg',
-            });
-            setImage(file);
-            createPreviewUrl(file);
-            setCroppedImageUrl(null); // 새 이미지 선택 시 크롭된 이미지 초기화
-            setIsCropping(true); // 자동으로 크롭 모드로 전환
-            stopCamera();
-        }, 'image/jpeg', 1);
-    };
 
-    /**
-     * 카메라 스트림 중지 및 리소스 정리
-     * - 모든 비디오 트랙 중지
-     * - 카메라 모드 해제
-     */
-    const stopCamera = () => {
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-            setStream(null);
-        }
-        setIsCamera(false);
-    };
 
     /**
      * 카메라 촬영 버튼 클릭 핸들러
-     * - 카메라 스트림 시작
+     * - 카메라 페이지로 이동
      */
     const handleCameraCapture = () => {
-        startCamera();
+        navigate('/prescription/camera');
     };
 
     /**
@@ -470,38 +435,6 @@ const PrescriptionUploadPage = () => {
 
     const relativeStyles = "relative bottom-auto left-auto transform-none translate-x-0 z-auto";
 
-    // 카메라 모드일 때 렌더링할 JSX
-    if (isCamera) {
-        return (
-            <div className="flex flex-col px-5">
-                {/* 카메라 비디오 스트림 영역 */}
-                <div className="flex justify-center items-center">
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        playsInline
-                        className="max-w-[335px] max-h-full h-auto object-contain"
-                    />
-                </div>
-                
-                {/* 카메라 제어 버튼들 */}
-                <div className="mt-8 space-y-3">
-                    <TextButton 
-                        text={t('prescription.buttons.capture')} 
-                        icon={Camera}
-                        className="relative bg-[#3DE0AB] !text-[#00A270]"
-                        onClick={capturePhoto}
-                    />
-                    <TextButton 
-                        text={t('prescription.buttons.cancel')} 
-                        icon={Close}
-                        className="relative bg-gray-300 !text-[#909394]"
-                        onClick={stopCamera}
-                    />
-                </div>
-            </div>
-        );
-    }
 
     // 크롭 모드일 때 렌더링할 JSX
     if (isCropping) {

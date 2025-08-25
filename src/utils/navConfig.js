@@ -8,6 +8,7 @@ const getNavBarType = (pathname) => {
     if (pathname === '/language') return 'language';
     if (pathname === '/prescription') return 'prescription';
     if (pathname === '/prescription/upload') return 'prescription_upload';
+    if (pathname === '/prescription/camera') return 'prescription_camera';
     if (pathname === '/prescription/result') return 'prescription_result';
     if (pathname === '/treat-info/result') return 'precheck';
     if (pathname ===  '/call-reservation/select') return 'call';
@@ -46,6 +47,8 @@ const getNavBarTitle = (type, t) => {
             return t('navigation.reservationTime');
         case 'reservation_result':
             return t('navigation.reservationResult');
+        case 'prescription_camera':
+            return t('prescription.upload.camera');
         case 'home':
         case 'chat':
         case 'chatroom':
@@ -107,6 +110,7 @@ const getNavBarHandlers = (type, navigate, toggleSearchMode = null) => {
             return {
                 onRightClick: () => navigate('/home')
             };
+        case 'prescription_camera':
         case 'prescription':
         case 'prescription_upload':
         case 'reservation_time':
