@@ -47,7 +47,7 @@ const HomePage = () => {
             <div>
                 <p className="py-10 font-semibold text-[20px] leading-[142%] tracking-[-0.4px]">{t('homepage.main')}</p>
             </div>
-            <div className="flex flex-col items-center gap-4 w-full">
+            <div className="flex flex-col items-center gap-4 w-full mb-9">
                 {serviceCards.map((card, index) => (
                     <div key={index} className="flex flex-col gap-2 w-[335px]">
                         <p className="font-semibold">{card.step}</p>
