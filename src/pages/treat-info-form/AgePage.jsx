@@ -99,7 +99,7 @@ const AgePage = () => {
                 title = {t('precheck.age.title')}
                 subtitle = {t('precheck.age.description')}
             />
-            <div className="mt-13">
+            <div className="mt-13 mb-14">
                 <label htmlFor="customDatepicker" onClick={onClickLabel} className="flex justify-center items-center border border-gray-200 rounded-md px-4">
                 <DatePicker
                     id="customDatepicker"

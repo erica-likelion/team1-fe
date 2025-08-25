@@ -47,7 +47,7 @@ const NamePage = () => {
                 title = {t('precheck.name.title')}
                 subtitle = {t('precheck.name.description')}
             />
-            <div className="mt-13 ">
+            <div className="mt-13 mb-14">
                 <TextField
                     value={lastName}
                     onChange={setLastName}
