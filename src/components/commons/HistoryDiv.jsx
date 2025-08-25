@@ -19,8 +19,8 @@ const HistoryDiv = ({
     const [showAll, setShowAll] = useState(false);
 
     // showAll 상태에 따라 표시할 리스트 결정 (기본 2개, 전체 보기 시 모든 항목)
-    const displayedHistoryList = showAll ? historyList : historyList.slice(0, 2);
-
+    const reverseHistoryList = historyList.reverse();
+    const displayedHistoryList = showAll ? reverseHistoryList  : reverseHistoryList.slice(0, 2);
     const handleCardClick = (history) => {
         if (onSelectHistory) {
             onSelectHistory(history.id);
