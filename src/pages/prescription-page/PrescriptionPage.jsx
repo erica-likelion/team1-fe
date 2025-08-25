@@ -26,7 +26,7 @@ const PrescriptionPage = () => {
                     {t('prescription.titleParts.part2')}
                 </p>
                 
-                <ol className="space-y-4 font-semibold list-none">
+                <ol className="space-y-4 font-semibold list-none mb-20">
                     {steps.map((step, index) => (
                         <li key={step}>
                             <div className="flex">
