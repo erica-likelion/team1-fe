@@ -14,6 +14,29 @@ const CallResultApprovePage = () => {
 
     const { hospital, selectedDate, selectedTime } = location.state || {};
 
+    // 승인된 예약 정보를 로컬 스토리지에 저장
+    useEffect(() => {
+        if (hospital && selectedDate && selectedTime && user) {
+            const reservationData = {
+                id: Date.now(), 
+                hospital,
+                selectedDate,
+                selectedTime,
+                status: 'approved',
+                createdAt: new Date().toLocaleDateString('sv-SE') // YYYY-MM-DD 형식의 한국 시간
+            };
+
+            // 기존 예약 목록 가져오기
+            const existingReservations = JSON.parse(localStorage.getItem('approvedReservations') || '[]');
+            
+            // 새로운 예약 추가
+            const updatedReservations = [...existingReservations, reservationData];
+            
+            // 로컬 스토리지에 저장
+            localStorage.setItem('approvedReservations', JSON.stringify(updatedReservations));
+        }
+    }, [hospital, selectedDate, selectedTime, user]);
+
     const handleNext = () => {
         navigate('/home');
     };
