@@ -92,7 +92,7 @@ const TreantInfoResultPage = () => {
                     className="flex justify-center items-center 
                                 font-medium rounded-sm
                                 bg-[#3DE0AB] text-white text-sm
-                                w-full h-[32px] mt-6 cursor-pointer"
+                                w-full h-[32px] mt-6 cursor-pointer mb-40"
                 >
                     {t('precheck.buttons.translate')}
                 </button>
