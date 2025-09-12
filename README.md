@@ -165,6 +165,6 @@ Medi mate는 기본적으로 세 가지 언어를 지원합니다:
 
 ## 👥 팀
 
-| [김민서](https://github.com/DoggiKim) | [김태훈](https://github.com/mna11) |
+| [김민서](https://github.com/mnseokim) | [김태훈](https://github.com/mna11) |
 |:---:|:---:|
-| <img src="https://github.com/DoggiKim.png" width="130"> | <img src="https://github.com/mna11.png" width="130"> |
+| <img src="https://github.com/mnseokim.png" width="130"> | <img src="https://github.com/mna11.png" width="130"> |
